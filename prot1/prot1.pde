@@ -21,22 +21,29 @@ void setup() {
   if(db.connect()) {
     print("Conectou\n");
     nivel1List = new ArrayList<Nivel1>();
-    db.query("select version, prefix, subidas, descidas, count from nivel1 order by version, prefix, subidas, descidas");
+    String selQuery = "select version, prefix, subidas, descidas, count " +
+                      "from nivel1 " +
+                      "order by version, prefix, subidas, descidas";
+    db.query(selQuery);
     while(db.next()) {
-      Nivel1 nivel1 = new Nivel1(db.getInt("version"), db.getInt("prefix"), db.getInt("subidas"), db.getInt("descidas"), db.getInt("count"));
+      Nivel1 nivel1 = new Nivel1(db.getInt("version"), 
+                                 db.getInt("prefix"), 
+                                 db.getInt("subidas"), 
+                                 db.getInt("descidas"), 
+                                 db.getInt("count"));
       nivel1List.add(nivel1);
     }
   }
   for(int i=0; i<nivel1List.size(); i++) {
     print("Versao: " + nivel1List.get(i).versao + 
-          " Prefixo: " + nivel1List.get(i).prefixLength + 
+          " Prefixo: " + nivel1List.get(i).prefixo + 
           " Subidas: " + nivel1List.get(i).subidas +
           " Descidas: " + nivel1List.get(i).descidas +
           " numElementos: " + nivel1List.get(i).numElementos + "\n");
   }
   
   size(width, height);
-  frameRate (60);
+  frameRate(60);
   smooth();
   
 }
