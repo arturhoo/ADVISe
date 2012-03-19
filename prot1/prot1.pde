@@ -21,13 +21,13 @@ void setup() {
   if(db.connect()) {
     print("Conectou\n");
     nivel1List = new ArrayList<Nivel1>();
-    String selQuery = "select version, prefix, subidas, descidas, count " +
+    String selQuery = "select version, prefixo, subidas, descidas, count " +
                       "from nivel1 " +
                       "order by version, prefix, subidas, descidas";
     db.query(selQuery);
     while(db.next()) {
       Nivel1 nivel1 = new Nivel1(db.getInt("version"), 
-                                 db.getInt("prefix"), 
+                                 db.getInt("prefixo"), 
                                  db.getInt("subidas"), 
                                  db.getInt("descidas"), 
                                  db.getInt("count"));
