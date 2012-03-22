@@ -13,7 +13,6 @@ int height = 600;
 ArrayList<Nivel1> nivel1List;
 
 void setup() {
-  
   String slines[] = loadStrings("mysql_settings.txt");
   host = slines[0]; database = slines[1]; user = slines[2]; pass = slines[3];
   db = new MySQL(this, host, database, user, pass);
@@ -41,8 +40,9 @@ void setup() {
           " Descidas: " + nivel1List.get(i).descidas +
           " numElementos: " + nivel1List.get(i).numElementos + "\n");
     //if(nivel1List.get(i).ver_estudo == 2 && nivel1List.get(i).prefixo == 0 && nivel1List.get(i).subidas == 0 && nivel1List.get(i).descidas == 2) {
-    //  nivel1List.get(i).preencheLista();
-    //}
+    if(nivel1List.get(i).ver_estudo == 2 && !(nivel1List.get(i).subidas == 0 && nivel1List.get(i).descidas == 0)) {
+      nivel1List.get(i).preencheLista();
+    }
   }
   
   size(width, height);

@@ -16,10 +16,8 @@ class Nivel2 {
     this.ec_ant       = new int[4];
     this.ec_novo      = new int[4];
     for(int count=0; count<4; count++) {
-      if(ec_ant.charAt(count*2) == '-') this.ec_ant[count] = -1;
-      else this.ec_ant[count]  = Integer.parseInt("" + ec_ant.charAt(count*2));
-      if(ec_novo.charAt(count*2) == '-') this.ec_novo[count] = -1;
-      else this.ec_novo[count] = Integer.parseInt("" + ec_novo.charAt(count*2));
+      this.ec_ant[count] = getIntFromEcPosition(ec_ant, count);
+      this.ec_novo[count] = getIntFromEcPosition(ec_novo, count);
     }
   }    
 }
