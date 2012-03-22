@@ -21,12 +21,12 @@ void setup() {
   if(db.connect()) {
     print("Conectou\n");
     nivel1List = new ArrayList<Nivel1>();
-    String selQuery = "select version, prefixo, subidas, descidas, count " +
+    String selQuery = "select ver_estudo, prefixo, subidas, descidas, count " +
                       "from nivel1 " +
-                      "order by version, prefix, subidas, descidas";
+                      "order by ver_estudo, prefixo, subidas, descidas";
     db.query(selQuery);
     while(db.next()) {
-      Nivel1 nivel1 = new Nivel1(db.getInt("version"), 
+      Nivel1 nivel1 = new Nivel1(db.getInt("ver_estudo"), 
                                  db.getInt("prefixo"), 
                                  db.getInt("subidas"), 
                                  db.getInt("descidas"), 
@@ -35,11 +35,14 @@ void setup() {
     }
   }
   for(int i=0; i<nivel1List.size(); i++) {
-    print("Versao: " + nivel1List.get(i).versao + 
+    print("Versao: " + nivel1List.get(i).ver_estudo + 
           " Prefixo: " + nivel1List.get(i).prefixo + 
           " Subidas: " + nivel1List.get(i).subidas +
           " Descidas: " + nivel1List.get(i).descidas +
           " numElementos: " + nivel1List.get(i).numElementos + "\n");
+    //if(nivel1List.get(i).ver_estudo == 2 && nivel1List.get(i).prefixo == 0 && nivel1List.get(i).subidas == 0 && nivel1List.get(i).descidas == 2) {
+    //  nivel1List.get(i).preencheLista();
+    //}
   }
   
   size(width, height);
