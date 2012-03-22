@@ -18,7 +18,7 @@ c = conn.cursor()
 
 for i in range(2,16):
     for j in range(4):
-            for k in range(0,5-j):
+        for k in range(0,5-j):
             for l in range(0,5-j):
                 t = (i, j, k, l)
                 try:
