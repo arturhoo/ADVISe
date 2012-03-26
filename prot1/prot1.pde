@@ -41,7 +41,7 @@ void setup() {
           " numElementos: " + nivel1List.get(i).numElementos + "\n");
     //if(nivel1List.get(i).ver_estudo == 2 && nivel1List.get(i).prefixo == 0 && nivel1List.get(i).subidas == 0 && nivel1List.get(i).descidas == 2) {
     if(nivel1List.get(i).ver_estudo == 2 && !(nivel1List.get(i).subidas == 0 && nivel1List.get(i).descidas == 0)) {
-      nivel1List.get(i).preencheLista();
+      //nivel1List.get(i).preencheLista();
     }
   }
   

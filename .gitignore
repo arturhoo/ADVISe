@@ -2,5 +2,7 @@
 *.pyc
 sql_files/
 sql_files/*
+venv/
+venv/*
 prot1/mysql_settings.txt
 python/mysql_local_settings.py
