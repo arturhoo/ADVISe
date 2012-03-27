@@ -13,11 +13,11 @@ class Nivel1 {
     this.prefixo      = prefixo;
     this.ver_estudo   = ver_estudo;
     this.subidas      = subidas;
-    this.descidas     = descidas;
-    this.nivel2List   = new ArrayList<Nivel2>();
+    this.descidas     = descidas;    
   }
   
   void preencheLista() {
+    this.nivel2List   = new ArrayList<Nivel2>();
     if(this.numElementos != 0) {
       String selQuery = "select ec_ant, ec_novo, count(*) " +
                         "from id_ec " +
@@ -37,6 +37,14 @@ class Nivel1 {
       }
     }
     preenchida = true;
+  }
+
+  void destroiObjetos() {
+    this.nivel2List = null;
+    this.psList = null;
+    preenchida = false;
+    ordenada = false;
+    psCriado = false;
   }
 
   void ordenaLista() {
@@ -62,10 +70,12 @@ class Nivel1 {
     if(!preenchida) preencheLista();
     if(!ordenada) ordenaLista();
     if(!psCriado) criaParticleSystems();
-    
+
     int escape = 0;
     for(int i=0; i<psList.size(); i++) {
-      psList.get(i).run(new PVector(50, 50+((escape++)*psList.get(i).verticalSpacing), 0));
+      fill(72, 66, 67);
+      text(nivel2List.get(i).ec_ant[0] + " -> " + nivel2List.get(i).ec_novo[0], 30, (55+(escape*psList.get(i).verticalSpacing)));
+      psList.get(i).run(new PVector(90, 50+((escape++)*psList.get(i).verticalSpacing), 0));
       escape += psList.get(i).verticalEscape+2;
     }
   }

@@ -34,7 +34,7 @@ class SquareMap {
   }
 
   void drawMap(PVector pos) {
-    this.drawn = true;
+    //this.drawn = true;
     this.pos = pos;
     float[][] auxMatrix = new float[mLength][];
     float[] maioresValoresX = new float[mLength];
@@ -72,10 +72,10 @@ class SquareMap {
     constanteY = mapHeight/altura;
     constanteX = mapWidth/comp;
 
-    fill(255);
+    fill(200);
     stroke(0);
     rect(pos.x, pos.y, mapWidth, mapHeight);
-    fill(153);
+    fill(12, 106, 17, 95);
     float acumulaX = 0;
     for (int i=0; i<mLength; i++) {
       float acumulaY = 0;
