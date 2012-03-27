@@ -7,12 +7,16 @@ String database;
 String user;
 String pass;
 
-int width = 800;
-int height = 600;
+int width = 960;
+int height = 540;
 
 ArrayList<Nivel1> nivel1List;
 
 void setup() {
+  size(width, height);
+  frameRate(60);
+  smooth();
+
   String slines[] = loadStrings("mysql_settings.txt");
   host = slines[0]; database = slines[1]; user = slines[2]; pass = slines[3];
   db = new MySQL(this, host, database, user, pass);
@@ -44,10 +48,18 @@ void setup() {
       //nivel1List.get(i).preencheLista();
     }
   }
-  
-  size(width, height);
-  frameRate(60);
-  smooth();
+
+  float[][] matrix = new float[5][];
+  int count = 0;
+  for(int i=4; i>=0; i--) {
+    matrix[i] = new float[5];
+    for(int j=0; j<5; j++) {
+      matrix[i][j] = pow(nivel1List.get(count++).numElementos, 0.5);
+    }
+  }
+
+  SquareMap sm = new SquareMap(matrix);
+  sm.drawMap(new PVector(0,0)); 
   
 }
 
