@@ -34,5 +34,15 @@ class Nivel1 {
         print(nivel2.numElementos + "\n");
       }
     }
-  }    
+  }
+
+  void ordenaLista() {
+    Collections.sort(nivel2List, new Compartor() {
+      public int compare(Object o1, Object o2) {
+        Nivel2 n1 = (Nivel2) o1;
+        Nivel2 n2 = (Nivel2) o2;
+        return n1.numElementos > n2.numElementos ? -1 : (n1.numElementos < n2.numElementos ? +1 : 0);
+      }
+    });
+  }   
 }

@@ -80,7 +80,9 @@ class SquareMap {
     for (int i=0; i<mLength; i++) {
       float acumulaY = 0;
       for(int j=0; j<mLength; j++) {
+        // Alinha no canto superior direito
         rect(pos.x+acumulaY+((acumulaY+maioresValoresY[j]*constanteX)-(acumulaY+auxMatrix[i][j]*constanteX)), pos.y+acumulaX, auxMatrix[i][j]*constanteX, auxMatrix[i][j]*constanteY);
+        // Alinha no canto superior esquerdo
         //rect(pos.x+acumulaY, pos.y+acumulaX, auxMatrix[i][j]*constanteX, auxMatrix[i][j]*constanteY);
         acumulaY += maioresValoresY[j]*constanteX;
       }
