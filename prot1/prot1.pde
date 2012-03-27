@@ -11,11 +11,13 @@ int width = 960;
 int height = 540;
 
 ArrayList<Nivel1> nivel1List;
+ArrayList<SquareMap> squareMapList;
 
 void setup() {
   size(width, height);
   frameRate(60);
   smooth();
+  background(200);
 
   String slines[] = loadStrings("mysql_settings.txt");
   host = slines[0]; database = slines[1]; user = slines[2]; pass = slines[3];
@@ -49,21 +51,26 @@ void setup() {
     }
   }
 
-  float[][] matrix = new float[5][];
+  squareMapList = new ArrayList<SquareMap>();
   int count = 0;
-  for(int i=4; i>=0; i--) {
-    matrix[i] = new float[5];
-    for(int j=0; j<5; j++) {
-      matrix[i][j] = pow(nivel1List.get(count++).numElementos, 0.5);
+  for(int ii=0; ii<14; ii++) {
+    float[][] matrix = new float[5][];
+    for(int i=4; i>=0; i--) {
+      matrix[i] = new float[5];
+      for(int j=0; j<5; j++) {
+        matrix[i][j] = nivel1List.get(count).numElementos > 0 ? pow(nivel1List.get(count).numElementos, 0.5) : 0;
+        count++;
+      }
     }
-  }
-
-  SquareMap sm = new SquareMap(matrix);
-  sm.drawMap(new PVector(0,0)); 
-  
+    SquareMap sm = new SquareMap(matrix);
+    squareMapList.add(sm);
+    while(nivel1List.get(count).ver_estudo < ii+3 && ii != 13) count++;
+  }  
 }
 
 void draw() {
-
-
+  for(int i=0; i<squareMapList.size(); i++) {
+    if(!squareMapList.get(i).drawn || squareMapList.get(i).mouseOver())
+      squareMapList.get(i).drawMap(new PVector(40+(i*64),150));
+  }
 }
