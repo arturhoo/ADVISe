@@ -13,11 +13,14 @@ int height = 540;
 ArrayList<Nivel1> nivel1List;
 ArrayList<SquareMap> squareMapList;
 
+PFont font;
+
 void setup() {
   size(width, height);
-  frameRate(60);
+  frameRate(30);
   smooth();
   background(200);
+  font = createFont("Arial Bold",20);
 
   String slines[] = loadStrings("mysql_settings.txt");
   host = slines[0]; database = slines[1]; user = slines[2]; pass = slines[3];
@@ -46,7 +49,9 @@ void setup() {
           " Descidas: " + nivel1List.get(i).descidas +
           " numElementos: " + nivel1List.get(i).numElementos + "\n");
     //if(nivel1List.get(i).ver_estudo == 2 && nivel1List.get(i).prefixo == 0 && nivel1List.get(i).subidas == 0 && nivel1List.get(i).descidas == 2) {
-    if(nivel1List.get(i).ver_estudo == 2 && !(nivel1List.get(i).subidas == 0 && nivel1List.get(i).descidas == 0)) {
+    if(nivel1List.get(i).ver_estudo == 2 && 
+        !(nivel1List.get(i).subidas == 0 && 
+          nivel1List.get(i).descidas == 0)) {
       //nivel1List.get(i).preencheLista();
     }
   }
@@ -58,19 +63,36 @@ void setup() {
     for(int i=4; i>=0; i--) {
       matrix[i] = new float[5];
       for(int j=0; j<5; j++) {
-        matrix[i][j] = nivel1List.get(count).numElementos > 0 ? pow(nivel1List.get(count).numElementos, 0.5) : 0;
+        matrix[i][j] = nivel1List.get(count).numElementos > 0 
+          ? pow(nivel1List.get(count).numElementos, 0.5) : 0;
         count++;
       }
     }
     SquareMap sm = new SquareMap(matrix);
     squareMapList.add(sm);
     while(nivel1List.get(count).ver_estudo < ii+3 && ii != 13) count++;
-  }  
+  }
+
+  // TESTE
+  
 }
 
 void draw() {
-  for(int i=0; i<squareMapList.size(); i++) {
+  background(200);
+
+  // Exibe FPS
+  textFont(font,12);
+  fill(255);
+  text(frameRate,10,10);
+
+  /*for(int i=0; i<squareMapList.size(); i++) {
     if(!squareMapList.get(i).drawn || squareMapList.get(i).mouseOver())
       squareMapList.get(i).drawMap(new PVector(40+(i*64),150));
-  }
+  }*/
+
+  nivel1List.get(25).runParticleSystems();
+}
+
+void mousePressed() {
+
 }

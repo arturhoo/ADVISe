@@ -5,6 +5,8 @@ class Nivel1 {
   int subidas;
   int descidas;
   ArrayList<Nivel2> nivel2List;
+  ArrayList<ParticleSystem> psList;
+  boolean preenchida = false, ordenada = false, psCriado = false;
   
   Nivel1 (int ver_estudo, int prefixo, int subidas, int descidas, int numElementos) {
     this.numElementos = numElementos;
@@ -34,15 +36,37 @@ class Nivel1 {
         print(nivel2.numElementos + "\n");
       }
     }
+    preenchida = true;
   }
 
   void ordenaLista() {
-    Collections.sort(nivel2List, new Compartor() {
+    Collections.sort(nivel2List, new Comparator() {
       public int compare(Object o1, Object o2) {
         Nivel2 n1 = (Nivel2) o1;
         Nivel2 n2 = (Nivel2) o2;
         return n1.numElementos > n2.numElementos ? -1 : (n1.numElementos < n2.numElementos ? +1 : 0);
       }
     });
-  }   
+    ordenada = true;
+  }
+
+  void criaParticleSystems() {
+    psList = new ArrayList<ParticleSystem>();
+    for(int i=0; i<nivel2List.size(); i++) {
+      this.psList.add(new ParticleSystem(nivel2List.get(i).numElementos, new PVector(0, 0, 0)));
+    }
+    psCriado = true;
+  }
+
+  void runParticleSystems() {
+    if(!preenchida) preencheLista();
+    if(!ordenada) ordenaLista();
+    if(!psCriado) criaParticleSystems();
+    
+    int escape = 0;
+    for(int i=0; i<psList.size(); i++) {
+      psList.get(i).run(new PVector(50, 50+((escape++)*psList.get(i).verticalSpacing), 0));
+      escape += psList.get(i).verticalEscape+2;
+    }
+  }
 }
