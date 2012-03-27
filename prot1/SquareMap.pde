@@ -26,8 +26,11 @@ class SquareMap {
 
   void onMouseOverShowRealScale() {
     if(this.mouseOver() && decresceLog>0.01) decresceLog -= 0.01;
-    if(decresceLog < 1) this.drawn = false;
-    if(!this.mouseOver()) decresceLog = 1;
+    if(decresceLog < 1) {
+      this.drawn = false;
+      if(!this.mouseOver()) decresceLog += 0.01;
+    }
+    //if(!this.mouseOver()) decresceLog = 1;
   }
 
   void drawMap(PVector pos) {
