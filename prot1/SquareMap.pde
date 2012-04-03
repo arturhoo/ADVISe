@@ -2,7 +2,7 @@ class SquareMap {
 	int mapWidth;
 	int mapHeight;
 	float[][] matrix;
-  float decresceLog = 0.85;
+  float decresceLog = 0.9;
   int mLength;
   boolean drawn = false;
   PVector pos;
@@ -16,8 +16,8 @@ class SquareMap {
       this.matrix[i] = matrix[i];
     }
     this.mLength = matrix.length;
-    this.mapWidth = 60;
-    this.mapHeight = 60;
+    this.mapWidth = 12*this.mLength;
+    this.mapHeight = 12*this.mLength;
     this.maioresValoresX = new float[mLength];
     this.maioresValoresY = new float[mLength];
     this.auxMatrix = new float[mLength][];
@@ -32,7 +32,7 @@ class SquareMap {
         auxMatrix[i][j] = this.matrix[i][j] + (log(this.matrix[i][j]) - this.matrix[i][j])*decresceLog;
         print(auxMatrix[i][j] + " ");
         float falso = 1.0;
-        if(i==4 && j==0) auxMatrix[i][j] = -1;
+        if(i==this.mLength-1 && j==0) auxMatrix[i][j] = 0;
       }
       print("\n");
     }
