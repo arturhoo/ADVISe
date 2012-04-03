@@ -48,6 +48,8 @@ class SquareMap {
       for(int j=0; j<auxMatrix[i].length; j++) {
         auxMatrix[i][j] = matrix[i][j] + (log(matrix[i][j]) - matrix[i][j])*decresceLog;
         print(auxMatrix[i][j] + " ");
+        float falso = 1.0;
+        if(i==4 && j==0) auxMatrix[i][j] = falso + (log(falso) - falso)*decresceLog;
       }
       print("\n");
     }
