@@ -21,6 +21,8 @@ Button smButton;
 Button ps1Button;
 Button ps2Button;
 
+SquareMap tempSM = null;
+
 void setup() {
   size(width, height);
   frameRate(30);
@@ -79,21 +81,41 @@ void draw() {
   ps2Button.draw(0);
   smButton.draw(0);
 
-  if(smButton.active) {
-    for(int i=0; i<squareMapListP1.size(); i++) {
-      if(!squareMapListP1.get(i).drawn || squareMapListP1.get(i).mouseOver())
-        squareMapListP1.get(i).drawMap(new PVector(40+(i*64),height-150));
-        squareMapListP2.get(i).drawMap(new PVector(40+(i*64),height-220));
-        squareMapListP3.get(i).drawMap(new PVector(40+(i*64),height-290));
-        squareMapListP4.get(i).drawMap(new PVector(40+(i*64),height-360));
+
+  if(smButton.active && tempSM == null) {
+    for(int i=0; i<numVersoes-1; i++) {
+      if(!squareMapListP1.get(i).drawn) squareMapListP1.get(i).drawMap(new PVector(40+(i*64),height-150));
+      if(!squareMapListP2.get(i).drawn) squareMapListP2.get(i).drawMap(new PVector(40+(i*64),height-220));
+      if(!squareMapListP3.get(i).drawn) squareMapListP3.get(i).drawMap(new PVector(40+(i*64),height-290));
+      if(!squareMapListP4.get(i).drawn) squareMapListP4.get(i).drawMap(new PVector(40+(i*64),height-360));
     }
   }
+
+  if(tempSM != null) tempSM.drawMap(null);
 
   if(ps1Button.active) nivel1List.get(3).runParticleSystems();
   if(ps2Button.active) nivel1List.get(4).runParticleSystems();
 }
 
 void mousePressed() {
+  // Click on squaremaps
+  if(smButton.active) {
+    for(int i=0; i<numVersoes-1; i++) {
+      if(squareMapListP1.get(i).mouseOver()) {
+        tempSM = squareMapListP1.get(i);
+      }
+      if(squareMapListP2.get(i).mouseOver()) {
+        tempSM = squareMapListP2.get(i);
+      }
+      if(squareMapListP3.get(i).mouseOver()) {
+        tempSM = squareMapListP3.get(i);
+      }
+      if(squareMapListP4.get(i).mouseOver()) {
+        tempSM = squareMapListP4.get(i);
+      }
+    }
+  }
+  
   if(ps1Button.isIn() || ps2Button.isIn() || smButton.isIn()) {
     nivel1List.get(4).destroiObjetos();
     ps2Button.active = false;
@@ -112,5 +134,8 @@ void mousePressed() {
 
   if(smButton.isIn()) {
     smButton.active = true;
+    tempSM = null;
   }
+
+  
 }

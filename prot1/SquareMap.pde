@@ -2,9 +2,10 @@ class SquareMap {
 	int mapWidth;
 	int mapHeight;
 	float[][] matrix;
-  float decresceLog = 0.9;
+  float decresceLog = 1;
   int mLength;
   boolean drawn = false;
+  boolean bigScale = false;
   PVector pos;
   float[] maioresValoresX;
   float[] maioresValoresY;
@@ -69,11 +70,24 @@ class SquareMap {
     //if(!this.mouseOver()) decresceLog = 1;
   }
 
+  void onClickShowBig() {
+    mapHeight = 300;
+    mapWidth = 300;
+    this.pos = new PVector(100, 100);
+  }
+
   void drawMap(PVector pos) {
     //this.drawn = true;
     this.pos = pos;
     float constanteX, constanteY, comp = 0, altura = 0;
-    onMouseOverShowRealScale();    
+    
+    //onMouseOverShowRealScale();
+    if(pos == null) {
+      onClickShowBig();
+    } else {
+      this.mapWidth = 12*this.mLength;
+      this.mapHeight = 12*this.mLength;
+    }
 
     for(int i=0; i<mLength; i++) {
       comp    += maioresValoresY[i];
@@ -84,14 +98,14 @@ class SquareMap {
 
     fill(200);
     stroke(0);
-    rect(pos.x, pos.y, mapWidth, mapHeight);
+    rect(this.pos.x, this.pos.y, mapWidth, mapHeight);
     fill(12, 106, 17, 95);
     float acumulaX = 0;
     for (int i=0; i<mLength; i++) {
       float acumulaY = 0;
       for(int j=0; j<mLength; j++) {
         // Alinha no canto superior direito
-        rect(pos.x+acumulaY+((acumulaY+maioresValoresY[j]*constanteX)-(acumulaY+auxMatrix[i][j]*constanteX)), pos.y+acumulaX, auxMatrix[i][j]*constanteX, auxMatrix[i][j]*constanteY);
+        rect(this.pos.x+acumulaY+((acumulaY+maioresValoresY[j]*constanteX)-(acumulaY+auxMatrix[i][j]*constanteX)), this.pos.y+acumulaX, auxMatrix[i][j]*constanteX, auxMatrix[i][j]*constanteY);
         // Alinha no canto superior esquerdo
         //rect(pos.x+acumulaY, pos.y+acumulaX, auxMatrix[i][j]*constanteX, auxMatrix[i][j]*constanteY);
         acumulaY += maioresValoresY[j]*constanteX;
