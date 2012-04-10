@@ -11,7 +11,7 @@ ArrayList<Nivel1> nivel1List;
 Matriz[][] superMatriz;
 
 int numChave = 5;
-int numPrefixos = 5;
+int numPrefixos = 4;
 int numEstudos = 14;
 
 String linhasConfig[];
@@ -21,7 +21,10 @@ void setup() {
   host = linhasConfig[0]; database = linhasConfig[1]; user = linhasConfig[2]; pass = linhasConfig[3];
   db = new MySQL(this, host, database, user, pass);
 
-  superMatriz = new Matriz[numEstudos][numPrefixos-1];
+  superMatriz = new Matriz[numPrefixos][numEstudos];
+  preencheListaNivel1();
+  preencheSuperMatriz();
+  print(superMatriz[3][1].quadrados[4][0].numElementos + "\n");
 
 }
 
@@ -46,17 +49,19 @@ void preencheListaNivel1() {
 
 void preencheSuperMatriz() {
   int count = 0;
-  // Para cada versao
   for(int i1=0; i1<numEstudos; i1++) {
-    // Para cada prefixo
-    for(int i2=numPrefixos-1; i2>=1; i2--) {
-      // 
-      superMatriz[i1][i2] = new Matriz();
-      for(int i3=i2; i3>=0; i3--) {
-        //
-        for(int i4=0; i4<i2+1; i4++) {
-          superMatriz[i1][i2].quadrados[i3][i4] = nivel1List.get(count);
-          count++;
+    for(int i2=numPrefixos-1; i2>=0; i2--) {
+      superMatriz[i2][i1] = new Matriz();
+      for(int i3=numChave-1; i3>=0; i3--) {
+        for(int i4=0; i4<numChave; i4++) {
+          if((i4>i2+1) || (i3<numChave-i2-2)) {
+            print("escapou\n");            
+          }
+          else {
+            superMatriz[i2][i1].quadrados[i3][i4] = nivel1List.get(count);
+            print("SM: " + i2 + "-" + i1 + " Q: " + i3 + "-" + i4 + " Value: " + nivel1List.get(count).numElementos + "\n");
+            count++;
+          }
         }
       }
     }
