@@ -16,7 +16,17 @@ int numEstudos = 14;
 
 String linhasConfig[];
 
+
+int squareSize = 1;
+//color[] colors = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000};
+//color[] colors = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F};
+color[] colors = {#FFF5BC, #D6EDBD, #B8D9B8, #7FA6A1, #5D7370};
+
 void setup() {
+  size(1280, 720);
+  smooth();
+  background(#D9CEB2);
+
   linhasConfig = loadStrings("mysql_settings.txt");
   host = linhasConfig[0]; database = linhasConfig[1]; user = linhasConfig[2]; pass = linhasConfig[3];
   db = new MySQL(this, host, database, user, pass);
@@ -24,7 +34,8 @@ void setup() {
   superMatriz = new Matriz[numPrefixos][numEstudos];
   preencheListaNivel1();
   preencheSuperMatriz();
-  print(superMatriz[3][1].quadrados[4][0].numElementos + "\n");
+  //print(superMatriz[3][1].quadrados[4][0].numElementos + "\n");
+  
 
 }
 
@@ -51,19 +62,22 @@ void preencheSuperMatriz() {
   int count = 0;
   for(int i1=0; i1<numEstudos; i1++) {
     for(int i2=numPrefixos-1; i2>=0; i2--) {
-      superMatriz[i2][i1] = new Matriz();
+      superMatriz[i2][i1] = new Matriz(30+85*i1, height-120-75*(numPrefixos-1-i2), 80, 60);
       for(int i3=numChave-1; i3>=0; i3--) {
         for(int i4=0; i4<numChave; i4++) {
           if((i4>i2+1) || (i3<numChave-i2-2)) {
-            print("escapou\n");            
+            //print("escapou\n");            
           }
           else {
             superMatriz[i2][i1].quadrados[i3][i4] = nivel1List.get(count);
-            print("SM: " + i2 + "-" + i1 + " Q: " + i3 + "-" + i4 + " Value: " + nivel1List.get(count).numElementos + "\n");
+            //print("SM: " + i2 + "-" + i1 + " Q: " + i3 + "-" + i4 + " Value: " + nivel1List.get(count).numElementos + "\n");
             count++;
           }
         }
       }
+      superMatriz[i2][i1].identificaMaiorValor();
+      superMatriz[i2][i1].preencheHeatSquareList();
+      superMatriz[i2][i1].drawHeatMap();
     }
   }
 }
