@@ -31,13 +31,17 @@ class Matriz {
       maioresValoresX[i] = 0;
       for(int j=0; j<numChave; j++) {
         if(this.quadrados[j][i] != null) {
-          if(maioresValoresY[i] < quadrados[j][i].numElementos) {
-            maioresValoresY[i] = quadrados[j][i].numElementos;
+          float numElementosRaiz = quadrados[j][i].numElementos > 0.0 
+            ? pow(quadrados[j][i].numElementos, 0.5) : 0;
+          if(maioresValoresY[i] < numElementosRaiz) {
+            maioresValoresY[i] = numElementosRaiz;
           }
         }
         if(this.quadrados[i][j] != null) {
-          if(maioresValoresX[i] < quadrados[i][j].numElementos) {
-            maioresValoresX[i] = quadrados[i][j].numElementos;
+          float numElementosRaiz = quadrados[i][j].numElementos > 0.0 
+            ? pow(quadrados[i][j].numElementos, 0.5) : 0;
+          if(maioresValoresX[i] < numElementosRaiz) {
+            maioresValoresX[i] = numElementosRaiz;
           }
         }
       }
@@ -69,6 +73,44 @@ class Matriz {
     }
     print("Segundo Maior valor: " + this.segundoMaiorValor + "\n");
     return this.segundoMaiorValor;
+  }
+
+  void drawSquareMap() {
+    float numElementos;
+    float constanteX, constanteY, comp = 0, altura = 0;
+    for(int i=0; i<numChave; i++) {
+      comp    += log(gl.maioresValoresY[i]);
+      altura  += log(gl.maioresValoresX[i]);
+    }
+    constanteY = h/altura;
+    constanteX = w/comp;
+
+    fill(colors[5]);
+    rect(x, y, w, h);
+
+    fill(12, 106, 17, 95);
+    for(int i=numChave-1; i>=0; i--) {
+      // Calcula o deslocamento na vertical
+      float acumulaX = 0;
+      for(int k=0; k<i; k++) {
+        acumulaX += log(gl.maioresValoresX[k]);//*constanteY;
+      }
+      acumulaX *=constanteY;
+
+      float acumulaY = 0;
+      for(int j=0; j<numChave; j++) {        
+        if(quadrados[i][j] != null ) {
+          numElementos = log(pow(quadrados[i][j].numElementos, 0.5));
+          if(numElementos != 0.0) {
+            rect( x+acumulaY+((acumulaY+log(gl.maioresValoresY[j])*constanteX)-(acumulaY+numElementos*constanteX)),
+                  y+acumulaX,
+                  numElementos*constanteX, 
+                  numElementos*constanteY);
+          }
+        }
+        acumulaY += log(gl.maioresValoresY[j])*constanteX;
+      }
+    }
   }
 
   void preencheHeatSquareList() {

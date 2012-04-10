@@ -40,9 +40,11 @@ void setup() {
   superMatriz = new Matriz[numPrefixos][numEstudos];
   preencheListaNivel1();
   preencheSuperMatriz();
-  preencheSuperMatrizHeatSquareList();
+  //preencheSuperMatrizHeatSquareList();
   //print(superMatriz[3][1].quadrados[4][0].numElementos + "\n");
-  drawSuperMatrizHeatMap(); 
+  
+  //drawSuperMatrizHeatMap(); 
+  drawSuperMatrizSquareMap();
 
 }
 
@@ -91,15 +93,18 @@ void preencheSuperMatriz() {
 
       superMatriz[i2][i1].identificaMaioresValores();
 
-      for(int i5=0; i5<i2+1; i5++) {
-        if(gl.maioresValoresX[i5] > superMatriz[i2][i1].maioresValoresX[i5])
+      for(int i5=0; i5<numChave; i5++) {
+        if(gl.maioresValoresX[i5] < superMatriz[i2][i1].maioresValoresX[i5])
           gl.maioresValoresX[i5] = superMatriz[i2][i1].maioresValoresX[i5];
-        if(gl.maioresValoresY[i5] > superMatriz[i2][i1].maioresValoresY[i5])
-          gl.maioresValoresY[i5] = superMatriz[i2][i1].maioresValoresY[i5];        
+        if(gl.maioresValoresY[i5] < superMatriz[i2][i1].maioresValoresY[i5])
+          gl.maioresValoresY[i5] = superMatriz[i2][i1].maioresValoresY[i5];
       }
     }
   }
   print("MVG: " + gl.maiorValor + " SMVG: " + gl.segundoMaiorValor + "\n");
+  for(int i=0; i<numChave; i++) {
+    print("GX: " + gl.maioresValoresX[i] + " GY: " + gl.maioresValoresY[i] + "\n");
+  }
 }
 
 void preencheSuperMatrizHeatSquareList() {
@@ -114,6 +119,14 @@ void drawSuperMatrizHeatMap() {
   for(int i=0; i<numEstudos; i++) {
     for(int j=numPrefixos-1; j>=0; j--) {
       superMatriz[j][i].drawHeatMap();      
+    }
+  }
+}
+
+void drawSuperMatrizSquareMap() {
+  for(int i=0; i<numEstudos; i++) {
+    for(int j=numPrefixos-1; j>=0; j--) {
+      superMatriz[j][i].drawSquareMap();
     }
   }
 }
