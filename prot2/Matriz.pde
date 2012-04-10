@@ -6,6 +6,9 @@ class Matriz {
   boolean exibeLog = true, exibe00 = false, mvg=true;
   int original00 = -1;
 
+  float[] maioresValoresX;
+  float[] maioresValoresY;
+
   Matriz(int x, int y, int w, int h) {
     this.x = x;
     this.y = y;
@@ -17,7 +20,28 @@ class Matriz {
         this.quadrados[i][j] = null;      
       }
     }
-    this.heatSquareList = new ArrayList<HeatSquare>();    
+    this.heatSquareList = new ArrayList<HeatSquare>();
+    this.maioresValoresX = new float[numChave];
+    this.maioresValoresY = new float[numChave];  
+  }
+
+  void identificaMaioresValores() {
+    for(int i=0; i<numChave; i++) {
+      maioresValoresY[i] = 0;
+      maioresValoresX[i] = 0;
+      for(int j=0; j<numChave; j++) {
+        if(this.quadrados[j][i] != null) {
+          if(maioresValoresY[i] < quadrados[j][i].numElementos) {
+            maioresValoresY[i] = quadrados[j][i].numElementos;
+          }
+        }
+        if(this.quadrados[i][j] != null) {
+          if(maioresValoresX[i] < quadrados[i][j].numElementos) {
+            maioresValoresX[i] = quadrados[i][j].numElementos;
+          }
+        }
+      }
+    }
   }
 
   int identificaMaiorValor() {
@@ -51,8 +75,8 @@ class Matriz {
     float ratio, mv;
 
     if(this.mvg) {
-      if(this.exibe00) mv = maiorValorGlobal;
-      else mv = segundoMaiorValorGlobal;
+      if(this.exibe00) mv = gl.maiorValor;
+      else mv = gl.segundoMaiorValor;
     } else {
       if(this.exibe00) mv = this.maiorValor;
       else mv = this.segundoMaiorValor;
