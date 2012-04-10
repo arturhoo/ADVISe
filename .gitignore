@@ -6,3 +6,4 @@ venv/
 venv/*
 prot1/mysql_settings.txt
 python/mysql_local_settings.py
+mysql_settings.txt
