@@ -18,7 +18,7 @@ class HeatSquare {
   }
 
   void draw() {
-    int numColors = colors.length;
+    int numColors = numChave;
     float[] frac = {1.0-0.0256*ratio, 1.0-0.064*ratio, 1.0-0.16*ratio, 1.0-0.4*ratio};
     /*for(int i=0; i<numColors-1; i++) {
       frac[i] = frac[i]*=ratio;
@@ -32,8 +32,9 @@ class HeatSquare {
         for(int k=numColors-1; k>0; k--) {
           if(i<(w/2+(frac[colorCounter-1]*w/2)-0) && i>(w/2-(frac[colorCounter-1]*w/2)-0) &&
              j<(h/2+(frac[colorCounter-1]*h/2)-0) && j>(h/2-(frac[colorCounter-1]*h/2)-0) ) {
+            // Cor dos invalidos
             if(this.ratio == -1.0) {
-              fill(#D8C2B3);
+              fill(colors[5]);
             }
             else fill(colors[colorCounter++]);
             rect(x+i, y+j, squareSize, squareSize);

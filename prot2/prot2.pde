@@ -16,16 +16,18 @@ int numEstudos = 14;
 
 String linhasConfig[];
 
+int hmw = 80, hmh = 80;
 
 int squareSize = 1;
-//color[] colors = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000};
-//color[] colors = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F};
-color[] colors = {#FFF5BC, #D6EDBD, #B8D9B8, #7FA6A1, #5D7370};
+//color[] colors = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000}; //heat
+//color[] colors = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F}; // green1
+//color[] colors = {#FFF5BC, #D6EDBD, #B8D9B8, #7FA6A1, #5D7370, #D8D8D8, #CECECE}; // green2
+color[] colors = {#E1F5C4, #EDE574, #F9D423, #FC913A, #FF4E50, #D8D8D8, #C1C1C1}; // heat-greenish
 
 void setup() {
   size(1280, 720);
   smooth();
-  background(#D9CEB2);
+  background(colors[6]);
 
   linhasConfig = loadStrings("mysql_settings.txt");
   host = linhasConfig[0]; database = linhasConfig[1]; user = linhasConfig[2]; pass = linhasConfig[3];
@@ -62,7 +64,7 @@ void preencheSuperMatriz() {
   int count = 0;
   for(int i1=0; i1<numEstudos; i1++) {
     for(int i2=numPrefixos-1; i2>=0; i2--) {
-      superMatriz[i2][i1] = new Matriz(30+85*i1, height-120-75*(numPrefixos-1-i2), 80, 60);
+      superMatriz[i2][i1] = new Matriz(30+(hmw+5)*i1, height-180-(hmh+15)*(numPrefixos-1-i2), hmw, hmh);
       for(int i3=numChave-1; i3>=0; i3--) {
         for(int i4=0; i4<numChave; i4++) {
           if((i4>i2+1) || (i3<numChave-i2-2)) {

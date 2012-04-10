@@ -20,7 +20,7 @@ class Matriz {
     this.heatSquareList = new ArrayList<HeatSquare>();    
   }
 
-  void identificaMaiorValor() {
+  int identificaMaiorValor() {
     for(int i=0; i<numChave; i++) {
       for(int j=0; j<numChave; j++) {
         if(this.quadrados[i][j] != null && 
@@ -29,6 +29,11 @@ class Matriz {
         }
       }
     }    
+    print("Maior valor: " + this.maiorValor + "\n");
+    return this.maiorValor
+  }
+  
+  int identificaSegundoMaiorValor() {
     for(int i=0; i<numChave; i++) {
       for(int j=0; j<numChave; j++) {
         if(this.quadrados[i][j] != null && 
@@ -38,8 +43,8 @@ class Matriz {
         }
       }
     }
-    print("Maior valor: " + this.maiorValor + "\n");
     print("Segundo Maior valor: " + this.segundoMaiorValor + "\n");
+    return this.segundoMaiorValor;
   }
 
   void preencheHeatSquareList() {
