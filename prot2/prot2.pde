@@ -18,6 +18,8 @@ String linhasConfig[];
 
 int hmw = 80, hmh = 80;
 
+int maiorValorGlobal = 0, segundoMaiorValorGlobal = 0;
+
 int squareSize = 1;
 //color[] colors = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000}; //heat
 //color[] colors = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F}; // green1
@@ -35,9 +37,11 @@ void setup() {
 
   superMatriz = new Matriz[numPrefixos][numEstudos];
   preencheListaNivel1();
+  // Preicsa ser preenchida duas vezes por conta dos valores globais
+  preencheSuperMatriz();
   preencheSuperMatriz();
   //print(superMatriz[3][1].quadrados[4][0].numElementos + "\n");
-  
+  drawSuperMatrizHeatMap(); 
 
 }
 
@@ -68,7 +72,6 @@ void preencheSuperMatriz() {
       for(int i3=numChave-1; i3>=0; i3--) {
         for(int i4=0; i4<numChave; i4++) {
           if((i4>i2+1) || (i3<numChave-i2-2)) {
-            //print("escapou\n");            
           }
           else {
             superMatriz[i2][i1].quadrados[i3][i4] = nivel1List.get(count);
@@ -77,9 +80,20 @@ void preencheSuperMatriz() {
           }
         }
       }
-      superMatriz[i2][i1].identificaMaiorValor();
-      superMatriz[i2][i1].preencheHeatSquareList();
-      superMatriz[i2][i1].drawHeatMap();
+      int mv = superMatriz[i2][i1].identificaMaiorValor();
+      int smv = superMatriz[i2][i1].identificaSegundoMaiorValor();
+      if(maiorValorGlobal < mv) maiorValorGlobal = mv;
+      if(segundoMaiorValorGlobal < smv) segundoMaiorValorGlobal = smv;
+      superMatriz[i2][i1].preencheHeatSquareList();      
+    }
+  }
+  print("MVG: " + maiorValorGlobal + " SMVG: " + segundoMaiorValorGlobal + "\n");
+}
+
+void drawSuperMatrizHeatMap() {
+  for(int i=0; i<numEstudos; i++) {
+    for(int j=numPrefixos-1; j>=0; j--) {
+      superMatriz[j][i].drawHeatMap();      
     }
   }
 }

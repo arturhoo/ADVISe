@@ -3,7 +3,7 @@ class Matriz {
   int x, y, w, h;  
   ArrayList<HeatSquare> heatSquareList;
   int maiorValor = 0, segundoMaiorValor = 0;
-  boolean exibeLog = true, exibe00 = false;
+  boolean exibeLog = true, exibe00 = false, mvg=true;
   int original00 = -1;
 
   Matriz(int x, int y, int w, int h) {
@@ -30,7 +30,7 @@ class Matriz {
       }
     }    
     print("Maior valor: " + this.maiorValor + "\n");
-    return this.maiorValor
+    return this.maiorValor;
   }
   
   int identificaSegundoMaiorValor() {
@@ -49,8 +49,14 @@ class Matriz {
 
   void preencheHeatSquareList() {
     float ratio, mv;
-    if(exibe00) mv = this.maiorValor;
-    else mv = this.segundoMaiorValor;
+
+    if(this.mvg) {
+      if(this.exibe00) mv = maiorValorGlobal;
+      else mv = segundoMaiorValorGlobal;
+    } else {
+      if(this.exibe00) mv = this.maiorValor;
+      else mv = this.segundoMaiorValor;
+    }
 
     for(int i=0; i<numChave; i++) {
       for(int j=0; j<numChave; j++) {
