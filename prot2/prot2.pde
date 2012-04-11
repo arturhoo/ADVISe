@@ -23,14 +23,15 @@ Global gl;
 int squareSize = 1;
 //color[] colors = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000}; //heat
 //color[] colors = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F}; // green1
-//color[] colors = {#FFF5BC, #D6EDBD, #B8D9B8, #7FA6A1, #5D7370, #D8D8D8, #CECECE}; // green2
-color[] colors = {#E1F5C4, #EDE574, #F9D423, #FC913A, #FF4E50, #D8D8D8, #C1C1C1}; // heat-greenish
+color[] colors = {#FFF5BC, #D6EDBD, #B8D9B8, #7FA6A1, #5D7370, #D8D8D8, #CECECE}; // green2
+//color[] colors = {#E1F5C4, #EDE574, #F9D423, #FC913A, #FF4E50, #D8D8D8, #C1C1C1}; // heat-greenish
 color[] colorsGray = {#8D7966, #A8A39D, #D8C8B8, #E2DDD9, #F8F1E9};
+color[] colorsContrast = {#EBE3AA, #CAD7B2, #A8CABA, #838689, #5D4157};
 
 void setup() {
   size(1280, 720);
   smooth();
-  background(colors[6]);
+  background(colorsContrast[3]);
 
   linhasConfig = loadStrings("mysql_settings.txt");
   host = linhasConfig[0]; database = linhasConfig[1]; user = linhasConfig[2]; pass = linhasConfig[3];
@@ -42,9 +43,9 @@ void setup() {
   preencheListaNivel1();
   preencheSuperMatriz();
   preencheSuperMatrizHeatSquareList();
-  //print(superMatriz[3][1].quadrados[4][0].numElementos + "\n");
+  print(superMatriz[3][1].quadrados[4][0].numElementos + "\n");
   
-  // drawSuperMatrizHeatMap(); 
+  drawSuperMatrizHeatMap(); 
   drawSuperMatrizSquareMap();
 
 }

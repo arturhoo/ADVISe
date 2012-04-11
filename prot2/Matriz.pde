@@ -145,11 +145,27 @@ class Matriz {
     constanteY = h/altura;
     constanteX = w/comp;
 
-    fill(colors[5]);
+    fill(colorsContrast[1]);
     stroke(0);
     rect(x, y, w, h);
 
-    PVector ultimaPos = new PVector(0,0);
+    // Desenha regiao invalida
+    if(countNulls !=0 ) {
+      float acumulaX1 = 0, acumulaY1 = 0;
+      for(int i=0; i<countNulls; i++) {
+        acumulaX1 += maioresValoresLocaisX[i];
+      }
+      for(int i=0; i<numChave-countNulls; i++) {
+        acumulaY1 += maioresValoresLocaisY[i];
+      }
+      fill(colorsContrast[2], 150);
+      noStroke();
+      rect(x+1, y+1, w-1, acumulaX1*constanteY-2);
+      rect( acumulaY1*constanteX+x+1, 
+            y+acumulaX1*constanteY-2, 
+            x+w-(acumulaY1*constanteX+x+1), 
+            y+h-(y+acumulaX1*constanteY));
+    }
 
     for(int i=numChave-1; i>=0; i--) {
       // Calcula o deslocamento na vertical
@@ -166,28 +182,19 @@ class Matriz {
             numElementos = pow(quadrados[i][j].numElementos, 0.5);
             if(this.exibeLog) numElementos = log(numElementos);
             if(numElementos != 0.0) {
-              fill(colors[4], 200);
-              stroke(30);
+              fill(colors[4], 150);
+              stroke(100);
               rectMode(CORNER);
               rect( x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementos*constanteX)),
                     y+acumulaX,
                     numElementos*constanteX, 
                     numElementos*constanteY);
               print("numElementos " + numElementos + "\n");
-              ultimaPos.set((x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementos*constanteX))+numElementos*constanteX), y+acumulaX, 0);
             }
           }
         }
         acumulaY += maioresValoresLocaisY[j]*constanteX;
       }  
-    }
-
-    // Desenha area invalida
-    fill(colors[0]);
-    noStroke();
-    if(countNulls !=0 ) {
-      rect(x+1, y+1, w-1, ultimaPos.y-y-1);
-      rect(ultimaPos.x+1, y+1, x+w-ultimaPos.x-1, h-1);
     }
 
     for(int i=0; i<numChave; i++) {
