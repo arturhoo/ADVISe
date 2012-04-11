@@ -4,10 +4,11 @@ class Matriz {
   ArrayList<HeatSquare> heatSquareList;
   int maiorValor = 0, segundoMaiorValor = 0;
   boolean exibeLog = true, exibe00 = false, mvg=true;
-  int original00 = -1;
 
   float[] maioresValoresX;
   float[] maioresValoresY;
+  float[] maioresValoresXE00;
+  float[] maioresValoresYE00;
 
   Matriz(int x, int y, int w, int h) {
     this.x = x;
@@ -22,7 +23,9 @@ class Matriz {
     }
     this.heatSquareList = new ArrayList<HeatSquare>();
     this.maioresValoresX = new float[numChave];
-    this.maioresValoresY = new float[numChave];  
+    this.maioresValoresY = new float[numChave];
+    this.maioresValoresXE00 = new float[numChave];
+    this.maioresValoresYE00 = new float[numChave];
   }
 
   void identificaMaioresValores() {
@@ -42,6 +45,29 @@ class Matriz {
             ? pow(quadrados[i][j].numElementos, 0.5) : 0;
           if(maioresValoresX[i] < numElementosRaiz) {
             maioresValoresX[i] = numElementosRaiz;
+          }
+        }
+      }
+    }
+  }
+
+  void identificaMaioresValoresExceto00() {
+    for(int i=0; i<numChave; i++) {
+      maioresValoresYE00[i] = 0;
+      maioresValoresXE00[i] = 0;
+      for(int j=0; j<numChave; j++) {
+        if(this.quadrados[j][i] != null && !(j==numChave-1 && i==0)) {
+          float numElementosRaiz = quadrados[j][i].numElementos > 0.0 
+            ? pow(quadrados[j][i].numElementos, 0.5) : 0;
+          if(maioresValoresYE00[i] < numElementosRaiz) {
+            maioresValoresYE00[i] = numElementosRaiz;
+          }
+        }
+        if(this.quadrados[i][j] != null && !(i==numChave-1 && j==0)) {
+          float numElementosRaiz = quadrados[i][j].numElementos > 0.0 
+            ? pow(quadrados[i][j].numElementos, 0.5) : 0;
+          if(maioresValoresXE00[i] < numElementosRaiz) {
+            maioresValoresXE00[i] = numElementosRaiz;
           }
         }
       }
@@ -77,10 +103,44 @@ class Matriz {
 
   void drawSquareMap() {
     float numElementos;
+    float[] maioresValoresLocaisY = new float[numChave];
+    float[] maioresValoresLocaisX = new float[numChave];
+    int countNulls = 0;
+
+    // Toma conta das variaveis booleanas
+    for(int i=0; i<numChave; i++) {
+      if(exibe00) {
+        maioresValoresLocaisX[i] = this.mvg ? gl.maioresValoresX[i] : this.maioresValoresX[i];
+        maioresValoresLocaisY[i] = this.mvg ? gl.maioresValoresY[i] : this.maioresValoresY[i];
+        
+        if(this.quadrados[numChave-1][i] == null) {
+          maioresValoresLocaisX[numChave-1-i] = log(gl.maioresValoresX[i]);
+          maioresValoresLocaisY[i] = log(gl.maioresValoresY[i]);
+          countNulls++;
+        }
+      } else {
+        maioresValoresLocaisX[i] = this.mvg ? gl.maioresValoresXE00[i] : this.maioresValoresXE00[i];
+        maioresValoresLocaisY[i] = this.mvg ? gl.maioresValoresYE00[i] : this.maioresValoresYE00[i];
+        
+        if(this.quadrados[numChave-1][i] == null) {
+          maioresValoresLocaisX[numChave-1-i] = log(gl.maioresValoresXE00[i]);
+          maioresValoresLocaisY[i] = log(gl.maioresValoresYE00[i]);
+          countNulls++;
+        }
+      }
+
+      if(this.exibeLog) {
+        if(maioresValoresLocaisX[i] != 0.0) maioresValoresLocaisX[i] = log(maioresValoresLocaisX[i]);
+        // else maioresValoresLocaisX[i] = log(gl.maioresValoresX[i]);
+        if(maioresValoresLocaisY[i] != 0.0) maioresValoresLocaisY[i] = log(maioresValoresLocaisY[i]);
+        // else maioresValoresLocaisY[i] = log(gl.maioresValoresY[i]);
+      }
+    }
+
     float constanteX, constanteY, comp = 0, altura = 0;
     for(int i=0; i<numChave; i++) {
-      comp    += log(gl.maioresValoresY[i]);
-      altura  += log(gl.maioresValoresX[i]);
+      comp    += maioresValoresLocaisY[i];
+      altura  += maioresValoresLocaisX[i];
     }
     constanteY = h/altura;
     constanteX = w/comp;
@@ -88,28 +148,36 @@ class Matriz {
     fill(colors[5]);
     rect(x, y, w, h);
 
-    fill(12, 106, 17, 95);
     for(int i=numChave-1; i>=0; i--) {
       // Calcula o deslocamento na vertical
       float acumulaX = 0;
       for(int k=0; k<i; k++) {
-        acumulaX += log(gl.maioresValoresX[k]);//*constanteY;
+        acumulaX += maioresValoresLocaisX[k];
       }
       acumulaX *=constanteY;
-
       float acumulaY = 0;
-      for(int j=0; j<numChave; j++) {        
-        if(quadrados[i][j] != null ) {
-          numElementos = log(pow(quadrados[i][j].numElementos, 0.5));
-          if(numElementos != 0.0) {
-            rect( x+acumulaY+((acumulaY+log(gl.maioresValoresY[j])*constanteX)-(acumulaY+numElementos*constanteX)),
-                  y+acumulaX,
-                  numElementos*constanteX, 
-                  numElementos*constanteY);
+      for(int j=0; j<numChave; j++) {
+        if(!exibe00 && i==numChave-1 && j==0){
+        } else {
+          if(quadrados[i][j] != null ) {
+            numElementos = pow(quadrados[i][j].numElementos, 0.5);
+            if(this.exibeLog) numElementos = log(numElementos);
+            if(numElementos != 0.0) {
+              fill(colors[4], 200);
+              rectMode(CORNER);
+              rect( x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementos*constanteX)),
+                    y+acumulaX,
+                    numElementos*constanteX, 
+                    numElementos*constanteY);
+              print("numElementos " + numElementos + "\n");
+            }
           }
         }
-        acumulaY += log(gl.maioresValoresY[j])*constanteX;
-      }
+        acumulaY += maioresValoresLocaisY[j]*constanteX;
+      }  
+    }
+    for(int i=0; i<numChave; i++) {
+      print("MVLX: " + maioresValoresLocaisX[i] + " -MVLY " + maioresValoresLocaisY[i] +"\n");
     }
   }
 
@@ -142,7 +210,7 @@ class Matriz {
                                         this.w/numChave,
                                         this.h/numChave,
                                         ratio);
-        print("HS: " + i + "-" + j + " ratio: " + ratio + "\n");
+        // print("HS: " + i + "-" + j + " ratio: " + ratio + "\n");
         heatSquareList.add(hs);
       }
     }
