@@ -146,7 +146,10 @@ class Matriz {
     constanteX = w/comp;
 
     fill(colors[5]);
+    stroke(0);
     rect(x, y, w, h);
+
+    PVector ultimaPos = new PVector(0,0);
 
     for(int i=numChave-1; i>=0; i--) {
       // Calcula o deslocamento na vertical
@@ -164,18 +167,29 @@ class Matriz {
             if(this.exibeLog) numElementos = log(numElementos);
             if(numElementos != 0.0) {
               fill(colors[4], 200);
+              stroke(30);
               rectMode(CORNER);
               rect( x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementos*constanteX)),
                     y+acumulaX,
                     numElementos*constanteX, 
                     numElementos*constanteY);
               print("numElementos " + numElementos + "\n");
+              ultimaPos.set((x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementos*constanteX))+numElementos*constanteX), y+acumulaX, 0);
             }
           }
         }
         acumulaY += maioresValoresLocaisY[j]*constanteX;
       }  
     }
+
+    // Desenha area invalida
+    fill(colors[0]);
+    noStroke();
+    if(countNulls !=0 ) {
+      rect(x+1, y+1, w-1, ultimaPos.y-y-1);
+      rect(ultimaPos.x+1, y+1, x+w-ultimaPos.x-1, h-1);
+    }
+
     for(int i=0; i<numChave; i++) {
       print("MVLX: " + maioresValoresLocaisX[i] + " -MVLY " + maioresValoresLocaisY[i] +"\n");
     }
