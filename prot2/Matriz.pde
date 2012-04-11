@@ -137,6 +137,7 @@ class Matriz {
       }
     }
 
+    // Calcula fator de compensação
     float constanteX, constanteY, comp = 0, altura = 0;
     for(int i=0; i<numChave; i++) {
       comp    += maioresValoresLocaisY[i];
@@ -145,6 +146,7 @@ class Matriz {
     constanteY = h/altura;
     constanteX = w/comp;
 
+    // Desenha quadrado
     fill(colorsContrast[1]);
     stroke(0);
     rect(x, y, w, h);
@@ -167,6 +169,7 @@ class Matriz {
             y+h-(y+acumulaX1*constanteY));
     }
 
+    // Desenha os squaremaps
     for(int i=numChave-1; i>=0; i--) {
       // Calcula o deslocamento na vertical
       float acumulaX = 0;
@@ -197,9 +200,9 @@ class Matriz {
       }  
     }
 
-    for(int i=0; i<numChave; i++) {
-      print("MVLX: " + maioresValoresLocaisX[i] + " -MVLY " + maioresValoresLocaisY[i] +"\n");
-    }
+    // for(int i=0; i<numChave; i++) {
+    //   print("MVLX: " + maioresValoresLocaisX[i] + " -MVLY " + maioresValoresLocaisY[i] +"\n");
+    // }
   }
 
   void preencheHeatSquareList() {

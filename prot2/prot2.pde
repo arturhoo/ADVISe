@@ -45,8 +45,12 @@ void setup() {
   preencheSuperMatrizHeatSquareList();
   print(superMatriz[3][1].quadrados[4][0].numElementos + "\n");
   
-  drawSuperMatrizHeatMap(); 
-  drawSuperMatrizSquareMap();
+  // drawSuperMatrizHeatMap(); 
+  // drawSuperMatrizSquareMap();
+
+  SparkLine sl = new SparkLine(100, 100, 100, 10);
+  sl.imprimeValoresNormalizados();
+  sl.drawSparkLine();
 
 }
 
