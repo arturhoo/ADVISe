@@ -14,11 +14,16 @@ int numChave = 5;
 int numPrefixos = 4;
 int numEstudos = 14;
 
+Button  heatMapButton, squareMapButton,
+        exibeLogButton, exibe00Button, mvgButton;
+SparkLine sl;
+Global gl;
+
 String linhasConfig[];
 
-int hmw = 80, hmh = 80;
+boolean alreadyDrawn = false;
 
-Global gl;
+int hmw = 80, hmh = 80;
 
 PFont font;
 
@@ -45,21 +50,51 @@ void setup() {
 
   gl = new Global();
 
+  criaButtons();
+
   superMatriz = new Matriz[numPrefixos][numEstudos];
   preencheListaNivel1();
   preencheSuperMatriz();
-  preencheSuperMatrizHeatSquareList();
   posicionaSuperMatriz(100, 200, 1100, 350);  
-  drawSuperMatrizHeatMap();
-  // drawSuperMatrizSquareMap();
-
-  SparkLine sl = new SparkLine(100, 80, 1100, 50);
+  
+  sl = new SparkLine(100, 80, 1100, 50);
   // sl.imprimeValoresNormalizados();
-  sl.drawSparkLine();
-
 }
 
 void draw() {
+  if(!alreadyDrawn) {
+    background(colorsContrast[3]);    
+    sl.drawSparkLine();
+
+    if(heatMapButton.active) {
+      preencheSuperMatrizHeatSquareList();
+      drawSuperMatrizHeatMap();
+    }
+    if(squareMapButton.active) drawSuperMatrizSquareMap();
+    alreadyDrawn = true;
+  }
+
+  noStroke();
+  int wMenuMapa = (int) (0.4*width);
+  int wMenuRestricoes = width - wMenuMapa;
+  int hMenu = 30;
+  fill(colors[3]);
+  rect(0, height-hMenu, wMenuMapa, hMenu);
+  fill(colors[2]);
+  rect(wMenuMapa, height-hMenu, wMenuRestricoes, hMenu);
+  heatMapButton.draw(0, (int)(0.13*width), (int) ((height-hMenu)+(hMenu)/1.5));
+  squareMapButton.draw(0, (int)(0.26*width), (int) ((height-hMenu)+(hMenu)/1.5));
+  exibeLogButton.draw(0, (int)(1*wMenuRestricoes/4)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
+  exibe00Button.draw(0, (int)(2*wMenuRestricoes/4)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
+  mvgButton.draw(0, (int)(3*wMenuRestricoes/4)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
+}
+
+void criaButtons() {
+  heatMapButton = new Button("HeatMap", new PVector(0, 0), 13, (colorsContrast[4]));
+  squareMapButton = new Button("SquareMap", new PVector(0, 0), 13, (colorsContrast[4]));
+  exibeLogButton = new Button("Log", new PVector(0, 0), 12, (colorsContrast[4]));
+  exibe00Button = new Button("Elemento 00", new PVector(0, 0), 12, (colorsContrast[4]));
+  mvgButton = new Button("Valores Globais", new PVector(0, 0), 12, (colorsContrast[4]));
 }
 
 void preencheListaNivel1() {
@@ -85,10 +120,7 @@ void preencheSuperMatriz() {
   int count = 0;
   for(int i1=0; i1<numEstudos; i1++) {
     for(int i2=numPrefixos-1; i2>=0; i2--) {
-      superMatriz[i2][i1] = new Matriz( 30+(hmw+5)*i1, 
-                                        height-180-(hmh+15)*(numPrefixos-1-i2), 
-                                        hmw, 
-                                        hmh);
+      superMatriz[i2][i1] = new Matriz(0, 0, 0, 0);
       for(int i3=numChave-1; i3>=0; i3--) {
         for(int i4=0; i4<numChave; i4++) {
           if((i4>i2+1) || (i3<numChave-i2-2)) {
@@ -143,6 +175,16 @@ void posicionaSuperMatriz(int x, int y, int w, int h) {
   preencheSuperMatrizHeatSquareList();
 }
 
+void defineParametrosSuperMatriz() {
+  for(int i=0; i<numEstudos; i++) {
+    for(int j=0; j<numPrefixos; j++) {
+      superMatriz[j][i].exibe00 = exibe00Button.active;
+      superMatriz[j][i].mvg = mvgButton.active;
+      superMatriz[j][i].exibeLog = exibeLogButton.active;
+    }
+  }
+}
+
 void preencheSuperMatrizHeatSquareList() {
   for(int i=0; i<numEstudos; i++) {
     for(int j=numPrefixos-1; j>=0; j--) {
@@ -183,6 +225,25 @@ int getIntFromEcPosition(String ec, int pos) {
       counter++;      
     }
     ccursor++;
+  }
+}
+
+void mousePressed() {
+  alreadyDrawn = false;
+  if(heatMapButton.isIn()) {
+    heatMapButton.active = true;
+    squareMapButton.active = false;
+  }
+  if(squareMapButton.isIn()) {
+    heatMapButton.active = false;
+    squareMapButton.active = true;
+  }
+
+  if(mvgButton.isIn() || exibeLogButton.isIn() || exibe00Button.isIn()) {
+    if(mvgButton.isIn()) mvgButton.active = !mvgButton.active;
+    if(exibe00Button.isIn()) exibe00Button.active = !exibe00Button.active;
+    if(exibeLogButton.isIn()) exibeLogButton.active = !exibeLogButton.active;
+    defineParametrosSuperMatriz();
   }
 }
 

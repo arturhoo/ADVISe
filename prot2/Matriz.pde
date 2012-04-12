@@ -3,7 +3,7 @@ class Matriz {
   int x, y, w, h;  
   ArrayList<HeatSquare> heatSquareList;
   int maiorValor = 0, segundoMaiorValor = 0;
-  boolean exibeLog = true, exibe00 = false, mvg=false;
+  boolean exibeLog = false, exibe00 = false, mvg=false;
 
   float[] maioresValoresX;
   float[] maioresValoresY;
