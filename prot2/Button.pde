@@ -11,7 +11,7 @@ class Button {
     this.fontSize = fontSize;
     this.loc = loc;
     this.ccolor = ccolor;
-    font = createFont("Lucida Grande-Bold", 24);
+    font = createFont("LucidaGrande-Bold", 24);
   }
 
   void draw(int align) {
