@@ -3,7 +3,7 @@ class Matriz {
   int x, y, w, h;  
   ArrayList<HeatSquare> heatSquareList;
   int maiorValor = 0, segundoMaiorValor = 0;
-  boolean exibeLog = true, exibe00 = false, mvg=true;
+  boolean exibeLog = true, exibe00 = false, mvg=false;
 
   float[] maioresValoresX;
   float[] maioresValoresY;
@@ -83,7 +83,7 @@ class Matriz {
         }
       }
     }    
-    print("Maior valor: " + this.maiorValor + "\n");
+    // print("Maior valor: " + this.maiorValor + "\n");
     return this.maiorValor;
   }
   
@@ -97,7 +97,7 @@ class Matriz {
         }
       }
     }
-    print("Segundo Maior valor: " + this.segundoMaiorValor + "\n");
+    // print("Segundo Maior valor: " + this.segundoMaiorValor + "\n");
     return this.segundoMaiorValor;
   }
 
@@ -192,7 +192,6 @@ class Matriz {
                     y+acumulaX,
                     numElementos*constanteX, 
                     numElementos*constanteY);
-              print("numElementos " + numElementos + "\n");
             }
           }
         }
@@ -207,6 +206,7 @@ class Matriz {
 
   void preencheHeatSquareList() {
     float ratio, mv;
+    this.heatSquareList = new ArrayList<HeatSquare>();
 
     if(this.mvg) {
       if(this.exibe00) mv = gl.maiorValor;

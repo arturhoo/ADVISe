@@ -20,6 +20,8 @@ int hmw = 80, hmh = 80;
 
 Global gl;
 
+PFont font;
+
 int squareSize = 1;
 //color[] colors = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000}; //heat
 //color[] colors = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F}; // green1
@@ -30,8 +32,11 @@ color[] colorsContrast = {#EBE3AA, #CAD7B2, #A8CABA, #838689, #5D4157};
 
 void setup() {
   size(1280, 720);
+  frameRate(30);
   smooth();
   background(colorsContrast[3]);
+
+  font = createFont("Arial Bold", 20);
 
   linhasConfig = loadStrings("mysql_settings.txt");
   host = linhasConfig[0]; database = linhasConfig[1]; user = linhasConfig[2]; pass = linhasConfig[3];
@@ -43,15 +48,17 @@ void setup() {
   preencheListaNivel1();
   preencheSuperMatriz();
   preencheSuperMatrizHeatSquareList();
-  print(superMatriz[3][1].quadrados[4][0].numElementos + "\n");
-  
-  // drawSuperMatrizHeatMap(); 
+  posicionaSuperMatriz(100, 100, 1100, 350);  
+  drawSuperMatrizHeatMap();
   // drawSuperMatrizSquareMap();
 
   SparkLine sl = new SparkLine(100, 100, 100, 10);
-  sl.imprimeValoresNormalizados();
-  sl.drawSparkLine();
+  // sl.imprimeValoresNormalizados();
+  // sl.drawSparkLine();
 
+}
+
+void draw() {
 }
 
 void preencheListaNivel1() {
@@ -119,6 +126,22 @@ void preencheSuperMatriz() {
   }
 }
 
+void posicionaSuperMatriz(int x, int y, int w, int h) {
+  int espacamentoX = 5, espacamentoY = 15;
+  int quadradoX = (int) (w-(numEstudos*espacamentoX))/numEstudos;
+  int quadradoY = (int) (h-(numPrefixos*espacamentoY))/numPrefixos;
+  print("QuadradoX :" + quadradoX + ", QuadradoY: " + quadradoY + "\n"); 
+  for(int i=0; i<numEstudos; i++) {
+    for(int j=0; j<numPrefixos; j++) {
+      superMatriz[j][i].x = x+(quadradoX+espacamentoX)*i;
+      superMatriz[j][i].y = y+(quadradoY+espacamentoY)*j; 
+      superMatriz[j][i].w = quadradoX;
+      superMatriz[j][i].h = quadradoY;
+    }
+  }
+  preencheSuperMatrizHeatSquareList();
+}
+
 void preencheSuperMatrizHeatSquareList() {
   for(int i=0; i<numEstudos; i++) {
     for(int j=numPrefixos-1; j>=0; j--) {
@@ -138,11 +161,6 @@ void drawSuperMatrizHeatMap() {
 void drawSuperMatrizSquareMap() {
   for(int i=0; i<numEstudos; i++) {
     for(int j=numPrefixos-1; j>=0; j--) {
-      // if((i==0 || i==1) && j==3) {
-      //   print("Drawing SM " + j + "," + i + "\n");
-      //   superMatriz[j][i].drawSquareMap();
-        
-      // }
       superMatriz[j][i].drawSquareMap();
     }
   }
