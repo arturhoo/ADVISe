@@ -22,9 +22,9 @@ class Nivel1 {
       String selQuery = "select ec_ant, ec_novo, count(*) " +
                         "from id_ec " +
                         "where ver_estudo = " + this.ver_estudo + " and " +
-                        "prefixo = " + this.prefixo + " and " +
-                        "subidas = " + this.subidas + " and " +
-                        "descidas = " + this.descidas + " " +
+                              "prefixo    = " + this.prefixo + " and " +
+                              "subidas    = " + this.subidas + " and " +
+                              "descidas   = " + this.descidas + " " +
                         "group by ec_ant, substr(ec_novo,1,1)";
       db.query(selQuery);
       while(db.next()) {

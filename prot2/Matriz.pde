@@ -261,7 +261,7 @@ class Matriz {
         noStroke();
         //print("Imprimindo: " + i + "-" + j + " ratio: " + heatSquareList.get(hsmCount).ratio + "\n");
         this.heatSquareList.get(hsmCount++).draw();
-        stroke(120);
+        stroke(255);
         noFill();   
         rect(w/5*j+this.x, h/5*i+this.y, w/5, h/5);
       }

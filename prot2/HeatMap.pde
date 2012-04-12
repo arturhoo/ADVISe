@@ -33,7 +33,8 @@ class HeatSquare {
 
     for(int i=0; i<w; i+=squareSize) {
       for(int j=0; j<h; j+=squareSize) {
-        fill(colors[0]);
+        // Cor fundo quadrado valido
+        fill(240);
         rect(x+i, y+j, squareSize, squareSize);
         int colorCounter = 1;
         for(int k=numColors-1; k>0; k--) {
@@ -41,9 +42,9 @@ class HeatSquare {
              j<(h/2+(frac[colorCounter-1]*h/2)-0) && j>(h/2-(frac[colorCounter-1]*h/2)-0) ) {
             // Cor dos invalidos
             if(this.ratio == -1.0) {
-              fill(colors[5]);
+              fill(230);
             }
-            else fill(colors[colorCounter++]);
+            else fill(colorsHeat[colorCounter++]);
             rect(x+i, y+j, squareSize, squareSize);
           }
         }

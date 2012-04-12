@@ -30,8 +30,8 @@ PFont font;
 Matriz matrizFocada = null;
 
 int squareSize = 1;
-//color[] colors = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000}; //heat
-//color[] colors = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F}; // green1
+color[] colorsHeat = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000}; //heat
+color[] colorsStrongGreen = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F}; // green1
 color[] colors = {#FFF5BC, #D6EDBD, #B8D9B8, #7FA6A1, #5D7370, #D8D8D8, #CECECE}; // green2
 color[] colorsGreenHeat = {#E1F5C4, #EDE574, #F9D423, #FC913A, #FF4E50, #D8D8D8, #C1C1C1}; // heat-greenish
 color[] colorsGray = {#8D7966, #A8A39D, #D8C8B8, #E2DDD9, #F8F1E9};
@@ -57,15 +57,24 @@ void setup() {
   superMatriz = new Matriz[numPrefixos][numEstudos];
   preencheListaNivel1();
   preencheSuperMatriz();
-  posicionaSuperMatriz(100, 200, 1100, 350);  
+  posicionaSuperMatriz(50, 200, 1150, 350);  
   
   sl = new SparkLine(100, 80, 1100, 50);
-  // sl.imprimeValoresNormalizados();
+
+  // superMatriz[3][0].quadrados[4][1].preencheLista();
+  // superMatriz[3][0].quadrados[4][1].ordenaLista();
+  // for(int i=0; i<superMatriz[3][0].quadrados[4][1].nivel2List.size(); i++) {
+  //   superMatriz[3][0].quadrados[4][1].nivel2List.get(i).preencheMudancaProteinaLista();
+  //   // for(int j=0; j<superMatriz[3][0].quadrados[4][1].nivel2List.get(i).mudancaProteinaList.size(); j++) {
+  //     // print(superMatriz[3][0].quadrados[4][1].nivel2List.get(i).mudancaProteinaList.get(j).iduniprot + "\n");      
+  //   // }    
+  // }
+  // // sl.imprimeValoresNormalizados();
 }
 
 void draw() {
   if(!alreadyDrawn) {
-    background(colorsContrast[3]);
+    background(255);
     if(matrizFocada == null) {
       sl.drawSparkLine();
       if(heatMapButton.active) {
@@ -173,7 +182,7 @@ void preencheSuperMatriz() {
 }
 
 void posicionaSuperMatriz(int x, int y, int w, int h) {
-  int espacamentoX = 5, espacamentoY = 15;
+  int espacamentoX = 15, espacamentoY = 5;
   int quadradoX = (int) (w-(numEstudos*espacamentoX))/numEstudos;
   int quadradoY = (int) (h-(numPrefixos*espacamentoY))/numPrefixos;
   print("QuadradoX :" + quadradoX + ", QuadradoY: " + quadradoY + "\n"); 
@@ -244,13 +253,13 @@ int getIntFromEcPosition(String ec, int pos) {
 void mousePressed() {
   alreadyDrawn = false;
   if(heatMapButton.isIn()) {
-    posicionaSuperMatriz(100, 200, 1100, 350);
+    posicionaSuperMatriz(50, 200, 1200, 300);
     heatMapButton.active = true;
     squareMapButton.active = false;
     matrizFocada = null;
   }
   if(squareMapButton.isIn()) {
-    posicionaSuperMatriz(100, 200, 1100, 350);
+    posicionaSuperMatriz(50, 200, 1200, 300);
     heatMapButton.active = false;
     squareMapButton.active = true;
     matrizFocada = null;
