@@ -31,14 +31,15 @@ class SparkLine {
   void drawSparkLine () {
     int[] pontos = new int[valores.length];
     pontos[0] = 0;
-    int espacamento = w/pontos.length;
-    for(int i=1; i<pontos.length-1; i++) {
+    int espacamento = w/(pontos.length-1);
+    for(int i=1; i<pontos.length; i++) {
       pontos[i] = pontos[i-1] + espacamento;
     }
-    pontos[pontos.length-1] = w;
+    // pontos[pontos.length] = w;
 
     for(int i=0; i<pontos.length-1; i++) {
-      strokeWeight(4);
+      strokeWeight(3);
+      stroke(colors[5]);
       line(x+pontos[i], y+h-(h*valoresNormalizados[i]), x+pontos[i+1], y+h-(h*valoresNormalizados[i+1]));
       strokeWeight(1);
     }

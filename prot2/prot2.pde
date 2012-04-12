@@ -26,7 +26,7 @@ int squareSize = 1;
 //color[] colors = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000}; //heat
 //color[] colors = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F}; // green1
 color[] colors = {#FFF5BC, #D6EDBD, #B8D9B8, #7FA6A1, #5D7370, #D8D8D8, #CECECE}; // green2
-//color[] colors = {#E1F5C4, #EDE574, #F9D423, #FC913A, #FF4E50, #D8D8D8, #C1C1C1}; // heat-greenish
+color[] colorsGreenHeat = {#E1F5C4, #EDE574, #F9D423, #FC913A, #FF4E50, #D8D8D8, #C1C1C1}; // heat-greenish
 color[] colorsGray = {#8D7966, #A8A39D, #D8C8B8, #E2DDD9, #F8F1E9};
 color[] colorsContrast = {#EBE3AA, #CAD7B2, #A8CABA, #838689, #5D4157};
 
@@ -35,6 +35,7 @@ void setup() {
   frameRate(30);
   smooth();
   background(colorsContrast[3]);
+  // background(colors[6]);
 
   font = createFont("Arial Bold", 20);
 
@@ -48,13 +49,13 @@ void setup() {
   preencheListaNivel1();
   preencheSuperMatriz();
   preencheSuperMatrizHeatSquareList();
-  posicionaSuperMatriz(100, 100, 1100, 350);  
+  posicionaSuperMatriz(100, 200, 1100, 350);  
   drawSuperMatrizHeatMap();
   // drawSuperMatrizSquareMap();
 
-  SparkLine sl = new SparkLine(100, 100, 100, 10);
+  SparkLine sl = new SparkLine(100, 80, 1100, 50);
   // sl.imprimeValoresNormalizados();
-  // sl.drawSparkLine();
+  sl.drawSparkLine();
 
 }
 
