@@ -79,6 +79,7 @@ void draw() {
         matrizFocada.drawHeatMap();
       }
       if(squareMapButton.active) matrizFocada.drawSquareMap();
+      if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.runParticleSystem();
     }
     alreadyDrawn = true;
   }
@@ -262,13 +263,17 @@ void mousePressed() {
     defineParametrosSuperMatriz();
   }
 
-  for(int i=0; i<numEstudos; i++) {
-    for(int j=numPrefixos-1; j>=0; j--) {
-      if(superMatriz[j][i].mouseOver()) {
-        superMatriz[j][i].onMouseClickGrowBig();
-        matrizFocada = superMatriz[j][i];
+  if(matrizFocada == null) {
+    for(int i=0; i<numEstudos; i++) {
+      for(int j=numPrefixos-1; j>=0; j--) {
+        if(superMatriz[j][i].mouseOver()) {
+          superMatriz[j][i].onMouseClickGrowBig();
+          matrizFocada = superMatriz[j][i];
+        }
       }
     }
+  } else {
+    matrizFocada.identificaQuadradoFocadoHM();
   }
 }
 

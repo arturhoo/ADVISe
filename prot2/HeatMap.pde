@@ -17,6 +17,13 @@ class HeatSquare {
     }
   }
 
+  boolean mouseOver() {
+    if((mouseX > x && mouseX < x+w) &&
+        (mouseY > y && mouseY < y+h))
+      return true;
+    else return false;
+  }
+
   void draw() {
     int numColors = numChave;
     float[] frac = {1.0-0.0256*ratio, 1.0-0.064*ratio, 1.0-0.16*ratio, 1.0-0.4*ratio};

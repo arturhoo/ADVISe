@@ -4,6 +4,7 @@ class Matriz {
   ArrayList<HeatSquare> heatSquareList;
   int maiorValor = 0, segundoMaiorValor = 0;
   boolean exibeLog = false, exibe00 = false, mvg=false;
+  Nivel1 quadradoFocado = null;
 
   float[] maioresValoresX;
   float[] maioresValoresY;
@@ -240,12 +241,25 @@ class Matriz {
     }
   }
 
+  void identificaQuadradoFocadoHM() {
+    int hsmCount = 0;
+    for(int i=0; i<numChave; i++) {
+      for(int j=0; j<numChave; j++) {
+        if(heatSquareList.get(hsmCount).mouseOver()) {
+          quadradoFocado = quadrados[i][j];
+        }
+        hsmCount++;
+      }
+    }
+  }
+
   void drawHeatMap() {
     int hsmCount = 0;
     for(int i=0; i<numChave; i++) {
       for(int j=0; j<numChave; j++) {
+        // if(heatSquareList.get(hsmCount).isIn()) quadradoFocado = heatSquareList.get(hsmCount);
         noStroke();
-        print("Imprimindo: " + i + "-" + j + " ratio: " + heatSquareList.get(hsmCount).ratio + "\n");
+        //print("Imprimindo: " + i + "-" + j + " ratio: " + heatSquareList.get(hsmCount).ratio + "\n");
         this.heatSquareList.get(hsmCount++).draw();
         stroke(120);
         noFill();   
@@ -263,8 +277,8 @@ class Matriz {
 
   void onMouseClickGrowBig() {
     x = 100;
-    y = 100;
-    w = 200;
-    h = 200;
+    y = 150;
+    w = 400;
+    h = 400;
   }
 }
