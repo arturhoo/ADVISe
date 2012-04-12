@@ -253,4 +253,18 @@ class Matriz {
       }
     }
   }
+
+  boolean mouseOver() {
+    if((mouseX > x && mouseX < x+w) &&
+        (mouseY > y && mouseY < y+h))
+      return true;
+    else return false;
+  }
+
+  void onMouseClickGrowBig() {
+    x = 100;
+    y = 100;
+    w = 200;
+    h = 200;
+  }
 }

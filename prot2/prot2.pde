@@ -27,6 +27,8 @@ int hmw = 80, hmh = 80;
 
 PFont font;
 
+Matriz matrizFocada = null;
+
 int squareSize = 1;
 //color[] colors = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000}; //heat
 //color[] colors = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F}; // green1
@@ -63,17 +65,35 @@ void setup() {
 
 void draw() {
   if(!alreadyDrawn) {
-    background(colorsContrast[3]);    
-    sl.drawSparkLine();
-
-    if(heatMapButton.active) {
-      preencheSuperMatrizHeatSquareList();
-      drawSuperMatrizHeatMap();
+    background(colorsContrast[3]);
+    if(matrizFocada == null) {
+      sl.drawSparkLine();
+      if(heatMapButton.active) {
+        preencheSuperMatrizHeatSquareList();
+        drawSuperMatrizHeatMap();
+      }
+      if(squareMapButton.active) drawSuperMatrizSquareMap();      
+    } else {
+      if(heatMapButton.active) {
+        preencheSuperMatrizHeatSquareList();
+        matrizFocada.drawHeatMap();
+      }
+      if(squareMapButton.active) matrizFocada.drawSquareMap();
     }
-    if(squareMapButton.active) drawSuperMatrizSquareMap();
     alreadyDrawn = true;
   }
+  drawButtons();
+}
 
+void criaButtons() {
+  heatMapButton = new Button("HeatMap", new PVector(0, 0), 13, (colorsContrast[4]));
+  squareMapButton = new Button("SquareMap", new PVector(0, 0), 13, (colorsContrast[4]));
+  exibeLogButton = new Button("Log", new PVector(0, 0), 12, (colorsContrast[4]));
+  exibe00Button = new Button("Elemento 00", new PVector(0, 0), 12, (colorsContrast[4]));
+  mvgButton = new Button("Valores Globais", new PVector(0, 0), 12, (colorsContrast[4]));
+}
+
+void drawButtons() {
   noStroke();
   int wMenuMapa = (int) (0.4*width);
   int wMenuRestricoes = width - wMenuMapa;
@@ -87,14 +107,6 @@ void draw() {
   exibeLogButton.draw(0, (int)(1*wMenuRestricoes/4)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
   exibe00Button.draw(0, (int)(2*wMenuRestricoes/4)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
   mvgButton.draw(0, (int)(3*wMenuRestricoes/4)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
-}
-
-void criaButtons() {
-  heatMapButton = new Button("HeatMap", new PVector(0, 0), 13, (colorsContrast[4]));
-  squareMapButton = new Button("SquareMap", new PVector(0, 0), 13, (colorsContrast[4]));
-  exibeLogButton = new Button("Log", new PVector(0, 0), 12, (colorsContrast[4]));
-  exibe00Button = new Button("Elemento 00", new PVector(0, 0), 12, (colorsContrast[4]));
-  mvgButton = new Button("Valores Globais", new PVector(0, 0), 12, (colorsContrast[4]));
 }
 
 void preencheListaNivel1() {
@@ -231,12 +243,16 @@ int getIntFromEcPosition(String ec, int pos) {
 void mousePressed() {
   alreadyDrawn = false;
   if(heatMapButton.isIn()) {
+    posicionaSuperMatriz(100, 200, 1100, 350);
     heatMapButton.active = true;
     squareMapButton.active = false;
+    matrizFocada = null;
   }
   if(squareMapButton.isIn()) {
+    posicionaSuperMatriz(100, 200, 1100, 350);
     heatMapButton.active = false;
     squareMapButton.active = true;
+    matrizFocada = null;
   }
 
   if(mvgButton.isIn() || exibeLogButton.isIn() || exibe00Button.isIn()) {
@@ -244,6 +260,15 @@ void mousePressed() {
     if(exibe00Button.isIn()) exibe00Button.active = !exibe00Button.active;
     if(exibeLogButton.isIn()) exibeLogButton.active = !exibeLogButton.active;
     defineParametrosSuperMatriz();
+  }
+
+  for(int i=0; i<numEstudos; i++) {
+    for(int j=numPrefixos-1; j>=0; j--) {
+      if(superMatriz[j][i].mouseOver()) {
+        superMatriz[j][i].onMouseClickGrowBig();
+        matrizFocada = superMatriz[j][i];
+      }
+    }
   }
 }
 
