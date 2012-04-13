@@ -71,9 +71,9 @@ void setup() {
   superMatriz = new Matriz[numPrefixos][numEstudos];
   preencheListaNivel1();
   preencheSuperMatriz();
-  posicionaSuperMatriz(25, 200, width-50, width/4);
+  posicionaSuperMatriz(25, 200, width-50, (int) (width/4.5));
   
-  sl = new SparkLine(100, 80, 1100, 50);
+  sl = new SparkLine(50, height-150, width-100, 50);
 
   // superMatriz[3][0].quadrados[4][1].preencheLista();
   // superMatriz[3][0].quadrados[4][1].ordenaLista();
@@ -267,13 +267,13 @@ int getIntFromEcPosition(String ec, int pos) {
 void mousePressed() {
   alreadyDrawn = false;
   if(heatMapButton.isIn()) {
-    posicionaSuperMatriz(25, 200, width-50, width/4);
+    posicionaSuperMatriz(25, 200, width-50, (int) (width/4.5));
     heatMapButton.active = true;
     squareMapButton.active = false;
     matrizFocada = null;
   }
   if(squareMapButton.isIn()) {
-    posicionaSuperMatriz(25, 200, width-50, width/4);
+    posicionaSuperMatriz(25, 200, width-50, (int) (width/4.5));
     heatMapButton.active = false;
     squareMapButton.active = true;
     matrizFocada = null;
