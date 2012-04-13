@@ -17,7 +17,7 @@ class Nivel2 {
     this.ec_ant       = new int[4];
     this.ec_novo      = new int[4];
     for(int count=0; count<4; count++) {
-      this.ec_ant[count] = getIntFromEcPosition(ec_ant, count);
+      this.ec_ant[count]  = getIntFromEcPosition(ec_ant, count);
       this.ec_novo[count] = getIntFromEcPosition(ec_novo, count);
     }
   }

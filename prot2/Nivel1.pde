@@ -41,9 +41,9 @@ class Nivel1 {
 
   void destroiObjetos() {
     this.nivel2List = null;
-    preenchida = false;
-    ordenada = false;
-    psCriado = false;
+    preenchida      = false;
+    ordenada        = false;
+    psCriado        = false;
   }
 
   void ordenaLista() {
@@ -72,7 +72,7 @@ class Nivel1 {
 
     int escape = 0;
     for(int i=0; i<psList.size(); i++) {
-      fill(colorsContrast[4]);
+      fill(cHistogramText);
       text(nivel2List.get(i).ec_ant[0] + " -> " + nivel2List.get(i).ec_novo[0], 600, (165+(escape*psList.get(i).verticalSpacing)));
       psList.get(i).run(new PVector(690, 160+((escape++)*psList.get(i).verticalSpacing), 0));
       escape += psList.get(i).verticalEscape+2;

@@ -6,11 +6,11 @@ class Button {
   color ccolor;
   boolean active = false;  
 
-  Button (String ttext, PVector loc, int fontSize, color ccolor) {
+  Button (String ttext, PVector loc, int fontSize) {
     this.ttext = ttext;
     this.fontSize = fontSize;
     this.loc = loc;
-    this.ccolor = ccolor;
+    this.ccolor = cButtonText;
     font = createFont("LucidaGrande-Bold", 24);
   }
 
@@ -18,8 +18,8 @@ class Button {
     textFont(font, fontSize);
     if (align == 0) textAlign(CENTER);
     if (align == 1) textAlign(LEFT);
-    if (this.isIn()) fill(colors[0]);
-    else if (this.active) fill(colorsGreenHeat[4]);
+    if (this.isIn()) fill(cButtonMouseOver);
+    else if (this.active) fill(cButtonActive);
     else fill(ccolor);
     text(this.ttext, loc.x, loc.y);
     textAlign(LEFT);

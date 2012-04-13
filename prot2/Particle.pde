@@ -41,7 +41,7 @@ class Particle {
   void render() {
     ellipseMode(CENTER);
     stroke(10, 10, 10);
-    fill(colors[4]);
+    fill(cElipse);
     ellipse(loc.x, loc.y, pRadius, pRadius);
   }
 }

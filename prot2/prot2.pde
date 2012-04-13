@@ -30,25 +30,39 @@ PFont font;
 Matriz matrizFocada = null;
 
 int squareSize = 1;
-color[] colorsHeat = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000}; //heat
-color[] colorsStrongGreen = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F}; // green1
-color[] colors = {#FFF5BC, #D6EDBD, #B8D9B8, #7FA6A1, #5D7370, #D8D8D8, #CECECE}; // green2
-color[] colorsGreenHeat = {#E1F5C4, #EDE574, #F9D423, #FC913A, #FF4E50, #D8D8D8, #C1C1C1}; // heat-greenish
-color[] colorsGray = {#8D7966, #A8A39D, #D8C8B8, #E2DDD9, #F8F1E9};
-color[] colorsContrast = {#EBE3AA, #CAD7B2, #A8CABA, #838689, #5D4157};
+
+// color[] colorsHeat = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000}; //heat
+// color[] colorsStrongGreen = {#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F}; // green1
+// color[] colors = {#FFF5BC, #D6EDBD, #B8D9B8, #7FA6A1, #5D7370, #D8D8D8, #CECECE}; // green2
+// color[] colorsGreenHeat = {#E1F5C4, #EDE574, #F9D423, #FC913A, #FF4E50, #D8D8D8, #C1C1C1}; // heat-greenish
+// color[] colorsGray = {#8D7966, #A8A39D, #D8C8B8, #E2DDD9, #F8F1E9};
+// color[] colorsContrast = {#EBE3AA, #CAD7B2, #A8CABA, #838689, #5D4157};
+
+color[] cPallete         = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000};
+color cBackground        = #FFFFFF;
+color cInvalidos         = #E6E6E6;
+color cValidos           = #F0F0F0;
+color cBackgroundMapa    = #BEBEBE;
+color cBackgroundFiltros = #E6E6E6;
+color cButtonText        = #5D4157;
+color cButtonMouseOver   = #FFF5BC;
+color cButtonActive      = #FF4E50;
+color cHistogramText     = #5D4157;
+color cElipse            = #FF0000;
+color cSparkLine         = #5D4157;
+
 
 void setup() {
   size(1280, 720);
   frameRate(30);
   smooth();
-  background(colorsContrast[3]);
-  // background(colors[6]);
+  background(cBackground);
 
   font = createFont("Arial Bold", 20);
 
   linhasConfig = loadStrings("mysql_settings.txt");
-  host = linhasConfig[0]; database = linhasConfig[1]; user = linhasConfig[2]; pass = linhasConfig[3];
-  db = new MySQL(this, host, database, user, pass);
+  host         = linhasConfig[0]; database = linhasConfig[1]; user = linhasConfig[2]; pass = linhasConfig[3];
+  db           = new MySQL(this, host, database, user, pass);
 
   gl = new Global();
 
@@ -57,7 +71,7 @@ void setup() {
   superMatriz = new Matriz[numPrefixos][numEstudos];
   preencheListaNivel1();
   preencheSuperMatriz();
-  posicionaSuperMatriz(50, 200, 1150, 350);  
+  posicionaSuperMatriz(25, 200, width-50, width/4);
   
   sl = new SparkLine(100, 80, 1100, 50);
 
@@ -74,7 +88,7 @@ void setup() {
 
 void draw() {
   if(!alreadyDrawn) {
-    background(255);
+    background(cBackground);
     if(matrizFocada == null) {
       sl.drawSparkLine();
       if(heatMapButton.active) {
@@ -96,11 +110,11 @@ void draw() {
 }
 
 void criaButtons() {
-  heatMapButton = new Button("HeatMap", new PVector(0, 0), 13, (colorsContrast[4]));
-  squareMapButton = new Button("SquareMap", new PVector(0, 0), 13, (colorsContrast[4]));
-  exibeLogButton = new Button("Log", new PVector(0, 0), 12, (colorsContrast[4]));
-  exibe00Button = new Button("Elemento 00", new PVector(0, 0), 12, (colorsContrast[4]));
-  mvgButton = new Button("Valores Globais", new PVector(0, 0), 12, (colorsContrast[4]));
+  heatMapButton   = new Button("HeatMap", new PVector(0, 0), 13);
+  squareMapButton = new Button("SquareMap", new PVector(0, 0), 13);
+  exibeLogButton  = new Button("Log", new PVector(0, 0), 12);
+  exibe00Button   = new Button("Elemento 00", new PVector(0, 0), 12);
+  mvgButton       = new Button("Valores Globais", new PVector(0, 0), 12);
 }
 
 void drawButtons() {
@@ -108,9 +122,9 @@ void drawButtons() {
   int wMenuMapa = (int) (0.4*width);
   int wMenuRestricoes = width - wMenuMapa;
   int hMenu = 30;
-  fill(colors[3]);
+  fill(cBackgroundMapa);
   rect(0, height-hMenu, wMenuMapa, hMenu);
-  fill(colors[2]);
+  fill(cBackgroundFiltros);
   rect(wMenuMapa, height-hMenu, wMenuRestricoes, hMenu);
   heatMapButton.draw(0, (int)(0.13*width), (int) ((height-hMenu)+(hMenu)/1.5));
   squareMapButton.draw(0, (int)(0.26*width), (int) ((height-hMenu)+(hMenu)/1.5));
@@ -253,21 +267,21 @@ int getIntFromEcPosition(String ec, int pos) {
 void mousePressed() {
   alreadyDrawn = false;
   if(heatMapButton.isIn()) {
-    posicionaSuperMatriz(50, 200, 1200, 300);
+    posicionaSuperMatriz(25, 200, width-50, width/4);
     heatMapButton.active = true;
     squareMapButton.active = false;
     matrizFocada = null;
   }
   if(squareMapButton.isIn()) {
-    posicionaSuperMatriz(50, 200, 1200, 300);
+    posicionaSuperMatriz(25, 200, width-50, width/4);
     heatMapButton.active = false;
     squareMapButton.active = true;
     matrizFocada = null;
   }
 
   if(mvgButton.isIn() || exibeLogButton.isIn() || exibe00Button.isIn()) {
-    if(mvgButton.isIn()) mvgButton.active = !mvgButton.active;
-    if(exibe00Button.isIn()) exibe00Button.active = !exibe00Button.active;
+    if(mvgButton.isIn()) mvgButton.active           = !mvgButton.active;
+    if(exibe00Button.isIn()) exibe00Button.active   = !exibe00Button.active;
     if(exibeLogButton.isIn()) exibeLogButton.active = !exibeLogButton.active;
     defineParametrosSuperMatriz();
   }
@@ -295,8 +309,8 @@ class Global {
   float[] maioresValoresYE00;
 
   Global() {
-    this.maioresValoresY = new float[numChave];
-    this.maioresValoresX = new float[numChave];
+    this.maioresValoresY    = new float[numChave];
+    this.maioresValoresX    = new float[numChave];
     this.maioresValoresXE00 = new float[numChave];
     this.maioresValoresYE00 = new float[numChave];
     for(int i=0; i<numChave; i++) {

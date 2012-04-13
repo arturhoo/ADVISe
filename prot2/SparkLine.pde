@@ -39,7 +39,7 @@ class SparkLine {
 
     for(int i=0; i<pontos.length-1; i++) {
       strokeWeight(3);
-      stroke(colorsContrast[4]);
+      stroke(cSparkLine);
       line(x+pontos[i], 0, x+pontos[i], 10);
       line(x+pontos[i], y+h-(h*valoresNormalizados[i]), x+pontos[i+1], y+h-(h*valoresNormalizados[i+1]));
       strokeWeight(1);

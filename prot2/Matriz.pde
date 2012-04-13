@@ -22,9 +22,9 @@ class Matriz {
         this.quadrados[i][j] = null;      
       }
     }
-    this.heatSquareList = new ArrayList<HeatSquare>();
-    this.maioresValoresX = new float[numChave];
-    this.maioresValoresY = new float[numChave];
+    this.heatSquareList     = new ArrayList<HeatSquare>();
+    this.maioresValoresX    = new float[numChave];
+    this.maioresValoresY    = new float[numChave];
     this.maioresValoresXE00 = new float[numChave];
     this.maioresValoresYE00 = new float[numChave];
   }
@@ -148,7 +148,7 @@ class Matriz {
     constanteX = w/comp;
 
     // Desenha quadrado
-    fill(colorsContrast[1]);
+    fill(cValidos);
     stroke(0);
     rect(x, y, w, h);
 
@@ -161,7 +161,7 @@ class Matriz {
       for(int i=0; i<numChave-countNulls; i++) {
         acumulaY1 += maioresValoresLocaisY[i];
       }
-      fill(colorsContrast[2], 150);
+      fill(cInvalidos);
       noStroke();
       rect(x+1, y+1, w-1, acumulaX1*constanteY-2);
       rect( acumulaY1*constanteX+x+1, 
@@ -186,7 +186,7 @@ class Matriz {
             numElementos = pow(quadrados[i][j].numElementos, 0.5);
             if(this.exibeLog) numElementos = log(numElementos);
             if(numElementos != 0.0) {
-              fill(colors[4], 150);
+              fill(cPallete[4], 170);
               stroke(100);
               rectMode(CORNER);
               rect( x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementos*constanteX)),
