@@ -8,7 +8,7 @@ class Nivel2 {
   int[] ec_novo;
   ArrayList<MudancaProteina> mudancaProteinaList;
   
-  Nivel2 (Nivel1 nivel1, String ec_ant, String ec_novo, int numElementos) {
+  Nivel2 (Nivel1 nivel1, int ec_ant0, int ec_novo0, int numElementos) {
     this.numElementos = numElementos;
     this.prefixo      = nivel1.prefixo;
     this.ver_estudo   = nivel1.ver_estudo;
@@ -16,13 +16,11 @@ class Nivel2 {
     this.descidas     = nivel1.descidas;
     this.ec_ant       = new int[4];
     this.ec_novo      = new int[4];
-    for(int count=0; count<4; count++) {
-      this.ec_ant[count]  = getIntFromEcPosition(ec_ant, count);
-      this.ec_novo[count] = getIntFromEcPosition(ec_novo, count);
-    }
+    this.ec_ant[0]    = ec_ant0;
+    this.ec_novo[0]   = ec_novo0;
   }
 
-  void preencheMudancaProteinaLista() {
+  void preencheMudancaProteinaList() {
     if(numElementos != 0) {
       String ec_antS =  ec_ant[0] + "." + ec_ant[1] + "." +
                         ec_ant[2] + "." + ec_ant[3];
