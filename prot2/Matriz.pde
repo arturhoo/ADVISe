@@ -277,8 +277,8 @@ class Matriz {
 
   void onMouseClickGrowBig() {
     x = 100;
-    y = 150;
-    w = 400;
-    h = 400;
+    y = (int) (height/5);
+    w = y*3;
+    h = y*3;
   }
 }
