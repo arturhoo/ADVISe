@@ -57,25 +57,16 @@ class Nivel1 {
     ordenada = true;
   }
 
-  void criaParticleSystem() {
-    psList = new ArrayList<ParticleSystem>();
+  void drawHistogram() {
+    this.preencheLista();
+    this.ordenaLista();
+    int escapeVertical = 0;
     for(int i=0; i<nivel2List.size(); i++) {
-      this.psList.add(new ParticleSystem(nivel2List.get(i).numElementos, new PVector(0, 0, 0)));
-    }
-    psCriado = true;
-  }
-
-  void runParticleSystem() {
-    if(!preenchida) preencheLista();
-    if(!ordenada) ordenaLista();
-    if(!psCriado) criaParticleSystem();
-
-    int escape = 0;
-    for(int i=0; i<psList.size(); i++) {
-      fill(cHistogramText);
-      text(nivel2List.get(i).ec_ant[0] + " -> " + nivel2List.get(i).ec_novo[0], 600, (165+(escape*psList.get(i).verticalSpacing)));
-      psList.get(i).run(new PVector(690, 160+((escape++)*psList.get(i).verticalSpacing), 0));
-      escape += psList.get(i).verticalEscape+2;
+      if(nivel2List.get(i).numElementos > 0) {
+        print("Imprimindo elemento: " + i + " cujo y é: " + escapeVertical + "\n");
+        int ultimoYDesenhado = nivel2List.get(i).draw(100+((int)(3*height/5))+50, 160+escapeVertical);
+        escapeVertical += ultimoYDesenhado + 35;
+      }      
     }
   }
 }

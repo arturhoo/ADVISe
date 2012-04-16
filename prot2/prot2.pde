@@ -7,6 +7,8 @@ String database;
 String user;
 String pass;
 
+String[] ecList = { "Undefined", "", "Oxidoreductase", "Transferase", "Hydrolase", 
+                    "Lyase", "Isomerase", "Ligase"};
 ArrayList<Nivel1> nivel1List;
 Matriz[][] superMatriz;
 
@@ -98,11 +100,11 @@ void draw() {
       if(squareMapButton.active) drawSuperMatrizSquareMap();      
     } else {
       if(heatMapButton.active) {
-        preencheSuperMatrizHeatSquareList();
+        preencheSuperMatrizHeatSquareList(); // Vai recalcular as dimensoes
         matrizFocada.drawHeatMap();
       }
       if(squareMapButton.active) matrizFocada.drawSquareMap();
-      if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.runParticleSystem();
+      if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
     }
     alreadyDrawn = true;
   }

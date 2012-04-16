@@ -21,23 +21,20 @@ class Nivel2 {
   }
 
   void preencheMudancaProteinaList() {
+    mudancaProteinaList = new ArrayList<MudancaProteina>();
     if(numElementos != 0) {
-      String ec_antS =  ec_ant[0] + "." + ec_ant[1] + "." +
-                        ec_ant[2] + "." + ec_ant[3];
-      String ec_novoS = ec_novo[0] + "." + ec_novo[1] + "." +
-                        ec_novo[2] + "." + ec_novo[3];
-      ec_antS = ec_antS.replaceAll("-1", "-");
-      ec_novoS = ec_novoS.replaceAll("-1", "-");
-      print("ECS: " + ec_antS + ", " + ec_novoS + "\n");
       String selQuery = "select iduniprot, rp_antes, oc_antes, kw_antes, " +
-                        "rp_depois, oc_depois, kw_depois " +
-                        "from id_ec_atributo " +
+                        "rp_depois, oc_depois, kw_depois, " +
+                        "ec_ant0, ec_ant1, ec_ant2, ec_ant3, " +
+                        "ec_novo0, ec_novo1, ec_novo2, ec_novo3 " +
+                        "from id_ec_atributo_num " +
                         "where ver_estudo = " + this.ver_estudo + " and " +
                               "prefixo    = " + this.prefixo + " and " +
                               "subidas    = " + this.subidas + " and " +
                               "descidas   = " + this.descidas + " and " +
-                              "ec_ant     = " + "'" + ec_antS + "'"; // + " and " +
-                              // "ec_novo    = " + "'" + ec_novoS + "'";
+                              "ec_ant0    = " + this.ec_ant[0] + " and " +
+                              "ec_novo0   = " + this.ec_novo[0] + ""; 
+      print(selQuery + "\n");
       db.query(selQuery);
       print("Finalizou Query!\n");
       while(db.next()) {
@@ -48,10 +45,34 @@ class Nivel2 {
                                                   db.getString("kw_antes"),
                                                   db.getString("rp_depois"),
                                                   db.getString("oc_depois"),
-                                                  db.getString("kw_depois"));
+                                                  db.getString("kw_depois"),
+                                                  db.getInt("ec_ant0"),
+                                                  db.getInt("ec_ant1"),
+                                                  db.getInt("ec_ant2"),
+                                                  db.getInt("ec_ant3"),
+                                                  db.getInt("ec_novo0"),
+                                                  db.getInt("ec_novo1"),
+                                                  db.getInt("ec_novo2"),
+                                                  db.getInt("ec_novo3"));
         this.mudancaProteinaList.add(mp);
       }
     }
     print("Finalizou\n");
+  }
+
+  int draw(int x, int y) {
+    this.preencheMudancaProteinaList();
+    int espacamentoHorizontal = 12;
+    int espacamentoVertical = 12;
+    int numProteinasLinha = (int) ((width-x-260)/10);
+    int i;
+    fill(cHistogramText);
+    text(ecList[ec_ant[0]+1] + " ->\n" + ecList[ec_novo[0]+1], x, y+5);
+    for(i=0; i<mudancaProteinaList.size(); i++) {
+      print(i + " imprimindo particula\n");
+      mudancaProteinaList.get(i).drawParticle(x+130+(i%numProteinasLinha)*espacamentoHorizontal, y+(i/numProteinasLinha)*espacamentoVertical);      
+    }
+    int ultimoYDesenhado = ((i/numProteinasLinha)+1)*espacamentoVertical;
+    return ultimoYDesenhado;
   }
 }
