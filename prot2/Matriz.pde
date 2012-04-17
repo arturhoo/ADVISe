@@ -4,6 +4,7 @@ class Matriz {
   ArrayList<HeatSquare> heatSquareList;
   int maiorValor = 0, segundoMaiorValor = 0;
   boolean exibeLog = false, exibe00 = false, mvg=false;
+  boolean grown = false;
   Nivel1 quadradoFocado = null;
 
   float[] maioresValoresX;
@@ -200,6 +201,7 @@ class Matriz {
       }  
     }
 
+    if(grown) drawMatrixInfo();
     // for(int i=0; i<numChave; i++) {
     //   print("MVLX: " + maioresValoresLocaisX[i] + " -MVLY " + maioresValoresLocaisY[i] +"\n");
     // }
@@ -266,6 +268,13 @@ class Matriz {
         rect(w/5*j+this.x, h/5*i+this.y, w/5, h/5);
       }
     }
+    if(grown) drawMatrixInfo();
+  }
+
+  void drawMatrixInfo() {
+    fill(cHistogramText);
+    text("Study: " + (quadrados[4][0].ver_estudo-1) + "->" + (quadrados[4][0].ver_estudo), x+2, y+h+30);
+    text("Prefix: " + (quadrados[4][0].prefixo), x+2, y+h+45);
   }
 
   boolean mouseOver() {
@@ -280,5 +289,6 @@ class Matriz {
     y = (int) (height/5);
     w = y*3;
     h = y*3;
+    grown = true;
   }
 }
