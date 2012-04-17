@@ -268,13 +268,33 @@ class Matriz {
         rect(w/5*j+this.x, h/5*i+this.y, w/5, h/5);
       }
     }
-    if(grown) drawMatrixInfo();
+    if(grown) {
+      drawMatrixInfo();
+      drawMatrixAxisHM();
+    }
+  }
+
+  void drawMatrixAxisHM() {
+    fill(cHistogramText);
+    textAlign(CENTER);
+    text("0", x+0*(w/numChave)+(w/numChave/2), y+h+10);
+    text("1", x+1*(w/numChave)+(w/numChave/2), y+h+10);
+    text("2", x+2*(w/numChave)+(w/numChave/2), y+h+10);
+    text("3", x+3*(w/numChave)+(w/numChave/2), y+h+10);
+    text("4", x+4*(w/numChave)+(w/numChave/2), y+h+10);
+    text("Descidas", x+(w/2), y+h+20);
+    text("4", x-10, y+0*(h/numChave)+(h/numChave/2));
+    text("3", x-10, y+1*(h/numChave)+(h/numChave/2));
+    text("2", x-10, y+2*(h/numChave)+(h/numChave/2));
+    text("1", x-10, y+3*(h/numChave)+(h/numChave/2));
+    text("0", x-10, y+4*(h/numChave)+(h/numChave/2));
+    textAlign(LEFT);
   }
 
   void drawMatrixInfo() {
     fill(cHistogramText);
-    text("Study: " + (quadrados[4][0].ver_estudo-1) + "->" + (quadrados[4][0].ver_estudo), x+2, y+h+30);
-    text("Prefix: " + (quadrados[4][0].prefixo), x+2, y+h+45);
+    text("Study: " + (quadrados[4][0].ver_estudo-1) + "->" + (quadrados[4][0].ver_estudo), x+2, y+h+50);
+    text("Prefix: " + (quadrados[4][0].prefixo), x+2, y+h+65);
   }
 
   boolean mouseOver() {
