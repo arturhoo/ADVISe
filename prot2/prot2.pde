@@ -41,20 +41,22 @@ int squareSize = 1;
 // color[] colorsGray = {#8D7966, #A8A39D, #D8C8B8, #E2DDD9, #F8F1E9};
 // color[] colorsContrast = {#EBE3AA, #CAD7B2, #A8CABA, #838689, #5D4157};
 
-color[] cPallete         = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000};
-color cBackground        = #FFFFFF;
-color cInvalidos         = #E6E6E6;
-color cValidos           = #F0F0F0;
-color cBackgroundMapa    = #BEBEBE;
-color cBackgroundFiltros = #E6E6E6;
-color cButtonText        = #5D4157;
-color cButtonMouseOver   = #FFF5BC;
-color cButtonActive      = #FF4E50;
-color cHistogramText     = #5D4157;
-color cElipse            = #FF0000;
-color cSparkLine         = #5D4157;
-color cProteinAnt        = #E6E6E6;
-color cProteinNovo       = #BEBEBE;
+color[] cPallete             = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000};
+color cBackground            = #FFFFFF;
+color cInvalidos             = #E6E6E6;
+color cValidos               = #F0F0F0;
+color cBackgroundButtonTitle = #969696;
+color cBackgroundMapa        = #BEBEBE;
+color cBackgroundFiltros     = #E6E6E6;
+color cButtonTitleText       = #000000;
+color cButtonText            = #5D4157;
+color cButtonMouseOver       = #9B568D;
+color cButtonActive          = #FF4E50;
+color cHistogramText         = #5D4157;
+color cElipse                = #FF0000;
+color cSparkLine             = #5D4157;
+color cProteinAnt            = #E6E6E6;
+color cProteinNovo           = #BEBEBE;
 
 
 void setup() {
@@ -63,7 +65,7 @@ void setup() {
   smooth();
   background(cBackground);
 
-  font = createFont("Arial Bold", 20);
+  font = createFont("LucidaGrande-Bold", 20);
 
   linhasConfig = loadStrings("mysql_settings.txt");
   host         = linhasConfig[0]; database = linhasConfig[1]; user = linhasConfig[2]; pass = linhasConfig[3];
@@ -133,11 +135,19 @@ void drawButtons() {
   rect(0, height-hMenu, wMenuMapa, hMenu);
   fill(cBackgroundFiltros);
   rect(wMenuMapa, height-hMenu, wMenuRestricoes, hMenu);
-  heatMapButton.draw(0, (int)(0.13*width), (int) ((height-hMenu)+(hMenu)/1.5));
-  squareMapButton.draw(0, (int)(0.26*width), (int) ((height-hMenu)+(hMenu)/1.5));
-  exibeLogButton.draw(0, (int)(1*wMenuRestricoes/4)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
-  exibe00Button.draw(0, (int)(2*wMenuRestricoes/4)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
-  mvgButton.draw(0, (int)(3*wMenuRestricoes/4)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
+  fill(cBackgroundButtonTitle);
+  rect(0, height-hMenu, wMenuMapa/3, hMenu);
+  rect(wMenuMapa, height-hMenu, wMenuRestricoes/4, hMenu);
+  textAlign(CENTER);
+  fill(cButtonTitleText);
+  //textFont(font, 14);
+  text("Visualization", wMenuMapa/6, (height-hMenu)+(hMenu)/1.5);
+  text("Filters", wMenuMapa+wMenuRestricoes/8, (height-hMenu)+(hMenu)/1.5);
+  heatMapButton.draw(0, (int)(2*wMenuMapa/4), (int) ((height-hMenu)+(hMenu)/1.5));
+  squareMapButton.draw(0, (int)(3*wMenuMapa/4), (int) ((height-hMenu)+(hMenu)/1.5));
+  exibeLogButton.draw(0, (int)(2*wMenuRestricoes/5)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
+  exibe00Button.draw(0, (int)(3*wMenuRestricoes/5)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
+  mvgButton.draw(0, (int)(4*wMenuRestricoes/5)+wMenuMapa, (int) ((height-hMenu)+(hMenu)/1.5));
 }
 
 void preencheListaNivel1() {
