@@ -69,7 +69,8 @@ class Nivel2 {
     int numProteinasLinha = (int) ((width-x-260)/10);
     int i;
     fill(cHistogramText);
-    text(ecList[ec_ant[0]+1] + " ->\n" + ecList[ec_novo[0]+1], x, y+5);
+    textFont(font, 12);
+    text(ecList[ec_ant[0]+1] + " ->\n" + ecList[ec_novo[0]+1] + " (" + this.numElementos + ")", x, y+5);
     for(i=0; i<mudancaProteinaList.size(); i++) {
       mudancaProteinaList.get(i).drawParticle(x+130+(i%numProteinasLinha)*espacamentoHorizontal, y+(i/numProteinasLinha)*espacamentoVertical);      
     }

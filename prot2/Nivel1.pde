@@ -78,11 +78,14 @@ class Nivel1 {
     int escapeVertical = 0;
     for(int i=0; i<nivel2List.size(); i++) {
       if(nivel2List.get(i).numElementos > 0) {        
-        int y = 180+escapeVertical;
+        int y = (height/5+33)+escapeVertical;
         int ultimoYDesenhado = nivel2List.get(i).draw(x, y);
         escapeVertical += ultimoYDesenhado + 35;
       }      
     }
+    fill(cHistogramText);
+    textFont(font, 14);
+    text("Proteins count: " + this.numElementos, x, (height/5+13));
     endTime = System.nanoTime();
     if(gl.timing) println("Tempo gasto para drawHistogram: " + (endTime - startTime)/pow(10,9));
   }
