@@ -33,10 +33,8 @@ class Nivel2 {
                               "subidas    = " + this.subidas + " and " +
                               "descidas   = " + this.descidas + " and " +
                               "ec_ant0    = " + this.ec_ant[0] + " and " +
-                              "ec_novo0   = " + this.ec_novo[0] + ""; 
-      print(selQuery + "\n");
+                              "ec_novo0   = " + this.ec_novo[0] + "";
       db.query(selQuery);
-      print("Finalizou Query!\n");
       while(db.next()) {
         MudancaProteina mp = new MudancaProteina( this, 
                                                   db.getString("iduniprot"),
@@ -57,7 +55,6 @@ class Nivel2 {
         this.mudancaProteinaList.add(mp);
       }
     }
-    print("Finalizou\n");
   }
 
   int draw(int x, int y) {
@@ -69,7 +66,6 @@ class Nivel2 {
     fill(cHistogramText);
     text(ecList[ec_ant[0]+1] + " ->\n" + ecList[ec_novo[0]+1], x, y+5);
     for(i=0; i<mudancaProteinaList.size(); i++) {
-      print(i + " imprimindo particula\n");
       mudancaProteinaList.get(i).drawParticle(x+130+(i%numProteinasLinha)*espacamentoHorizontal, y+(i/numProteinasLinha)*espacamentoVertical);      
     }
     int ultimoYDesenhado = ((i/numProteinasLinha)+1)*espacamentoVertical;

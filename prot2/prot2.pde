@@ -30,6 +30,7 @@ int hmw = 80, hmh = 80;
 PFont font;
 
 Matriz matrizFocada = null;
+MudancaProteina mudancaProteinaFocada = null;
 
 int squareSize = 1;
 
@@ -52,6 +53,8 @@ color cButtonActive      = #FF4E50;
 color cHistogramText     = #5D4157;
 color cElipse            = #FF0000;
 color cSparkLine         = #5D4157;
+color cProteinAnt        = #E6E6E6;
+color cProteinNovo       = #BEBEBE;
 
 
 void setup() {
@@ -105,6 +108,7 @@ void draw() {
       }
       if(squareMapButton.active) matrizFocada.drawSquareMap();
       if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
+      if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
     }
     alreadyDrawn = true;
   }
@@ -273,12 +277,14 @@ void mousePressed() {
     heatMapButton.active = true;
     squareMapButton.active = false;
     matrizFocada = null;
+    mudancaProteinaFocada = null;
   }
   if(squareMapButton.isIn()) {
     posicionaSuperMatriz(25, 200, width-50, (int) (width/4.5));
     heatMapButton.active = false;
     squareMapButton.active = true;
     matrizFocada = null;
+    mudancaProteinaFocada = null;
   }
 
   if(mvgButton.isIn() || exibeLogButton.isIn() || exibe00Button.isIn()) {
@@ -299,6 +305,21 @@ void mousePressed() {
     }
   } else {
     matrizFocada.identificaQuadradoFocadoHM();
+    
+    // Pesquisa detalhe proteina
+    if(matrizFocada.quadradoFocado != null) {
+      ArrayList<Nivel2> nivel2List = matrizFocada.quadradoFocado.nivel2List;
+      if(nivel2List != null) {
+        for(int i=0; i<nivel2List.size(); i++) {
+          for(int j=0; j<nivel2List.get(i).mudancaProteinaList.size(); j++) {
+            if(nivel2List.get(i).mudancaProteinaList.get(j).mouseOver()) {
+              mudancaProteinaFocada = nivel2List.get(i).mudancaProteinaList.get(j);
+              println("Cliquei em proteina");
+            }          
+          }
+        }
+      }
+    }
   }
 }
 

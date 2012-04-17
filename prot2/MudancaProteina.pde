@@ -59,6 +59,39 @@ class MudancaProteina {
     ellipse(this.x, this.y, radius, radius);
   }
 
+  void drawDetail() {
+    noStroke();
+    fill(cProteinNovo);
+    rect(0, 0, width, 130);
+    fill(cProteinAnt);
+    rect(0, 0, width/2, 130);
+
+    PFont font = createFont("LucidaGrande-Bold", 12);
+    textFont(font, 12);
+    fill(cHistogramText);
+
+    String ec_antS = "", ec_novoS = "";
+    for(int i=0; i<ec_ant.length; i++) {
+      ec_antS  += ec_ant[i] == -1 ? "-" : ec_ant[i];
+      ec_novoS += ec_novo[i] == -1 ? "-" : ec_novo[i];
+      if(i<ec_ant.length-1) {
+        ec_antS += ".";
+        ec_novoS += ".";
+      }
+    }
+    text("iduniprot: " + iduniprot, 20, 20);
+    text("ec_ant: " + ec_antS, 20, 32);
+    text("rp_antes: " + rp_antes, 20, 44);
+    text("oc_antes: " + oc_antes, 20, 56);
+    text("kw_antes: " + kw_antes, 20, 68);
+
+    text("iduniprot: " + iduniprot, width/2+20, 20);
+    text("ec_novo: " + ec_novoS, width/2+20, 32);
+    text("rp_depois: " + rp_depois, width/2+20, 44);
+    text("oc_depois: " + oc_depois, width/2+20, 56);
+    text("kw_depois: " + kw_depois, width/2+20, 68);
+  }
+
   boolean mouseOver() {
     if(((mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y)) <= (radius*radius))
       return true;

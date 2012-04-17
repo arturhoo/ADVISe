@@ -63,7 +63,6 @@ class Nivel1 {
     int escapeVertical = 0;
     for(int i=0; i<nivel2List.size(); i++) {
       if(nivel2List.get(i).numElementos > 0) {
-        print("Imprimindo elemento: " + i + " cujo y é: " + escapeVertical + "\n");
         int ultimoYDesenhado = nivel2List.get(i).draw(100+((int)(3*height/5))+50, 160+escapeVertical);
         escapeVertical += ultimoYDesenhado + 35;
       }      
