@@ -123,8 +123,8 @@ void criaButtons() {
   heatMapButton   = new Button("HeatMap", new PVector(0, 0), 13);
   squareMapButton = new Button("SquareMap", new PVector(0, 0), 13);
   exibeLogButton  = new Button("Log", new PVector(0, 0), 12);
-  exibe00Button   = new Button("Elemento 00", new PVector(0, 0), 12);
-  mvgButton       = new Button("Valores Globais", new PVector(0, 0), 12);
+  exibe00Button   = new Button("All Values", new PVector(0, 0), 12);
+  mvgButton       = new Button("Global Values", new PVector(0, 0), 12);
 }
 
 void drawButtons() {
