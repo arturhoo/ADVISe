@@ -227,7 +227,7 @@ class Matriz {
         else {
           if(this.quadrados[i][j].numElementos == 0) ratio = 0.0;
           else {
-            if(exibeLog) ratio = log(this.quadrados[i][j].numElementos)/log(mv);
+            if(exibeLog) ratio = log(this.quadrados[i][j].numElementos*2)/log(mv*2);
             else ratio = (float) this.quadrados[i][j].numElementos/mv;
           }
         }
