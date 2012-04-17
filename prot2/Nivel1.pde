@@ -73,18 +73,16 @@ class Nivel1 {
 
     this.preencheLista();
     this.ordenaLista();
-
-    final long startTime2 = System.nanoTime();
-    final long endTime2;
+    
+    int x = 150+((int)(3*height/5)); // according to onClickGrowBig method
     int escapeVertical = 0;
     for(int i=0; i<nivel2List.size(); i++) {
-      if(nivel2List.get(i).numElementos > 0) {
-        int ultimoYDesenhado = nivel2List.get(i).draw(100+((int)(3*height/5))+50, 160+escapeVertical);
+      if(nivel2List.get(i).numElementos > 0) {        
+        int y = 180+escapeVertical;
+        int ultimoYDesenhado = nivel2List.get(i).draw(x, y);
         escapeVertical += ultimoYDesenhado + 35;
       }      
     }
-    endTime2 = System.nanoTime();
-    if(gl.timing) println("Tempo gasto no for do drawHistogram: " + (endTime2 - startTime2)/pow(10,9));
     endTime = System.nanoTime();
     if(gl.timing) println("Tempo gasto para drawHistogram: " + (endTime - startTime)/pow(10,9));
   }
