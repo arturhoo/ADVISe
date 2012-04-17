@@ -23,12 +23,12 @@ Global gl;
 
 String linhasConfig[];
 
-boolean alreadyDrawn = false;
-
 int hmw = 80, hmh = 80;
 
 PFont font;
 
+boolean drawn = false;
+boolean drawnFocada = false;
 Matriz matrizFocada = null;
 MudancaProteina mudancaProteinaFocada = null;
 
@@ -92,25 +92,26 @@ void setup() {
 }
 
 void draw() {
-  if(!alreadyDrawn) {
+  if(!drawn) {
     background(cBackground);
     if(matrizFocada == null) {
       sl.drawSparkLine();
       if(heatMapButton.active) {
-        preencheSuperMatrizHeatSquareList();
+        //preencheSuperMatrizHeatSquareList();
         drawSuperMatrizHeatMap();
       }
       if(squareMapButton.active) drawSuperMatrizSquareMap();      
     } else {
+      if(!drawnFocada) matrizFocada.preencheHeatSquareList(); // Vai recalcular as dimensoes
       if(heatMapButton.active) {
-        preencheSuperMatrizHeatSquareList(); // Vai recalcular as dimensoes
         matrizFocada.drawHeatMap();
       }
       if(squareMapButton.active) matrizFocada.drawSquareMap();
       if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
       if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
+      drawnFocada = true;
     }
-    alreadyDrawn = true;
+    drawn = true;
   }
   drawButtons();
 }
@@ -212,6 +213,7 @@ void posicionaSuperMatriz(int x, int y, int w, int h) {
       superMatriz[j][i].y = y+(quadradoY+espacamentoY)*j; 
       superMatriz[j][i].w = quadradoX;
       superMatriz[j][i].h = quadradoY;
+      superMatriz[j][i].grown = false;
     }
   }
   preencheSuperMatrizHeatSquareList();
@@ -228,11 +230,16 @@ void defineParametrosSuperMatriz() {
 }
 
 void preencheSuperMatrizHeatSquareList() {
+  final long startTime = System.nanoTime();
+  final long endTime;
   for(int i=0; i<numEstudos; i++) {
     for(int j=numPrefixos-1; j>=0; j--) {
       superMatriz[j][i].preencheHeatSquareList(); 
     }
   }
+
+  endTime = System.nanoTime();
+  if(gl.timing) println("Tempo gasto preencheSuperMatrizHeatSquareList: " + (endTime - startTime));
 }
 
 void drawSuperMatrizHeatMap() {
@@ -271,7 +278,7 @@ int getIntFromEcPosition(String ec, int pos) {
 }
 
 void mousePressed() {
-  alreadyDrawn = false;
+  drawn = false;
   if(heatMapButton.isIn()) {
     posicionaSuperMatriz(25, 200, width-50, (int) (width/4.5));
     heatMapButton.active = true;
@@ -292,6 +299,7 @@ void mousePressed() {
     if(exibe00Button.isIn()) exibe00Button.active   = !exibe00Button.active;
     if(exibeLogButton.isIn()) exibeLogButton.active = !exibeLogButton.active;
     defineParametrosSuperMatriz();
+    preencheSuperMatrizHeatSquareList();
   }
 
   if(matrizFocada == null) {
@@ -300,11 +308,12 @@ void mousePressed() {
         if(superMatriz[j][i].mouseOver()) {
           superMatriz[j][i].onMouseClickGrowBig();
           matrizFocada = superMatriz[j][i];
+          drawnFocada = false;
         }
       }
     }
   } else {
-    matrizFocada.identificaQuadradoFocadoHM();
+    if(matrizFocada.mouseOver()) matrizFocada.identificaQuadradoFocadoHM();
     
     // Pesquisa detalhe proteina
     if(matrizFocada.quadradoFocado != null) {
@@ -330,6 +339,7 @@ class Global {
   float[] maioresValoresY;
   float[] maioresValoresXE00;
   float[] maioresValoresYE00;
+  boolean timing = true;
 
   Global() {
     this.maioresValoresY    = new float[numChave];

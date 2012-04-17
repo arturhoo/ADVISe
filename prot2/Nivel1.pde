@@ -17,6 +17,9 @@ class Nivel1 {
   }
   
   void preencheLista() {
+    final long startTime = System.nanoTime();
+    final long endTime;
+
     this.nivel2List   = new ArrayList<Nivel2>();
     if(this.numElementos != 0) {
       String selQuery = "select ec_ant0, ec_novo0, count(*) " +
@@ -37,6 +40,8 @@ class Nivel1 {
       }
     }
     preenchida = true;
+    endTime = System.nanoTime();
+    if(gl.timing) println("Tempo gasto para preencher nivel2List: " + (endTime - startTime)/pow(10,9));
   }
 
   void destroiObjetos() {
@@ -47,6 +52,9 @@ class Nivel1 {
   }
 
   void ordenaLista() {
+    final long startTime = System.nanoTime();
+    final long endTime;
+
     Collections.sort(nivel2List, new Comparator() {
       public int compare(Object o1, Object o2) {
         Nivel2 n1 = (Nivel2) o1;
@@ -55,11 +63,19 @@ class Nivel1 {
       }
     });
     ordenada = true;
+    endTime = System.nanoTime();
+    if(gl.timing) println("Tempo gasto para ordernar nivel2List: " + (endTime - startTime)/pow(10,9));
   }
 
   void drawHistogram() {
+    final long startTime = System.nanoTime();
+    final long endTime;
+
     this.preencheLista();
     this.ordenaLista();
+
+    final long startTime2 = System.nanoTime();
+    final long endTime2;
     int escapeVertical = 0;
     for(int i=0; i<nivel2List.size(); i++) {
       if(nivel2List.get(i).numElementos > 0) {
@@ -67,5 +83,9 @@ class Nivel1 {
         escapeVertical += ultimoYDesenhado + 35;
       }      
     }
+    endTime2 = System.nanoTime();
+    if(gl.timing) println("Tempo gasto no for do drawHistogram: " + (endTime2 - startTime2)/pow(10,9));
+    endTime = System.nanoTime();
+    if(gl.timing) println("Tempo gasto para drawHistogram: " + (endTime - startTime)/pow(10,9));
   }
 }

@@ -21,6 +21,9 @@ class Nivel2 {
   }
 
   void preencheMudancaProteinaList() {
+    final long startTime = System.nanoTime();
+    final long endTime;
+
     mudancaProteinaList = new ArrayList<MudancaProteina>();
     if(numElementos != 0) {
       String selQuery = "select iduniprot, rp_antes, oc_antes, kw_antes, " +
@@ -55,6 +58,8 @@ class Nivel2 {
         this.mudancaProteinaList.add(mp);
       }
     }
+    endTime = System.nanoTime();
+    if(gl.timing) println("Tempo gasto para preencheMudancaProteinaList: " + (endTime - startTime)/pow(10,9));
   }
 
   int draw(int x, int y) {
