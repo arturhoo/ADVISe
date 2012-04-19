@@ -79,17 +79,18 @@ class MudancaProteina {
         ec_novoS += ".";
       }
     }
-    text("iduniprot: " + iduniprot, 20, 20);
-    text("ec_ant: " + ec_antS, 20, 32);
-    text("rp_antes: " + rp_antes, 20, 44);
-    text("oc_antes: " + oc_antes, 20, 56);
-    text("kw_antes: " + kw_antes, 20, 68);
+    textLeading(12);
+    text("iduniprot: " + iduniprot, 20, 20, 600, 17);
+    text("ec_ant: " + ec_antS, 20, 32, 600, 17);
+    text("rp_antes: " + rp_antes, 20, 44, 600, 17);
+    text("oc_antes: " + oc_antes, 20, 56, 600, 17);
+    text("kw_antes: " + kw_antes, 20, 68, 600, 17);
 
-    text("iduniprot: " + iduniprot, width/2+20, 20);
-    text("ec_novo: " + ec_novoS, width/2+20, 32);
-    text("rp_depois: " + rp_depois, width/2+20, 44);
-    text("oc_depois: " + oc_depois, width/2+20, 56);
-    text("kw_depois: " + kw_depois, width/2+20, 68);
+    text("iduniprot: " + iduniprot, width/2+20, 20, 600, 17);
+    text("ec_novo: " + ec_novoS, width/2+20, 32, 600, 17);
+    text("rp_depois: " + rp_depois, width/2+20, 44, 600, 17);
+    text("oc_depois: " + oc_depois, width/2+20, 56, 600, 17);
+    text("kw_depois: " + kw_depois, width/2+20, 68, 600, 17);
   }
 
   boolean mouseOver() {
