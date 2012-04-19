@@ -298,6 +298,13 @@ class Matriz {
     fill(cHistogramText);
     text("Study: " + (quadrados[4][0].ver_estudo-1) + "->" + (quadrados[4][0].ver_estudo), x+2, y+h+50);
     text("Prefix: " + (quadrados[4][0].prefixo), x+2, y+h+65);
+
+    noStroke();
+    int sw = 30, sh = 17;
+    for(int i=0; i<cPallete.length; i++) {
+      fill(cPallete[i]);
+      rect(x+w/2+i*sw, y+h+40, sw, sh);
+    }
   }
 
   boolean mouseOver() {

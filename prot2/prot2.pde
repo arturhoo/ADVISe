@@ -79,6 +79,7 @@ void setup() {
   superMatriz = new Matriz[numPrefixos][numEstudos];
   preencheListaNivel1();
   preencheSuperMatriz();
+  nivel1List = null;
   gl.smx = 50;
   gl.smy = 200;
   gl.smw = width-50-gl.smx;
@@ -87,17 +88,7 @@ void setup() {
   gl.smEspacamentoY = 5;
   posicionaSuperMatriz();
   
-  sl = new SparkLine(50, height-150, width-100, 50);
-
-  // superMatriz[3][0].quadrados[4][1].preencheLista();
-  // superMatriz[3][0].quadrados[4][1].ordenaLista();
-  // for(int i=0; i<superMatriz[3][0].quadrados[4][1].nivel2List.size(); i++) {
-  //   superMatriz[3][0].quadrados[4][1].nivel2List.get(i).preencheMudancaProteinaLista();
-  //   // for(int j=0; j<superMatriz[3][0].quadrados[4][1].nivel2List.get(i).mudancaProteinaList.size(); j++) {
-  //     // print(superMatriz[3][0].quadrados[4][1].nivel2List.get(i).mudancaProteinaList.get(j).iduniprot + "\n");      
-  //   // }    
-  // }
-  // // sl.imprimeValoresNormalizados();
+  sl = new SparkLine(gl.smx, height-150, gl.smw, 50);
 }
 
 void draw() {
@@ -269,6 +260,7 @@ void drawSuperMatrizHeatMap() {
     }
   }
   drawSuperMatrizAxis();
+  drawHeatMapScale();
 }
 
 void drawSuperMatrizSquareMap() {
@@ -277,6 +269,7 @@ void drawSuperMatrizSquareMap() {
       superMatriz[j][i].drawSquareMap();
     }
   }
+  drawSuperMatrizAxis();
 }
 
 void drawSuperMatrizAxis() {
@@ -301,6 +294,15 @@ void drawSuperMatrizAxis() {
   rotate(PI/2);
   resetMatrix();
   textAlign(LEFT);
+}
+
+void drawHeatMapScale() {
+  noStroke();
+  int w = 20, h = 12;
+  for(int i=0; i<cPallete.length; i++) {
+    fill(cPallete[i]);
+    rect(gl.smx+i*w, gl.smy+gl.smh+20, w, h);    
+  }
 }
 
 void mousePressed() {
