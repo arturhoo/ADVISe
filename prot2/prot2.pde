@@ -79,11 +79,13 @@ void setup() {
   superMatriz = new Matriz[numPrefixos][numEstudos];
   preencheListaNivel1();
   preencheSuperMatriz();
-  gl.smx = 25;
+  gl.smx = 50;
   gl.smy = 200;
-  gl.smw = width-50;
+  gl.smw = width-50-gl.smx;
   gl.smh = (int) (width/4.5);
-  posicionaSuperMatriz(gl.smx, gl.smy, gl.smw, gl.smh);
+  gl.smEspacamentoX = 15;
+  gl.smEspacamentoY = 5;
+  posicionaSuperMatriz();
   
   sl = new SparkLine(50, height-150, width-100, 50);
 
@@ -220,15 +222,15 @@ void preencheSuperMatriz() {
   }
 }
 
-void posicionaSuperMatriz(int x, int y, int w, int h) {
-  int espacamentoX = 15, espacamentoY = 5;
-  int quadradoX = (int) (w-(numEstudos*espacamentoX))/numEstudos;
-  int quadradoY = (int) (h-(numPrefixos*espacamentoY))/numPrefixos;
+void posicionaSuperMatriz() {
+  int x = gl.smx, y = gl.smy, w = gl.smw, h = gl.smh;
+  int quadradoX = (int) (w-((numEstudos-1)*gl.smEspacamentoX))/numEstudos;
+  int quadradoY = (int) (h-((numPrefixos-1)*gl.smEspacamentoY))/numPrefixos;
   print("QuadradoX :" + quadradoX + ", QuadradoY: " + quadradoY + "\n"); 
   for(int i=0; i<numEstudos; i++) {
     for(int j=0; j<numPrefixos; j++) {
-      superMatriz[j][i].x = x+(quadradoX+espacamentoX)*i;
-      superMatriz[j][i].y = y+(quadradoY+espacamentoY)*j; 
+      superMatriz[j][i].x = x+(quadradoX+gl.smEspacamentoX)*i;
+      superMatriz[j][i].y = y+(quadradoY+gl.smEspacamentoY)*j; 
       superMatriz[j][i].w = quadradoX;
       superMatriz[j][i].h = quadradoY;
       superMatriz[j][i].grown = false;
@@ -266,6 +268,7 @@ void drawSuperMatrizHeatMap() {
       superMatriz[j][i].drawHeatMap();      
     }
   }
+  drawSuperMatrizAxis();
 }
 
 void drawSuperMatrizSquareMap() {
@@ -276,17 +279,41 @@ void drawSuperMatrizSquareMap() {
   }
 }
 
+void drawSuperMatrizAxis() {
+  int quadradoW = superMatriz[0][0].w;
+  int quadradoH = superMatriz[0][0].h;
+  fill(cHistogramText);
+  textFont(font, 11);
+  textAlign(CENTER);
+  for(int i=0; i<numEstudos; i++) {
+    int textX = gl.smx+i*(quadradoW+gl.smEspacamentoX)+(quadradoW/2);
+    int textY = gl.smy+gl.smh+10;
+    text("v" + (i+1) + "-" + (i+2), textX, textY);
+  }
+  for(int i=0; i<numPrefixos; i++) {
+    int textX = gl.smx - 10;
+    int textY = gl.smy+i*(quadradoH+gl.smEspacamentoY)+(quadradoH/2);
+    text((numPrefixos-i-1), textX, textY);
+  }
+  translate(gl.smx-20, gl.smy+(gl.smh/2));
+  rotate(3*PI/2);
+  text("Prefix Length", 0, 0);
+  rotate(PI/2);
+  resetMatrix();
+  textAlign(LEFT);
+}
+
 void mousePressed() {
   drawn = false;
   if(heatMapButton.isIn()) {
-    posicionaSuperMatriz(25, 200, width-50, (int) (width/4.5));
+    posicionaSuperMatriz();
     heatMapButton.active = true;
     squareMapButton.active = false;
     matrizFocada = null;
     mudancaProteinaFocada = null;
   }
   if(squareMapButton.isIn()) {
-    posicionaSuperMatriz(25, 200, width-50, (int) (width/4.5));
+    posicionaSuperMatriz();
     heatMapButton.active = false;
     squareMapButton.active = true;
     matrizFocada = null;
@@ -340,6 +367,7 @@ class Global {
   float[] maioresValoresYE00;
   boolean timing = true;
   int smx, smy, smw, smh;
+  int smEspacamentoX, smEspacamentoY;
 
   Global() {
     this.maioresValoresY    = new float[numChave];
