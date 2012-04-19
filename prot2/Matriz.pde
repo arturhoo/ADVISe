@@ -202,9 +202,6 @@ class Matriz {
     }
 
     if(grown) drawMatrixInfo();
-    // for(int i=0; i<numChave; i++) {
-    //   print("MVLX: " + maioresValoresLocaisX[i] + " -MVLY " + maioresValoresLocaisY[i] +"\n");
-    // }
   }
 
   void preencheHeatSquareList() {
@@ -227,6 +224,7 @@ class Matriz {
         else {
           if(this.quadrados[i][j].numElementos == 0) ratio = 0.0;
           else {
+            // Multiplica log por 2 para evitar log(1)
             if(exibeLog) ratio = log(this.quadrados[i][j].numElementos*2)/log(mv*2);
             else ratio = (float) this.quadrados[i][j].numElementos/mv;
           }
@@ -282,12 +280,17 @@ class Matriz {
     text("2", x+2*(w/numChave)+(w/numChave/2), y+h+10);
     text("3", x+3*(w/numChave)+(w/numChave/2), y+h+10);
     text("4", x+4*(w/numChave)+(w/numChave/2), y+h+10);
-    text("Descidas", x+(w/2), y+h+20);
+    text("Especialization", x+(w/2), y+h+23);
     text("4", x-10, y+0*(h/numChave)+(h/numChave/2));
     text("3", x-10, y+1*(h/numChave)+(h/numChave/2));
     text("2", x-10, y+2*(h/numChave)+(h/numChave/2));
     text("1", x-10, y+3*(h/numChave)+(h/numChave/2));
     text("0", x-10, y+4*(h/numChave)+(h/numChave/2));
+    translate(x-20, y+(h/2));
+    rotate(3*PI/2);
+    text("Generalization", 0, 0);
+    rotate(PI/2);
+    resetMatrix();
     textAlign(LEFT);
   }
 

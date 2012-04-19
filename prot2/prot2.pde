@@ -79,7 +79,11 @@ void setup() {
   superMatriz = new Matriz[numPrefixos][numEstudos];
   preencheListaNivel1();
   preencheSuperMatriz();
-  posicionaSuperMatriz(25, 200, width-50, (int) (width/4.5));
+  gl.smx = 25;
+  gl.smy = 200;
+  gl.smw = width-50;
+  gl.smh = (int) (width/4.5);
+  posicionaSuperMatriz(gl.smx, gl.smy, gl.smw, gl.smh);
   
   sl = new SparkLine(50, height-150, width-100, 50);
 
@@ -142,6 +146,7 @@ void drawButtons() {
   fill(cBackgroundFiltrosTitle);
   rect(wMenuMapa, height-hMenu*2, wMenuRestricoes, hMenu);
   textAlign(CENTER);
+  textFont(font, 14);
   fill(cButtonTitleText);
   text("Visualization", wMenuMapa/2, (height-hMenu*2)+(hMenu)/1.5);
   text("Filters", wMenuMapa+wMenuRestricoes/2, (height-hMenu*2)+(hMenu)/1.5);
@@ -293,7 +298,7 @@ void mousePressed() {
     if(exibe00Button.isIn()) exibe00Button.active   = !exibe00Button.active;
     if(exibeLogButton.isIn()) exibeLogButton.active = !exibeLogButton.active;
     defineParametrosSuperMatriz();
-    preencheSuperMatrizHeatSquareList();
+    if(heatMapButton.active) preencheSuperMatrizHeatSquareList();
   }
 
   if(matrizFocada == null) {
@@ -334,6 +339,7 @@ class Global {
   float[] maioresValoresXE00;
   float[] maioresValoresYE00;
   boolean timing = true;
+  int smx, smy, smw, smh;
 
   Global() {
     this.maioresValoresY    = new float[numChave];
