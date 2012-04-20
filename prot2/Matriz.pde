@@ -267,7 +267,7 @@ class Matriz {
         noFill();   
         if(quadradoFocado != null && quadradoFocadoI == i && quadradoFocadoJ == j) {
           strokeWeight(2);
-          stroke(cButtonActive);
+          stroke(cHighlightedSquare);
           rect(w/5*j+this.x, h/5*i+this.y, w/5-2, h/5-2);
           strokeWeight(1);
         } else {

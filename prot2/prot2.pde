@@ -53,6 +53,7 @@ color cButtonTitleText        = #000000;
 color cButtonText             = #5D4157;
 color cButtonMouseOver        = #9B568D;
 color cButtonActive           = #FF4E50;
+color cHighlightedSquare      = #FF4E50;
 color cHistogramText          = #5D4157;
 color cElipse                 = #FF0000;
 color cSparkLine              = #5D4157;
