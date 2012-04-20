@@ -285,12 +285,12 @@ class Matriz {
   void drawMatrixAxisHM() {
     fill(cHistogramText);
     textAlign(CENTER);
-    text("0", x+0*(w/numChave)+(w/numChave/2), y+h+10);
-    text("1", x+1*(w/numChave)+(w/numChave/2), y+h+10);
-    text("2", x+2*(w/numChave)+(w/numChave/2), y+h+10);
-    text("3", x+3*(w/numChave)+(w/numChave/2), y+h+10);
-    text("4", x+4*(w/numChave)+(w/numChave/2), y+h+10);
-    text("Especialization", x+(w/2), y+h+23);
+    text("0", x+0*(w/numChave)+(w/numChave/2), y-7);
+    text("1", x+1*(w/numChave)+(w/numChave/2), y-7);
+    text("2", x+2*(w/numChave)+(w/numChave/2), y-7);
+    text("3", x+3*(w/numChave)+(w/numChave/2), y-7);
+    text("4", x+4*(w/numChave)+(w/numChave/2), y-7);
+    text("Especialization", x+(w/2), y-20);
     text("4", x-10, y+0*(h/numChave)+(h/numChave/2));
     text("3", x-10, y+1*(h/numChave)+(h/numChave/2));
     text("2", x-10, y+2*(h/numChave)+(h/numChave/2));
@@ -306,14 +306,15 @@ class Matriz {
 
   void drawMatrixInfo() {
     fill(cHistogramText);
-    text("Study: " + (quadrados[4][0].ver_estudo-1) + "->" + (quadrados[4][0].ver_estudo), x+2, y+h+50);
-    text("Prefix: " + (quadrados[4][0].prefixo), x+2, y+h+65);
+    text("Release: r" + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo), x+2, y-50);
+    text("Prefix: " + (quadrados[4][0].prefixo), x+2, y-35);
 
     noStroke();
     int sw = 30, sh = 17;
+    int legendX = x+w-(sw*cPallete.length);
     for(int i=0; i<cPallete.length; i++) {
       fill(cPallete[i]);
-      rect(x+w/2+i*sw, y+h+40, sw, sh);
+      rect(legendX+i*sw, y-60, sw, sh);
     }
   }
 
@@ -329,6 +330,7 @@ class Matriz {
     y = (int) (height/5);
     w = y*3;
     h = y*3;
+    y += 50; // Move down
     grown = true;
   }
 }

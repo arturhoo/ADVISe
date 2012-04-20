@@ -120,7 +120,7 @@ void draw() {
 void criaButtons() {
   heatMapButton   = new Button("HeatMap", new PVector(0, 0), 13);
   squareMapButton = new Button("SquareMap", new PVector(0, 0), 13);
-  exibeLogButton  = new Button("Log", new PVector(0, 0), 12);
+  exibeLogButton  = new Button("Log Scale", new PVector(0, 0), 12);
   exibe00Button   = new Button("All Values", new PVector(0, 0), 12);
   mvgButton       = new Button("Global Values", new PVector(0, 0), 12);
 }
@@ -281,14 +281,15 @@ void drawSuperMatrizAxis() {
   textAlign(CENTER);
   for(int i=0; i<numEstudos; i++) {
     int textX = gl.smx+i*(quadradoW+gl.smEspacamentoX)+(quadradoW/2);
-    int textY = gl.smy+gl.smh+10;
-    text("v" + (i+1) + "-" + (i+2), textX, textY);
+    int textY = gl.smy-7;
+    text("r" + (i+1) + "-" + (i+2), textX, textY);
   }
   for(int i=0; i<numPrefixos; i++) {
     int textX = gl.smx - 10;
     int textY = gl.smy+i*(quadradoH+gl.smEspacamentoY)+(quadradoH/2);
     text((numPrefixos-i-1), textX, textY);
   }
+  text("Release", gl.smx+(gl.smw/2), gl.smy-17);
   translate(gl.smx-20, gl.smy+(gl.smh/2));
   rotate(3*PI/2);
   text("Prefix Length", 0, 0);
