@@ -6,6 +6,7 @@ class Matriz {
   boolean exibeLog = false, exibe00 = false, mvg=false;
   boolean grown = false;
   Nivel1 quadradoFocado = null;
+  int quadradoFocadoI, quadradoFocadoJ;
 
   float[] maioresValoresX;
   float[] maioresValoresY;
@@ -247,6 +248,8 @@ class Matriz {
       for(int j=0; j<numChave; j++) {
         if(heatSquareList.get(hsmCount).mouseOver()) {
           quadradoFocado = quadrados[i][j];
+          quadradoFocadoI = i;
+          quadradoFocadoJ = j;
         }
         hsmCount++;
       }
@@ -261,9 +264,16 @@ class Matriz {
         noStroke();
         //print("Imprimindo: " + i + "-" + j + " ratio: " + heatSquareList.get(hsmCount).ratio + "\n");
         this.heatSquareList.get(hsmCount++).draw();
-        stroke(255);
         noFill();   
-        rect(w/5*j+this.x, h/5*i+this.y, w/5, h/5);
+        if(quadradoFocado != null && quadradoFocadoI == i && quadradoFocadoJ == j) {
+          strokeWeight(2);
+          stroke(cButtonActive);
+          rect(w/5*j+this.x, h/5*i+this.y, w/5-2, h/5-2);
+          strokeWeight(1);
+        } else {
+          stroke(255);
+          rect(w/5*j+this.x, h/5*i+this.y, w/5, h/5);
+        }
       }
     }
     if(grown) {

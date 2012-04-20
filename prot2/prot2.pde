@@ -311,6 +311,7 @@ void mousePressed() {
     posicionaSuperMatriz();
     heatMapButton.active = true;
     squareMapButton.active = false;
+    if(matrizFocada != null) matrizFocada.quadradoFocado = null;
     matrizFocada = null;
     mudancaProteinaFocada = null;
   }
@@ -318,6 +319,7 @@ void mousePressed() {
     posicionaSuperMatriz();
     heatMapButton.active = false;
     squareMapButton.active = true;
+    if(matrizFocada != null) matrizFocada.quadradoFocado = null;
     matrizFocada = null;
     mudancaProteinaFocada = null;
   }
