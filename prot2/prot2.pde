@@ -345,7 +345,10 @@ void mousePressed() {
       }
     }
   } else {
-    if(matrizFocada.mouseOver()) matrizFocada.identificaQuadradoFocadoHM();
+    if(matrizFocada.mouseOver()) {
+      matrizFocada.identificaQuadradoFocadoHM();
+      mudancaProteinaFocada = null;
+    }
     
     // Pesquisa detalhe proteina
     if(matrizFocada.quadradoFocado != null) {
