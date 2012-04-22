@@ -7,14 +7,15 @@ class HeatSquare {
     this.y = y;
     this.w = w;
     this.h = h;
-    if(ratio == -1.0) this.ratio = -1.0;
-    else {
-      if(ratio == 0.0) this.ratio = 40.0;
-      else {
-        this.ratio = 30.0 - ratio*30.0;
-        if(this.ratio < 1.0) this.ratio = 0.5 + ratio; // Deixa mais bonito
-      }
-    }
+    this.ratio = ratio;
+    // if(ratio == -1.0) this.ratio = -1.0;
+    // else {
+    //   if(ratio == 0.0) this.ratio = 40.0;
+    //   else {
+    //     this.ratio = 30.0 - ratio*30.0;
+    //     if(this.ratio < 1.0) this.ratio = 0.5 + ratio; // Deixa mais bonito
+    //   }
+    // }
   }
 
   boolean mouseOver() {
@@ -50,5 +51,16 @@ class HeatSquare {
         }
       }
     }
+  }
+
+  void draw2() {
+    fill(cValidos);
+    if(ratio > 0.0 && ratio <= 0.2) fill(cPallete[0]);
+    else if(ratio > 0.2 && ratio <= 0.4) fill(cPallete[1]);
+    else if(ratio > 0.4 && ratio <= 0.6) fill(cPallete[2]);
+    else if(ratio > 0.6 && ratio <= 0.8) fill(cPallete[3]);
+    else if(ratio > 0.8 && ratio <= 1.0) fill(cPallete[4]);
+    else if(ratio == -1.0) fill(cInvalidos);
+    rect(x, y, w, h);
   }
 }

@@ -263,7 +263,7 @@ class Matriz {
         // if(heatSquareList.get(hsmCount).isIn()) quadradoFocado = heatSquareList.get(hsmCount);
         noStroke();
         //print("Imprimindo: " + i + "-" + j + " ratio: " + heatSquareList.get(hsmCount).ratio + "\n");
-        this.heatSquareList.get(hsmCount++).draw();
+        this.heatSquareList.get(hsmCount++).draw2();
         noFill();   
         if(quadradoFocado != null && quadradoFocadoI == i && quadradoFocadoJ == j) {
           strokeWeight(2);
