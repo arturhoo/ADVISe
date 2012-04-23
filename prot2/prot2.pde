@@ -267,7 +267,7 @@ void drawSuperMatrizHeatMap() {
 void drawSuperMatrizSquareMap() {
   for(int i=0; i<numEstudos; i++) {
     for(int j=numPrefixos-1; j>=0; j--) {
-      superMatriz[j][i].drawSquareMap();
+      superMatriz[j][i].drawSquareMap2();
     }
   }
   drawSuperMatrizAxis();

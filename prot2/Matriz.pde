@@ -51,6 +51,8 @@ class Matriz {
           }
         }
       }
+      maioresValoresX[i] = maioresValoresX[i]*2;
+      maioresValoresY[i] = maioresValoresY[i]*2;
     }
   }
 
@@ -74,6 +76,8 @@ class Matriz {
           }
         }
       }
+      maioresValoresXE00[i] = maioresValoresXE00[i]*2;
+      maioresValoresYE00[i] = maioresValoresYE00[i]*2;
     }
   }
 
@@ -104,6 +108,82 @@ class Matriz {
     return this.segundoMaiorValor;
   }
 
+  void drawSquareMap2() {
+    float[] maioresValoresLocaisY = new float[numChave];
+    float[] maioresValoresLocaisX = new float[numChave];
+    int countNulls = 0;
+
+    for(int i=0; i<numChave; i++) {
+      if(exibe00) {
+        maioresValoresLocaisX[i] = this.mvg ? gl.maioresValoresX[i] : this.maioresValoresX[i];
+        maioresValoresLocaisY[i] = this.mvg ? gl.maioresValoresY[i] : this.maioresValoresY[i];
+      } else {
+        maioresValoresLocaisX[i] = this.mvg ? gl.maioresValoresXE00[i] : this.maioresValoresXE00[i];
+        maioresValoresLocaisY[i] = this.mvg ? gl.maioresValoresYE00[i] : this.maioresValoresYE00[i];
+      }
+
+      if(this.exibeLog) {
+        if(maioresValoresLocaisX[i] != 0.0) maioresValoresLocaisX[i] = log(maioresValoresLocaisX[i]);
+        if(maioresValoresLocaisY[i] != 0.0) maioresValoresLocaisY[i] = log(maioresValoresLocaisY[i]);
+      }
+
+      // Preenche fantasmas
+      if(maioresValoresLocaisY[i] == 0.0) maioresValoresLocaisY[i] = 2.0;
+      if(maioresValoresLocaisX[i] == 0.0) maioresValoresLocaisX[i] = 2.0;
+
+      // Contando os inválidos
+      if(this.quadrados[numChave-1][i] == null) countNulls++;
+    }
+
+    // Desenha quadrado
+    fill(cInvalidos);
+    noStroke();
+    rect(x, y, w, h);
+
+    // Desenha regiao valida
+    fill(cValidos);
+    int novoW = countNulls == 0 ? w : w - countNulls*(w/(numChave*2));
+    int novoY = (int) (y+countNulls*(h/(numChave*2)));
+    int novoH = (y+h) - novoY;
+    rect(x, novoY, novoW, novoH);
+
+    // Calcula fator de compensação
+    float constanteX, constanteY, comp = 0, altura = 0;
+    for(int i=0; i<numChave; i++) {
+      comp    += maioresValoresLocaisY[i];
+      altura  += maioresValoresLocaisX[i];
+    }
+    constanteY = novoH/altura;
+    constanteX = novoW/comp;
+
+    for(int i=numChave-1; i>=countNulls; i--) {
+      float acumulaX = 0;
+      for(int k=countNulls; k<i; k++) acumulaX += maioresValoresLocaisX[k];
+      acumulaX *=constanteY;
+      float acumulaY = 0;
+      for(int j=0; j<numChave-countNulls; j++) {
+        if(!exibe00 && i==numChave-1 && j==0){
+        } else {
+          if(quadrados[i][j] != null ) {
+            float numElementosAtual = pow(quadrados[i][j].numElementos, 0.5);
+            numElementosAtual = numElementosAtual*2;
+            if(this.exibeLog) numElementosAtual = log(numElementosAtual);
+            if(numElementosAtual != 0.0) {
+              fill(cPallete[4], 170);
+              stroke(100);
+              rectMode(CORNER);
+              rect( x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementosAtual*constanteX)),
+                    novoY+acumulaX,
+                    numElementosAtual*constanteX,
+                    numElementosAtual*constanteY);
+            }
+          }
+        }
+        acumulaY += maioresValoresLocaisY[j]*constanteX;
+      }
+    }
+  }
+
   void drawSquareMap() {
     float numElementos;
     float[] maioresValoresLocaisY = new float[numChave];
@@ -116,6 +196,7 @@ class Matriz {
         maioresValoresLocaisX[i] = this.mvg ? gl.maioresValoresX[i] : this.maioresValoresX[i];
         maioresValoresLocaisY[i] = this.mvg ? gl.maioresValoresY[i] : this.maioresValoresY[i];
         
+        // Contando os inválidos
         if(this.quadrados[numChave-1][i] == null) {
           maioresValoresLocaisX[numChave-1-i] = log(gl.maioresValoresX[i]);
           maioresValoresLocaisY[i] = log(gl.maioresValoresY[i]);
