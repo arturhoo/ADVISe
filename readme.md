@@ -4,7 +4,7 @@ Biovis
 Configuration
 -------------
 
-You must have two tables in your MySQL schema, `id_ec` and `id_ec_atributo`.
+You must have two tables in your MySQL database, `id_ec` and `id_ec_atributo`.
 
 To start off, setup your basic dev system environment. Make sure you follow the on-screen instructions
 
@@ -20,17 +20,11 @@ Install the necessary python packages
     $ . biovis/bin/activate
     $ pip install mysql-python uuid
 
-Create a new database on MySQL
-
-    $ mysql -uroot -p
-    mysql> create database <name_of_the_db>;
-
-
 Time to create the necessary tables for the visualization.
 
-    $ mysql -uroot -p <name_of_the_db_you_created> < sqlscripts/id_ec_num.sql
-    $ mysql -uroot -p <name_of_the_db_you_created> < sqlscripts/id_ec_atributo_num.sql
-    $ mysql -uroot -p <name_of_the_db_you_created> < sqlscripts/nivel1.sql
+    $ mysql -uroot -p <name_of_the_db> < sqlscripts/id_ec_num.sql
+    $ mysql -uroot -p <name_of_the_db> < sqlscripts/id_ec_atributo_num.sql
+    $ mysql -uroot -p <name_of_the_db> < sqlscripts/nivel1.sql
 
 Go to the `python` folder and edit your `mysql_local_settings.py` to your configuration
 
