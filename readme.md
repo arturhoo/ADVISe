@@ -32,7 +32,7 @@ Go to the `python` folder and edit your `mysql_local_settings.py` to your config
 
 You will have to fix the ECs for five proteins in both the `id_ec` and `id_ec_atributo` tables. Their
 `indice` fields are `809633`, `879653`, `1005944`, `1080973` and `1216344`. The EC fields with the values
-`'1.1..-' must be changed to `1.1.-.-3`. Here is one example:
+`'1.1..-` must be changed to `1.1.-.-3`. Here is one example:
 
     mysql> update biovis.id_ec_atributo set ec_novo = '1.1.-.-' where indice = 1005944;
 
