@@ -239,9 +239,14 @@ void defineParametrosSuperMatriz() {
       superMatriz[j][i].exibe00 = exibe00Button.active;
       superMatriz[j][i].mvg = mvgButton.active;
       superMatriz[j][i].exibeLog = exibeLogButton.active;
-      println("Matriz " + j + " " + i + " " + superMatriz[j][i].exibe00);
-      superMatriz[j][j].identificaNumTotalElementos();
-      println("Matriz " + j + " " + i + " " + superMatriz[j][i].exibe00);
+    }
+  }
+}
+
+void preencheSuperMatrizTotalNumElementos() {
+  for(int i=0; i<numEstudos; i++) {
+    for(int j=0; j<numPrefixos; j++) {
+      superMatriz[j][i].identificaNumTotalElementos();
     }
   }
 }
@@ -354,6 +359,7 @@ void mousePressed() {
     if(exibe00Button.isIn()) exibe00Button.active   = !exibe00Button.active;
     if(exibeLogButton.isIn()) exibeLogButton.active = !exibeLogButton.active;
     defineParametrosSuperMatriz();
+    preencheSuperMatrizTotalNumElementos();
     if(heatMapButton.active) preencheSuperMatrizHeatSquareList();
   }
 

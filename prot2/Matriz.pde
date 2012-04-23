@@ -117,7 +117,6 @@ class Matriz {
       for(int j=0; j<numChave; j++) {
         if(this.quadrados[i][j] != null) {
           if(i == numChave-1 && j == 0) {
-            println("Exibe00: " + this.exibe00);
             if(this.exibe00) {
               this.numTotalElementos += this.quadrados[i][j].numElementos;
             }
