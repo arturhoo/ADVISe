@@ -404,11 +404,31 @@ class Matriz {
   void drawMatrixInfoHM() {
     drawMatrixInfo();
     noStroke();
-    int sw = 35, sh = 20;
+    int sw = 35, sh = 20, recuoY = 80;
     int legendX = x+w-(sw*cPallete.length);
     for(int i=0; i<cPallete.length; i++) {
       fill(cPallete[i]);
-      rect(legendX+i*sw, y-80, sw, sh);
+      rect(legendX+i*sw, y-recuoY, sw, sh);
+      if(i == 0) {
+        textAlign(LEFT);
+        fill(0);
+        textFont(font, 11);
+        text("0", legendX+6, y-recuoY+14);
+      }
+      if(i == cPallete.length-1) {
+        textAlign(RIGHT);
+        fill(0);
+        textFont(font, 11);
+        int num;
+        if(exibe00) {
+          num = mvg ? gl.maiorValor : maiorValor;
+        } else {
+          num = mvg ? gl.segundoMaiorValor : segundoMaiorValor;
+        }
+        // int num = exibe00 ? maiorValor : segundoMaiorValor;
+        text(num, legendX+(i+1)*sw-4, y-recuoY+14);
+      }
+      textAlign(LEFT);
     }
   }
 
