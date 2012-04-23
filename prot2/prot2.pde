@@ -53,12 +53,15 @@ color cButtonTitleText        = #000000;
 color cButtonText             = #5D4157;
 color cButtonMouseOver        = #9B568D;
 color cButtonActive           = #FF4E50;
-color cHighlightedSquare      = #FF4E50;
+color cHighlightedSquare      = #3F00B7;
 color cHistogramText          = #5D4157;
 color cElipse                 = #FF0000;
 color cSparkLine              = #5D4157;
 color cProteinAnt             = #E6E6E6;
 color cProteinNovo            = #BEBEBE;
+color cAntidiagonal           = #FF0000;
+color cSuperAntidiagonal      = #FF7B00;
+color cSubAntidiagonal        = #FFD000;
 
 
 void setup() {
@@ -105,7 +108,7 @@ void draw() {
     } else {
       if(!drawnFocada) matrizFocada.preencheHeatSquareList(); // Vai recalcular as dimensoes
       if(heatMapButton.active) matrizFocada.drawHeatMap();
-      if(squareMapButton.active) matrizFocada.drawSquareMap2();
+      if(squareMapButton.active) matrizFocada.drawSquareMap();
       if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
       if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
       drawnFocada = true;
@@ -206,17 +209,17 @@ void preencheSuperMatriz() {
       }
     }
   }
-  print("MVG: " + gl.maiorValor + " SMVG: " + gl.segundoMaiorValor + "\n");
-  for(int i=0; i<numChave; i++) {
-    print("GX: " + gl.maioresValoresX[i] + " GY: " + gl.maioresValoresY[i] + "\n");
-  }
+  // print("MVG: " + gl.maiorValor + " SMVG: " + gl.segundoMaiorValor + "\n");
+  // for(int i=0; i<numChave; i++) {
+  //   print("GX: " + gl.maioresValoresX[i] + " GY: " + gl.maioresValoresY[i] + "\n");
+  // }
 }
 
 void posicionaSuperMatriz() {
   int x = gl.smx, y = gl.smy, w = gl.smw, h = gl.smh;
   int quadradoX = (int) (w-((numEstudos-1)*gl.smEspacamentoX))/numEstudos;
   int quadradoY = (int) (h-((numPrefixos-1)*gl.smEspacamentoY))/numPrefixos;
-  print("QuadradoX :" + quadradoX + ", QuadradoY: " + quadradoY + "\n"); 
+  // print("QuadradoX :" + quadradoX + ", QuadradoY: " + quadradoY + "\n"); 
   for(int i=0; i<numEstudos; i++) {
     for(int j=0; j<numPrefixos; j++) {
       superMatriz[j][i].x = x+(quadradoX+gl.smEspacamentoX)*i;
@@ -259,16 +262,17 @@ void drawSuperMatrizHeatMap() {
     }
   }
   drawSuperMatrizAxis();
-  drawHeatMapScale();
+  drawHeatMapLegend();
 }
 
 void drawSuperMatrizSquareMap() {
   for(int i=0; i<numEstudos; i++) {
     for(int j=numPrefixos-1; j>=0; j--) {
-      superMatriz[j][i].drawSquareMap2();
+      superMatriz[j][i].drawSquareMap();
     }
   }
   drawSuperMatrizAxis();
+  drawSquareMapLegend();
 }
 
 void drawSuperMatrizAxis() {
@@ -296,7 +300,24 @@ void drawSuperMatrizAxis() {
   textAlign(LEFT);
 }
 
-void drawHeatMapScale() {
+void drawSquareMapLegend() {
+  fill(cHistogramText);
+  textFont(font, 11);
+  text("Antidiagonal entries", gl.smx, gl.smy+gl.smh+20);
+  text("Super-antidiagonal entries", gl.smx, gl.smy+gl.smh+32);
+  text("Sub-antidiagonal entries", gl.smx, gl.smy+gl.smh+44);
+  int rectW = 100;
+  int rectH = 12;
+  noStroke();
+  fill(cAntidiagonal);
+  rect(gl.smx+200, gl.smy+gl.smh+12, rectW, rectH);
+  fill(cSuperAntidiagonal);
+  rect(gl.smx+200, gl.smy+gl.smh+24, rectW, rectH);
+  fill(cSubAntidiagonal);
+  rect(gl.smx+200, gl.smy+gl.smh+36, rectW, rectH);
+}
+
+void drawHeatMapLegend() {
   noStroke();
   int w = 20, h = 12;
   for(int i=0; i<cPallete.length; i++) {
@@ -344,7 +365,8 @@ void mousePressed() {
     }
   } else {
     if(matrizFocada.mouseOver()) {
-      matrizFocada.identificaQuadradoFocadoHM();
+      if(squareMapButton.active) matrizFocada.identificaQuadradoFocadoSM();
+      else matrizFocada.identificaQuadradoFocadoHM();
       mudancaProteinaFocada = null;
     }
     

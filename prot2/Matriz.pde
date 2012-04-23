@@ -2,11 +2,13 @@ class Matriz {
   Nivel1[][] quadrados;
   int x, y, w, h;  
   ArrayList<HeatSquare> heatSquareList;
+  ArrayList<SquareMap> squareMapList;
   int maiorValor = 0, segundoMaiorValor = 0;
   boolean exibeLog = false, exibe00 = false, mvg=false;
   boolean grown = false;
   Nivel1 quadradoFocado = null;
   int quadradoFocadoI, quadradoFocadoJ;
+  int numTotalElementos;
 
   float[] maioresValoresX;
   float[] maioresValoresY;
@@ -25,6 +27,7 @@ class Matriz {
       }
     }
     this.heatSquareList     = new ArrayList<HeatSquare>();
+    this.squareMapList      = new ArrayList<SquareMap>();
     this.maioresValoresX    = new float[numChave];
     this.maioresValoresY    = new float[numChave];
     this.maioresValoresXE00 = new float[numChave];
@@ -108,7 +111,8 @@ class Matriz {
     return this.segundoMaiorValor;
   }
 
-  void drawSquareMap2() {
+  void drawSquareMap() {
+    this.squareMapList = new ArrayList<SquareMap>();
     float[] maioresValoresLocaisY = new float[numChave];
     float[] maioresValoresLocaisX = new float[numChave];
     int countNulls = 0;
@@ -142,16 +146,17 @@ class Matriz {
 
     // Desenha regiao valida
     fill(cValidos);
-    int novoW = countNulls == 0 ? w : (int) (w - countNulls*(w/(numChave*2)));
-    int novoY = (int) (y+countNulls*(h/(numChave*2)));
+    float regiaoInvalidaUnidade = 10;
+    int novoW = countNulls == 0 ? w : (int) (w - countNulls*(w/(regiaoInvalidaUnidade)));
+    int novoY = (int) (y+countNulls*(h/(regiaoInvalidaUnidade)));
     int novoH = (y+h) - novoY;
     rect(x, novoY, novoW, novoH);
 
     // Desenha limites regiao invalida
     stroke(255);
     for(int i=0; i<countNulls; i++) {
-      line(x, y+i*(w/(numChave*2)), x+w, y+i*(w/(numChave*2)));
-      line(x+novoW+i*(w/(numChave*2)), y, x+novoW+i*(w/(numChave*2)), y+h);
+      line(x, y+i*(w/(regiaoInvalidaUnidade)), x+w, y+i*(w/(regiaoInvalidaUnidade)));
+      line(x+novoW+i*(w/(regiaoInvalidaUnidade)), y, x+novoW+i*(w/(regiaoInvalidaUnidade)), y+h);
     }
 
 
@@ -177,12 +182,19 @@ class Matriz {
             numElementosAtual = numElementosAtual*2;
             if(this.exibeLog) numElementosAtual = log(numElementosAtual);
             if(numElementosAtual != 0.0) {
-              SquareMap sm = new SquareMap(x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementosAtual*constanteX)),
-                                           novoY+acumulaX,
-                                           numElementosAtual*constanteX,
-                                           numElementosAtual*constanteY,
-                                           i, j);
+              float smx = x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementosAtual*constanteX));
+              float smy = novoY+acumulaX;
+              float smw = numElementosAtual*constanteX;
+              float smh = numElementosAtual*constanteY;
+              SquareMap sm = new SquareMap(smx, smy, smw, smh, i, j);
+              squareMapList.add(sm);
               sm.draw();
+              if(quadradoFocado != null && i == quadradoFocadoI && j == quadradoFocadoJ) {
+                strokeWeight(2);
+                stroke(cHighlightedSquare);
+                rect(smx+2, smy+2, smw-4, smh-4);
+                strokeWeight(1);
+              }
             }
           }
         }
@@ -193,108 +205,19 @@ class Matriz {
       stroke(255);
       line(x, novoY+acumulaX, x+w, novoY+acumulaX);
     }
+    if(grown) {
+      drawMatrixInfoSM();
+    }
   }
 
-  void drawSquareMap() {
-    float numElementos;
-    float[] maioresValoresLocaisY = new float[numChave];
-    float[] maioresValoresLocaisX = new float[numChave];
-    int countNulls = 0;
-
-    // Toma conta das variaveis booleanas
-    for(int i=0; i<numChave; i++) {
-      if(exibe00) {
-        maioresValoresLocaisX[i] = this.mvg ? gl.maioresValoresX[i] : this.maioresValoresX[i];
-        maioresValoresLocaisY[i] = this.mvg ? gl.maioresValoresY[i] : this.maioresValoresY[i];
-        
-        // Contando os inválidos
-        if(this.quadrados[numChave-1][i] == null) {
-          maioresValoresLocaisX[numChave-1-i] = log(gl.maioresValoresX[i]);
-          maioresValoresLocaisY[i] = log(gl.maioresValoresY[i]);
-          countNulls++;
-        }
-      } else {
-        maioresValoresLocaisX[i] = this.mvg ? gl.maioresValoresXE00[i] : this.maioresValoresXE00[i];
-        maioresValoresLocaisY[i] = this.mvg ? gl.maioresValoresYE00[i] : this.maioresValoresYE00[i];
-        
-        if(this.quadrados[numChave-1][i] == null) {
-          maioresValoresLocaisX[numChave-1-i] = log(gl.maioresValoresXE00[i]);
-          maioresValoresLocaisY[i] = log(gl.maioresValoresYE00[i]);
-          countNulls++;
-        }
-      }
-
-      if(this.exibeLog) {
-        if(maioresValoresLocaisX[i] != 0.0) maioresValoresLocaisX[i] = log(maioresValoresLocaisX[i]);
-        // else maioresValoresLocaisX[i] = log(gl.maioresValoresX[i]);
-        if(maioresValoresLocaisY[i] != 0.0) maioresValoresLocaisY[i] = log(maioresValoresLocaisY[i]);
-        // else maioresValoresLocaisY[i] = log(gl.maioresValoresY[i]);
+  void identificaQuadradoFocadoSM() {
+    for(int i=squareMapList.size()-1; i>=0; i--) {
+      if(squareMapList.get(i).mouseOver()) {
+        quadradoFocadoI = squareMapList.get(i).matI;
+        quadradoFocadoJ = squareMapList.get(i).matJ;
+        quadradoFocado = quadrados[quadradoFocadoI][quadradoFocadoJ];
       }
     }
-
-    // Calcula fator de compensação
-    float constanteX, constanteY, comp = 0, altura = 0;
-    for(int i=0; i<numChave; i++) {
-      comp    += maioresValoresLocaisY[i];
-      altura  += maioresValoresLocaisX[i];
-    }
-    constanteY = h/altura;
-    constanteX = w/comp;
-
-    // Desenha quadrado
-    fill(cValidos);
-    stroke(0);
-    rect(x, y, w, h);
-
-    // Desenha regiao invalida
-    if(countNulls !=0 ) {
-      float acumulaX1 = 0, acumulaY1 = 0;
-      for(int i=0; i<countNulls; i++) {
-        acumulaX1 += maioresValoresLocaisX[i];
-      }
-      for(int i=0; i<numChave-countNulls; i++) {
-        acumulaY1 += maioresValoresLocaisY[i];
-      }
-      fill(cInvalidos);
-      noStroke();
-      rect(x+1, y+1, w-1, acumulaX1*constanteY-2);
-      rect( acumulaY1*constanteX+x+1, 
-            y+acumulaX1*constanteY-2, 
-            x+w-(acumulaY1*constanteX+x+1), 
-            y+h-(y+acumulaX1*constanteY));
-    }
-
-    // Desenha os squaremaps
-    for(int i=numChave-1; i>=0; i--) {
-      // Calcula o deslocamento na vertical
-      float acumulaX = 0;
-      for(int k=0; k<i; k++) {
-        acumulaX += maioresValoresLocaisX[k];
-      }
-      acumulaX *=constanteY;
-      float acumulaY = 0;
-      for(int j=0; j<numChave; j++) {
-        if(!exibe00 && i==numChave-1 && j==0){
-        } else {
-          if(quadrados[i][j] != null ) {
-            numElementos = pow(quadrados[i][j].numElementos, 0.5);
-            if(this.exibeLog) numElementos = log(numElementos);
-            if(numElementos != 0.0) {
-              fill(cPallete[4], 170);
-              stroke(100);
-              rectMode(CORNER);
-              rect( x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementos*constanteX)),
-                    y+acumulaX,
-                    numElementos*constanteX, 
-                    numElementos*constanteY);
-            }
-          }
-        }
-        acumulaY += maioresValoresLocaisY[j]*constanteX;
-      }  
-    }
-
-    if(grown) drawMatrixInfo();
   }
 
   void preencheHeatSquareList() {
@@ -369,7 +292,7 @@ class Matriz {
       }
     }
     if(grown) {
-      drawMatrixInfo();
+      drawMatrixInfoHM();
       drawMatrixAxisHM();
     }
   }
@@ -400,7 +323,29 @@ class Matriz {
     fill(cHistogramText);
     text("Release: r" + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo), x+2, y-50);
     text("Prefix: " + (quadrados[4][0].prefixo), x+2, y-35);
+  }
 
+  void drawMatrixInfoSM() {
+    drawMatrixInfo();
+    fill(cHistogramText);
+    int textX = x+w/2-60;
+    text("Antidiagonal entries", textX, y-50);
+    text("Super-antidiagonal entries", textX, y-35);
+    text("Sub-antidiagonal entries", textX, y-20);
+    int rectW = 100;
+    int rectH = 15;
+    int rectX = x+w-rectW;
+    noStroke();
+    fill(cAntidiagonal);
+    rect(rectX, y-60, rectW, rectH);
+    fill(cSuperAntidiagonal);
+    rect(rectX, y-45, rectW, rectH);
+    fill(cSubAntidiagonal);
+    rect(rectX, y-30, rectW, rectH);
+  }
+
+  void drawMatrixInfoHM() {
+    drawMatrixInfo();
     noStroke();
     int sw = 30, sh = 17;
     int legendX = x+w-(sw*cPallete.length);
