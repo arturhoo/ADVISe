@@ -128,8 +128,8 @@ class Matriz {
       }
 
       // Preenche fantasmas
-      if(maioresValoresLocaisY[i] == 0.0) maioresValoresLocaisY[i] = 2.0;
-      if(maioresValoresLocaisX[i] == 0.0) maioresValoresLocaisX[i] = 2.0;
+      if(maioresValoresLocaisY[i] == 0.0) maioresValoresLocaisY[i] = 1.5;
+      if(maioresValoresLocaisX[i] == 0.0) maioresValoresLocaisX[i] = 1.5;
 
       // Contando os inválidos
       if(this.quadrados[numChave-1][i] == null) countNulls++;
@@ -161,16 +161,14 @@ class Matriz {
       comp    += maioresValoresLocaisY[i];
       altura  += maioresValoresLocaisX[numChave-i-1];
     }
-    constanteY = novoH/altura;
-    constanteX = novoW/comp;
+    constanteY = (true) ? novoH/altura : h/altura;
+    constanteX = (true) ? novoW/comp : w/altura;
 
     for(int i=numChave-1; i>=countNulls; i--) {
       float acumulaX = 0;
       for(int k=countNulls; k<i; k++) acumulaX += maioresValoresLocaisX[k];
       acumulaX *= constanteY;
       float acumulaY = 0;
-      // stroke(255);
-      // line(x, novoY+acumulaX, x+w, novoY+acumulaX);
       for(int j=0; j<numChave-countNulls; j++) {
         if(!exibe00 && i==numChave-1 && j==0){
         } else {
@@ -179,13 +177,12 @@ class Matriz {
             numElementosAtual = numElementosAtual*2;
             if(this.exibeLog) numElementosAtual = log(numElementosAtual);
             if(numElementosAtual != 0.0) {
-              fill(cPallete[4], 170);
-              noStroke();
-              rectMode(CORNER);
-              rect( x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementosAtual*constanteX)),
-                    novoY+acumulaX,
-                    numElementosAtual*constanteX,
-                    numElementosAtual*constanteY);
+              SquareMap sm = new SquareMap(x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementosAtual*constanteX)),
+                                           novoY+acumulaX,
+                                           numElementosAtual*constanteX,
+                                           numElementosAtual*constanteY,
+                                           i, j);
+              sm.draw();
             }
           }
         }
