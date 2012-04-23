@@ -8,7 +8,7 @@ You must have two tables in your MySQL database, `id_ec` and `id_ec_atributo`.
 
 To start off, setup your basic dev system environment. Make sure you follow the on-screen instructions
 
-    $ sudo apt-get install mysql-server python-setuptools subversion python-svn mercurial git-core python-git bzr python-dev libmysqlclient-dev python-mysqldb
+    $ sudo apt-get install python-setuptools git-core python-git python-dev libmysqlclient-dev python-mysqldb
 
 Instal virtualenv and setup a clean environment
 
