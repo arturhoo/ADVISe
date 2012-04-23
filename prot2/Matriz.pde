@@ -189,7 +189,10 @@ class Matriz {
               SquareMap sm = new SquareMap(smx, smy, smw, smh, i, j);
               squareMapList.add(sm);
               sm.draw();
-              if(quadradoFocado != null && i == quadradoFocadoI && j == quadradoFocadoJ) {
+              if(quadradoFocado != null && 
+                 i == quadradoFocadoI && 
+                 j == quadradoFocadoJ && 
+                 !(i == 4 && j == 0)) {
                 strokeWeight(2);
                 stroke(cHighlightedSquare);
                 rect(smx+2, smy+2, smw-4, smh-4);
@@ -212,10 +215,11 @@ class Matriz {
 
   void identificaQuadradoFocadoSM() {
     for(int i=squareMapList.size()-1; i>=0; i--) {
-      if(squareMapList.get(i).mouseOver()) {
+      if(squareMapList.get(i).mouseOver() ) {
         quadradoFocadoI = squareMapList.get(i).matI;
         quadradoFocadoJ = squareMapList.get(i).matJ;
-        quadradoFocado = quadrados[quadradoFocadoI][quadradoFocadoJ];
+        if(!(quadradoFocadoI == 4 && quadradoFocadoJ == 0))
+          quadradoFocado = quadrados[quadradoFocadoI][quadradoFocadoJ];
       }
     }
   }
@@ -261,7 +265,7 @@ class Matriz {
     int hsmCount = 0;
     for(int i=0; i<numChave; i++) {
       for(int j=0; j<numChave; j++) {
-        if(heatSquareList.get(hsmCount).mouseOver()) {
+        if(heatSquareList.get(hsmCount).mouseOver() && !(i == 4 && j == 0)) {
           quadradoFocado = quadrados[i][j];
           quadradoFocadoI = i;
           quadradoFocadoJ = j;
@@ -280,7 +284,10 @@ class Matriz {
         //print("Imprimindo: " + i + "-" + j + " ratio: " + heatSquareList.get(hsmCount).ratio + "\n");
         this.heatSquareList.get(hsmCount++).draw2();
         noFill();   
-        if(quadradoFocado != null && quadradoFocadoI == i && quadradoFocadoJ == j) {
+        if(quadradoFocado != null && 
+           quadradoFocadoI == i && 
+          quadradoFocadoJ == j && 
+          !(i == 4 && j == 0)) {
           strokeWeight(2);
           stroke(cHighlightedSquare);
           rect(w/5*j+this.x, h/5*i+this.y, w/5-2, h/5-2);
