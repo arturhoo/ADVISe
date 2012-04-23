@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: 2012_biovis.aux
+The style file: abbrv.bst
+Database file #1: 2012_biovis.bib
+Warning--I didn't find a database entry for "***"
+Warning--empty institution in cleveland_trellis1
+Warning--empty institution in cleveland_trellis2
+Warning--empty publisher in few_nysi
+Warning--empty publisher in tufte_envisioning
+You've used 13 entries,
+            2118 wiz_defined-function locations,
+            577 strings with 5625 characters,
+and the built_in function-call counts, 4377 in all, are:
+= -- 415
+> -- 247
+< -- 0
++ -- 98
+- -- 84
+* -- 338
+:= -- 768
+add.period$ -- 39
+call.type$ -- 13
+change.case$ -- 77
+chr.to.int$ -- 0
+cite$ -- 17
+duplicate$ -- 140
+empty$ -- 314
+format.name$ -- 84
+if$ -- 868
+int.to.chr$ -- 0
+int.to.str$ -- 13
+missing$ -- 14
+newline$ -- 68
+num.names$ -- 26
+pop$ -- 76
+preamble$ -- 1
+purify$ -- 65
+quote$ -- 0
+skip$ -- 91
+stack$ -- 0
+substring$ -- 267
+swap$ -- 11
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 46
+warning$ -- 4
+while$ -- 40
+width$ -- 15
+write$ -- 138
+(There were 5 warnings)

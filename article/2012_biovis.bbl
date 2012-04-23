@@ -1,0 +1,74 @@
+\begin{thebibliography}{10}
+
+\bibitem{apweiler2010universal}
+R.~Apweiler, M.~Martin, C.~O'Donovan, M.~Magrane, Y.~Alam-Faruque, R.~Antunes,
+  D.~Barrell, B.~Bely, M.~Bingley, D.~Binns, et~al.
+\newblock The universal protein resource (uniprot) in 2010.
+\newblock {\em Nucleic Acids Res}, 38:D142--D148, 2010.
+
+\bibitem{cleveland_trellis1}
+R.~Becker, W.~Cleveland, M.~Shyu, and S.~Kaluzny.
+\newblock Trellis display: a framework for visualizing 2d and 3d data.
+\newblock Technical report, 1994.
+
+\bibitem{cleveland_trellis2}
+R.~Becker, W.~Cleveland, M.~Shyu, and S.~Kaluzny.
+\newblock Trellis display: User's guide.
+\newblock Technical report, 1994.
+
+\bibitem{brenner1999errors}
+S.~Brenner et~al.
+\newblock Errors in genome annotation.
+\newblock {\em Trends in Genetics}, 15(4):132--133, 1999.
+
+\bibitem{uniprot2012reorganizing}
+U.~Consortium et~al.
+\newblock Reorganizing the protein space at the universal protein resource
+  (uniprot).
+\newblock {\em Nucleic Acids Res}, 40:D71--D75, 2012.
+
+\bibitem{devos2001intrinsic}
+D.~Devos and A.~Valencia.
+\newblock Intrinsic errors in genome annotation.
+\newblock {\em Trends in Genetics}, 17(8):429--431, 2001.
+
+\bibitem{few_nysi}
+S.~Few.
+\newblock {\em Now you see it}.
+\newblock 2009.
+
+\bibitem{green2005genome}
+M.~Green and P.~Karp.
+\newblock Genome annotation errors in pathway databases due to semantic
+  ambiguity in partial ec numbers.
+\newblock {\em Nucleic acids research}, 33(13):4035--4039, 2005.
+
+\bibitem{hung2010detect}
+S.~Hung, J.~Wasmuth, C.~Sanford, and J.~Parkinson.
+\newblock Detect - a density estimation tool for enzyme classification and its
+  application to plasmodium falciparum.
+\newblock {\em Bioinformatics}, 26(14):1690--1698, 2010.
+
+\bibitem{jones2007estimating}
+C.~Jones, A.~Brown, and U.~Baumann.
+\newblock Estimating the annotation error rate of curated go database sequence
+  annotations.
+\newblock {\em BMC bioinformatics}, 8(1):170, 2007.
+
+\bibitem{lesk2005database}
+A.~Lesk and J.~Wiley.
+\newblock {\em Database annotation in molecular biology}.
+\newblock Wiley Online Library, 2005.
+
+\bibitem{schnoes2009annotation}
+A.~Schnoes, S.~Brown, I.~Dodevski, and P.~Babbitt.
+\newblock Annotation error in public databases: misannotation of molecular
+  function in enzyme superfamilies.
+\newblock {\em PLoS computational biology}, 5(12):e1000605, 2009.
+
+\bibitem{tufte_envisioning}
+E.~Tufte.
+\newblock {\em Envisioning information}.
+\newblock 1990.
+
+\end{thebibliography}

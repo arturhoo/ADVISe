@@ -1,0 +1,52 @@
+\section{Discussions}
+
+In this section, we describe the insights we obtained through the proposed interactive visualization.
+
+\subsection{Trends}
+
+\subsubsection{Stable enzyme annotations}
+
+The most common event over the entire data set is located at the bottom left corner of each frame and it represents pairs of observed EC numbers that remained constant in a certain pair of versions. It means that the two EC numbers involved were equal (i.e. 3.1.3.2 to 3.1.3.2) or that there was no EC number (-.-.-.- to -.-.-.-).
+
+%falar dos valores dos parametros
+%falar porque isso é razoavel
+
+\subsubsection{Generalization vs Especialization}
+
+Consider, for each frame, a diagonal that extends from the bottom left corner to the top right corner (\textcolor{red}{marcar diagonal numa figura para dar exemplo}). The matrix of points below this diagonal, called lower right triangular matrix, represents changes in which there are more specializations than generalizations. In a similar manner, the matrix of points above this diagonal, called upper left triangular matrix, represents changes in which there are more generalizations than specializations. In the figure as a whole, the lower triangular matrices have more points than the superior ones, and therefore in the entire data set there are more specializations than generalizations.
+
+\subsection{Exceptions} 
+
+%Falar que nas versões 11 a 15 foram identificadas mudanças drásticas bem numerosas (deleções de 4 níveis). Colocar quantas entradas sofreram tais mudanças. Colocar exemplos biológicos do que isso significa (de acordo com a resposta do UniProt).
+
+\subsubsection{Annotation deletion}
+
+The four points, in the red rectangle of the last line of frames, whose parameters are $prefix = 0$, $generalization = 4$ and $specialization = 0$, represent a drastic change in which the four levels of involved EC numbers were deleted. The Table \ref{four_deletion} shows the frequencies related to each point.
+
+\begin{table}[!h]
+  \caption{Frequency of four-level EC number deletion from releases 11 to 15}
+  \label{four_deletion}
+  \scriptsize
+  \begin{center}
+    \begin{tabular}{cccc}
+      Pair of releases & Frequencies\\
+    \hline
+      11 to 12 & 146\\
+      12 to 13 &  1,357\\
+      13 to 14 & 1,006\\
+      14 to 15 & 1,976
+    \end{tabular}
+  \end{center}
+\end{table}
+
+In  UniProtKB/Swiss-Prot they try only to assign EC numbers to catalytic subunits. This means that in large protein complexes only one or a few of the subunits will be annotated with an EC number. When they discover cases where non-catalytic subunits are annotated with an EC number, they remove it completely since the subunits in question do not have any enzymatic activity on its own. Here we present three examples of UniProt/Swiss-Prot entries that experienced four-level EC number deletion from version 12 to 13. 
+
+\begin{itemize}
+\item Identifier Q6FSJ2, which was annotated as 1.10.2.2 in version 12, is subunit 7 of cytochrome b-c1, but not the subunit with reductase activity
+\item Identifier Q8LX28, whose annotation was 3.6.3.14 in version 12, is subunit 8 of ATP synthase, which is part of the membrane proton channel
+\item Identifier Q6AY96, which was annotated as 2.7.11.1 in version 12, is a subunit of a transcription factorm, but not the subunit with serine/threonine kinase activity.
+\end{itemize}
+
+\subsubsection{Deleted EC numbers}
+
+In the highlighted point with parameters $prefix = 2$, $generalization = 2$ and $specialization = 2$ in versions 7-8, a total of 1900 EC number changes are represented. The three most numerous changes depicted in this point are, respectively, 2.7.1.37 to 2.7.11.1 (frequency 918), 2.7.1.112 to 2.7.10.1 (frequency 215) and 2.7.1.112 to 2.7.10.2 (frequency 165). As stated by IUBMB \cite{***}, the EC number 2.7.1.37 was deleted and divided in 2005 into EC 2.7.11.1, EC 2.7.11.8, EC 2.7.11.9, EC 2.7.11.10, EC 2.7.11.11, EC 2.7.11.12, EC 2.7.11.13, EC 2.7.11.21, EC 2.7.11.22, EC 2.7.11.24, EC 2.7.11.25, EC 2.7.11.30 and EC 2.7.12.1. The same happened to the EC number 2.7.1.112, that was deleted and divided into EC 2.7.10.1 and EC 2.7.10.2. In such cases, transferase annotations, more specifically EC 2.7.*.* (transferring phosphorus-containing groups), underwent a revision caused by a change in the EC classification system, not by a change in enzyme function annotation.

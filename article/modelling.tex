@@ -1,0 +1,32 @@
+\section{Problem modelling}
+
+Based on numerical and hierarchical nature of Enzyme Classification number, we  proposed a model to characterize the EC changes observed over several versions of UniProt/Swiss-Prot. First of all, our focus was on visualizing what types of changes happens and with what frequency they occur. Considering it is important to know the hierarchical level in which a change occurs, since a move in higher levels (leftmost) are more severe than in lower ones, we decided to segment changes by common prefix length, number of generalizations and number of specializations a specific EC number has suffered.
+
+An example of EC number change characterized by our model is provided below.
+
+$$3.1.3.2 \rightarrow 3.1.3.5$$
+
+It happened in 77 Hydrolases of releases 5 to 6. Observe that the common prefix length is 3 (the first three levels from left to right remains the same), there was 1 generalization (number 2 was deleted) and 1 specialization (number 5 was written). This change means that an Acid Phosphatase is now classified as a 5'-Nucleotidase.
+
+More examples of EC moves characterized by our prefix / generalization / specialization model are provided in Table \ref{tab_ec_change}.
+
+\begin{table*}[h]
+  \caption{Example of EC numbers across consecutive database releases and our prefix / generalization / specialization model}
+  \label{tab_ec_change}
+  \scriptsize
+  \begin{center}
+    \begin{tabular}{ccccccc}
+Previous & Actual & UniProt & releases & Common & Number of  & Number of \\
+EC number & EC number & id & & prefix length  &  Generalizations & Specializations \\
+
+    \hline
+      -.-.-.- & -.-.-.- & Q9K5T1 & 1 to 2 & 0 & 0 & 0\\
+      3.1.4.14 & 1.7.-.- & P41407 & 7 to 8 & 0 & 4 & 2 \\
+      1.1.1.- & 1.-.-.- & P52895 & 5 to 6 & 1 & 2 & 0 \\
+      5.3.-.- & 5.3.1.27 & P42404 & 14 to 15 & 2 & 0 & 2 \\
+      2.5.1.64 & 2.5.1.- & P17109 & 13 to 14 & 3 & 1 & 0 \\
+      4.1.1.22 & 4.1.1.22 & P95477 & 1 to 2 & 4 & 0 & 0 \\
+    \end{tabular}
+  \end{center}
+\end{table*}
+

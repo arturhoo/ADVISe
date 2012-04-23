@@ -1,0 +1,75 @@
+\section{Data set}
+\label{sec:dataset}
+
+In this work we use the biological database UniProt \cite{uniprot2012reorganizing}, which aims to provide a centralized repository of protein sequences with comprehensive coverage and a systematic approach to protein annotation, incorporating, interpreting, integrating and standardizing data from a large number of disparate sources. It is the most comprehensive catalog of protein sequence and functional annotation and has four components optimized for different uses. As stated by \cite{uniprot2012reorganizing} the UniProt Knowledgebase (UniProtKB) is an expertly curated database, a central access point for integrated protein information with cross-references to multiple sources. 
+% Raquel: achei que essa parte não é muito útil no nosso contexto.
+%The UniProt Archive (UniParc) is a comprehensive sequence repository, reflecting the history of all protein sequences. UniProt Reference Clusters (UniRef) merge closely related sequences based on sequence identity to speed up searches while the UniProt Metagenomic and Environmental Sequences database (UniMES) was created to respond to the expanding area of metagenomic data. 
+%
+%[SABRINA] ok.
+
+In accordance with \cite{apweiler2010universal} UniProtKB consists of two sections, UniProtKB/SwissProt and UniProtKB/TrEMBL. SwissProt contains manually annotated records with information extracted from literature and curator-evaluated computational analysis. Annotation is done by biologists with specific expertise to achieve accuracy. TrEMBL contains computationally analyzed records enriched with automatic annotation and classification. As the Swiss-Prot is considered the gold standard for protein annotation, in this work we use its data to observe and analyze the changes in EC annotation.
+
+The major releases available in the ftp of UniProt database when this study was started (March 2009) were downloaded. We analysed releases 1 (when SwissProt was integrated to UniProt) to 15 (the current release when this study was started). 
+
+In order to check if an EC move happened we need to look at a database entry EC annotation in two consecutive releases, therefore the mentioned releases were studied in pairs and the intersection of identifiers across two consecutive releases was taken.
+
+The total number of entries as well as the number of entries annotated with EC number and its percentage for the fifteen used releases are provided in Table \ref{tab_releases}. Table \ref{tab_pairs} shows the number of entries in the set intersection of each release pair. 
+
+
+\begin{table*}[!h]
+  \caption{Releases 1 to 15 of UniProt/SwissProt.}
+  \label{tab_releases}
+  \scriptsize
+  \begin{center}
+    \begin{tabular}{ccccc}
+      Release & Release date & \% of & Number of & Total of entries\\
+& (MM/DD/YYYY) & entries with EC & entries with EC & \\
+    \hline
+	1 & 12/15/2003 & 0.37 & 52,434 & 141,681 \\
+	2 & 07/05/2004 & 0.38 & 57,931 & 153,871 \\ 
+	3 & 10/25/2004 & 0.38 & 61,229 & 163,235 \\ 
+	4 & 02/01/2005 & 0.38 & 63,221 & 168,297 \\ 
+	5 & 05/10/2005 & 0.38 & 69,164 & 181,571 \\ 
+	6 & 09/13/2005 & 0.38 & 74,468 & 194,317 \\ 
+	7 & 02/07/2006 & 0.39 & 80,874 & 207,132 \\ 
+	8 & 05/30/2006 & 0.40 & 89,245 & 222,289 \\ 
+	9 & 10/31/2006 & 0.40 & 97,508 & 241,242 \\ 
+	10 & 03/06/2007 & 0.40 & 105,225 & 260,175 \\ 
+	11 & 05/29/2007 & 0.40 & 108,876 & 269,293 \\ 
+	12 & 07/24/2007 & 0.40 & 111,230 & 276,256 \\ 
+	13 & 02/26/2008 & 0.43 & 151,694 & 356,194 \\ 
+	14 & 07/22/2008 & 0.43 & 168,849 & 392,667 \\ 
+	15 & 03/24/2009 & 0.44 & 189,234 & 428,650 \\ 
+    \end{tabular}
+  \end{center}
+\end{table*}
+
+
+\begin{table}[!h]
+  \caption{Release pairs and number of entries in the intersection. }
+  \label{tab_pairs}
+  \scriptsize
+  \begin{center}
+    \begin{tabular}{cc}
+	Release & Number of \\
+	pair & entries in $\cap$\\
+    \hline
+	1 and 2 & 141,249 \\
+	2 and 3 & 151,318 \\ 
+	3 and 4 & 162,812 \\
+	4 and 5 & 166,933 \\
+	5 and 6 & 181,005 \\
+	6 and 7 & 193,382 \\
+	7 and 8 & 207,069 \\
+	8 and 9 & 222,181 \\
+	9 and 10 & 241,189 \\
+	10 and 11 & 260,065 \\
+	11 and 12 & 269,152 \\
+	12 and 13 & 276,011 \\
+	13 and 14 & 356,036 \\
+	14 and 15 & 392,597 \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+
