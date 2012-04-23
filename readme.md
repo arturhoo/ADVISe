@@ -13,11 +13,11 @@ To start off, setup your basic dev system environment. Make sure you follow the 
 Instal virtualenv and setup a clean environment
 
     $ sudo easy_intall virtualenv
-    $ virtualenv --no-site-packages biovis
+    $ virtualenv --no-site-packages venv
 
 Install the necessary python packages
 
-    $ . biovis/bin/activate
+    $ . venv/bin/activate
     $ pip install mysql-python uuid
 
 Time to create the necessary tables for the visualization.
