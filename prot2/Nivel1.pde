@@ -85,7 +85,7 @@ class Nivel1 {
     }
     fill(cHistogramText);
     textFont(font, 14);
-    text("Proteins count: " + this.numElementos, x, (height/5+13));
+    text("Number of Proteins: " + this.numElementos, x, (height/5+13));
     endTime = System.nanoTime();
     if(gl.timing) println("Tempo gasto para drawHistogram: " + (endTime - startTime)/pow(10,9));
   }

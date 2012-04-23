@@ -194,6 +194,7 @@ void preencheSuperMatriz() {
       if(gl.maiorValor < mv) gl.maiorValor = mv;
       if(gl.segundoMaiorValor < smv) gl.segundoMaiorValor = smv;
 
+      superMatriz[i2][i1].identificaNumTotalElementos();
       superMatriz[i2][i1].identificaMaioresValores();
       superMatriz[i2][i1].identificaMaioresValoresExceto00();
 
@@ -238,6 +239,9 @@ void defineParametrosSuperMatriz() {
       superMatriz[j][i].exibe00 = exibe00Button.active;
       superMatriz[j][i].mvg = mvgButton.active;
       superMatriz[j][i].exibeLog = exibeLogButton.active;
+      println("Matriz " + j + " " + i + " " + superMatriz[j][i].exibe00);
+      superMatriz[j][j].identificaNumTotalElementos();
+      println("Matriz " + j + " " + i + " " + superMatriz[j][i].exibe00);
     }
   }
 }
@@ -303,9 +307,9 @@ void drawSuperMatrizAxis() {
 void drawSquareMapLegend() {
   fill(cHistogramText);
   textFont(font, 11);
-  text("Antidiagonal entries", gl.smx, gl.smy+gl.smh+20);
-  text("Super-antidiagonal entries", gl.smx, gl.smy+gl.smh+32);
-  text("Sub-antidiagonal entries", gl.smx, gl.smy+gl.smh+44);
+  text("Diagonal entries", gl.smx, gl.smy+gl.smh+20);
+  text("Upper left entries", gl.smx, gl.smy+gl.smh+32);
+  text("Lower entries", gl.smx, gl.smy+gl.smh+44);
   int rectW = 100;
   int rectH = 12;
   noStroke();

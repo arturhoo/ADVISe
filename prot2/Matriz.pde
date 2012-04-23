@@ -111,6 +111,22 @@ class Matriz {
     return this.segundoMaiorValor;
   }
 
+  void identificaNumTotalElementos() {
+    this.numTotalElementos = 0;
+    for(int i=0; i<numChave; i++) {
+      for(int j=0; j<numChave; j++) {
+        if(this.quadrados[i][j] != null) {
+          if(i == numChave-1 && j == 0) {
+            println("Exibe00: " + this.exibe00);
+            if(this.exibe00) {
+              this.numTotalElementos += this.quadrados[i][j].numElementos;
+            }
+          } else this.numTotalElementos += this.quadrados[i][j].numElementos;
+        }
+      }
+    }
+  }
+
   void drawSquareMap() {
     this.squareMapList = new ArrayList<SquareMap>();
     float[] maioresValoresLocaisY = new float[numChave];
@@ -210,6 +226,7 @@ class Matriz {
     }
     if(grown) {
       drawMatrixInfoSM();
+      drawMatrixAxesSM();
     }
   }
 
@@ -300,11 +317,11 @@ class Matriz {
     }
     if(grown) {
       drawMatrixInfoHM();
-      drawMatrixAxisHM();
+      drawMatrixAxesHM();
     }
   }
 
-  void drawMatrixAxisHM() {
+  void drawMatrixAxesHM() {
     fill(cHistogramText);
     textAlign(CENTER);
     text("0", x+0*(w/numChave)+(w/numChave/2), y-7);
@@ -326,39 +343,55 @@ class Matriz {
     textAlign(LEFT);
   }
 
-  void drawMatrixInfo() {
+  void drawMatrixAxesSM() {
+    textFont(font, 12);
     fill(cHistogramText);
-    text("Release: r" + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo), x+2, y-50);
-    text("Prefix: " + (quadrados[4][0].prefixo), x+2, y-35);
+    textAlign(CENTER);    
+    text("Especialization", x+(w/2), y-20);
+    translate(x-20, y+(h/2));
+    rotate(3*PI/2);
+    text("Generalization", 0, 0);
+    rotate(PI/2);
+    resetMatrix();
+    textAlign(LEFT);
+  }
+
+  void drawMatrixInfo() {    
+    textFont(font, 12);
+    fill(cHistogramText);
+    text("Release: r" + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo), x+2, y-70);
+    text("Prefix: " + (quadrados[4][0].prefixo), x+2, y-55);
+    text("Number of proteins: " + numTotalElementos, x+2, y-40);
   }
 
   void drawMatrixInfoSM() {
     drawMatrixInfo();
     fill(cHistogramText);
-    int textX = x+w/2-60;
-    text("Antidiagonal entries", textX, y-50);
-    text("Super-antidiagonal entries", textX, y-35);
-    text("Sub-antidiagonal entries", textX, y-20);
+    textFont(font, 11);
+    int textX = x+w/2;
+    text("Diagonal entries", textX, y-70);
+    text("Upper left entries", textX, y-58);
+    text("Lower entries", textX, y-46);
     int rectW = 100;
-    int rectH = 15;
+    int rectH = 12;
     int rectX = x+w-rectW;
     noStroke();
     fill(cAntidiagonal);
-    rect(rectX, y-60, rectW, rectH);
+    rect(rectX, y-80, rectW, rectH);
     fill(cSuperAntidiagonal);
-    rect(rectX, y-45, rectW, rectH);
+    rect(rectX, y-68, rectW, rectH);
     fill(cSubAntidiagonal);
-    rect(rectX, y-30, rectW, rectH);
+    rect(rectX, y-56, rectW, rectH);
   }
 
   void drawMatrixInfoHM() {
     drawMatrixInfo();
     noStroke();
-    int sw = 30, sh = 17;
+    int sw = 35, sh = 20;
     int legendX = x+w-(sw*cPallete.length);
     for(int i=0; i<cPallete.length; i++) {
       fill(cPallete[i]);
-      rect(legendX+i*sw, y-60, sw, sh);
+      rect(legendX+i*sw, y-80, sw, sh);
     }
   }
 
@@ -374,7 +407,7 @@ class Matriz {
     y = (int) (height/5);
     w = y*3;
     h = y*3;
-    y += 50; // Move down
+    y += 70; // Move down
     grown = true;
   }
 }
