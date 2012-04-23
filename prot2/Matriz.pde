@@ -219,9 +219,26 @@ class Matriz {
         acumulaY += maioresValoresLocaisY[j]*constanteX;
         stroke(255);
         line(x+acumulaY, y, x+acumulaY, y+h);
+        // Draw horizontal axis
+        if(i == numChave-1 && grown) {
+          textFont(font, 12);
+          fill(cHistogramText);
+          textAlign(CENTER);
+          text(j, x+acumulaY-(maioresValoresLocaisY[j]*constanteX)/2, y-7);
+          textAlign(LEFT);
+        }
       }
       stroke(255);
       line(x, novoY+acumulaX, x+w, novoY+acumulaX);
+      // Draw vertical axis
+      if(grown) {
+        textFont(font, 12);
+        fill(cHistogramText);
+        textAlign(CENTER);
+        text(numChave-i-1, x-10, novoY+4+acumulaX+(maioresValoresLocaisX[i]*constanteY)/2);
+        resetMatrix();
+        textAlign(LEFT);
+      }
     }
     if(grown) {
       drawMatrixInfoSM();
@@ -321,6 +338,7 @@ class Matriz {
   }
 
   void drawMatrixAxesHM() {
+    textFont(font, 12);
     fill(cHistogramText);
     textAlign(CENTER);
     text("0", x+0*(w/numChave)+(w/numChave/2), y-7);
