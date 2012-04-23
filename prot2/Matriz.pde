@@ -142,16 +142,24 @@ class Matriz {
 
     // Desenha regiao valida
     fill(cValidos);
-    int novoW = countNulls == 0 ? w : w - countNulls*(w/(numChave*2));
+    int novoW = countNulls == 0 ? w : (int) (w - countNulls*(w/(numChave*2)));
     int novoY = (int) (y+countNulls*(h/(numChave*2)));
     int novoH = (y+h) - novoY;
     rect(x, novoY, novoW, novoH);
 
+    // Desenha limites regiao invalida
+    stroke(255);
+    for(int i=0; i<countNulls; i++) {
+      line(x, y+i*(w/(numChave*2)), x+w, y+i*(w/(numChave*2)));
+      line(x+novoW+i*(w/(numChave*2)), y, x+novoW+i*(w/(numChave*2)), y+h);
+    }
+
+
     // Calcula fator de compensação
     float constanteX, constanteY, comp = 0, altura = 0;
-    for(int i=0; i<numChave; i++) {
+    for(int i=0; i<numChave-countNulls; i++) {
       comp    += maioresValoresLocaisY[i];
-      altura  += maioresValoresLocaisX[i];
+      altura  += maioresValoresLocaisX[numChave-i-1];
     }
     constanteY = novoH/altura;
     constanteX = novoW/comp;
@@ -159,8 +167,10 @@ class Matriz {
     for(int i=numChave-1; i>=countNulls; i--) {
       float acumulaX = 0;
       for(int k=countNulls; k<i; k++) acumulaX += maioresValoresLocaisX[k];
-      acumulaX *=constanteY;
+      acumulaX *= constanteY;
       float acumulaY = 0;
+      // stroke(255);
+      // line(x, novoY+acumulaX, x+w, novoY+acumulaX);
       for(int j=0; j<numChave-countNulls; j++) {
         if(!exibe00 && i==numChave-1 && j==0){
         } else {
@@ -170,7 +180,7 @@ class Matriz {
             if(this.exibeLog) numElementosAtual = log(numElementosAtual);
             if(numElementosAtual != 0.0) {
               fill(cPallete[4], 170);
-              stroke(100);
+              noStroke();
               rectMode(CORNER);
               rect( x+acumulaY+((acumulaY+maioresValoresLocaisY[j]*constanteX)-(acumulaY+numElementosAtual*constanteX)),
                     novoY+acumulaX,
@@ -180,7 +190,11 @@ class Matriz {
           }
         }
         acumulaY += maioresValoresLocaisY[j]*constanteX;
+        stroke(255);
+        line(x+acumulaY, y, x+acumulaY, y+h);
       }
+      stroke(255);
+      line(x, novoY+acumulaX, x+w, novoY+acumulaX);
     }
   }
 

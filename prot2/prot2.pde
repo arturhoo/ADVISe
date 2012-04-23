@@ -104,10 +104,8 @@ void draw() {
       if(squareMapButton.active) drawSuperMatrizSquareMap();      
     } else {
       if(!drawnFocada) matrizFocada.preencheHeatSquareList(); // Vai recalcular as dimensoes
-      if(heatMapButton.active) {
-        matrizFocada.drawHeatMap();
-      }
-      if(squareMapButton.active) matrizFocada.drawSquareMap();
+      if(heatMapButton.active) matrizFocada.drawHeatMap();
+      if(squareMapButton.active) matrizFocada.drawSquareMap2();
       if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
       if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
       drawnFocada = true;
