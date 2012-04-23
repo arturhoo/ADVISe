@@ -64,15 +64,15 @@ class Nivel2 {
 
   int draw(int x, int y) {
     this.preencheMudancaProteinaList();
-    int espacamentoHorizontal = 12;
-    int espacamentoVertical = 12;
-    int numProteinasLinha = (int) ((width-x-260)/10);
+    int espacamentoHorizontal = 14;
+    int espacamentoVertical = 14;
+    int numProteinasLinha = (int) ((width-x-260)/11);
     int i;
     fill(cHistogramText);
     textFont(font, 12);
     text(ecList[ec_ant[0]+1] + " to\n" + ecList[ec_novo[0]+1] + " (" + this.numElementos + ")", x, y+5);
     for(i=0; i<mudancaProteinaList.size(); i++) {
-      mudancaProteinaList.get(i).drawParticle(x+130+(i%numProteinasLinha)*espacamentoHorizontal, y+(i/numProteinasLinha)*espacamentoVertical);      
+      mudancaProteinaList.get(i).drawParticleSquare(x+130+(i%numProteinasLinha)*espacamentoHorizontal, y+(i/numProteinasLinha)*espacamentoVertical-5);
     }
     int ultimoYDesenhado = ((i/numProteinasLinha)+1)*espacamentoVertical;
     return ultimoYDesenhado;
