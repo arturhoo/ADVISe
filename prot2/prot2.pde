@@ -41,7 +41,8 @@ int squareSize = 1;
 // color[] colorsGray = {#8D7966, #A8A39D, #D8C8B8, #E2DDD9, #F8F1E9};
 // color[] colorsContrast = {#EBE3AA, #CAD7B2, #A8CABA, #838689, #5D4157};
 
-color[] cPallete              = {#FFD000, #FF9A00, #FF7B00, #FF4A00, #FF0000};
+color[] cPallete              = {#d5d50b, #a7a70b, #8e8e0b, #6a6a0b, #4c4c11};
+color[] cPallete2             = {#c7103b, #cfb998, #00749d};
 color cBackground             = #FFFFFF;
 color cInvalidos              = #E6E6E6;
 color cValidos                = #F0F0F0;
@@ -59,9 +60,6 @@ color cElipse                 = #FF0000;
 color cSparkLine              = #5D4157;
 color cProteinAnt             = #E6E6E6;
 color cProteinNovo            = #BEBEBE;
-color cAntidiagonal           = #FF0000;
-color cSuperAntidiagonal      = #FF7B00;
-color cSubAntidiagonal        = #FFD000;
 
 
 void setup() {
@@ -293,7 +291,7 @@ void drawSuperMatrizAxis() {
   for(int i=0; i<numEstudos; i++) {
     int textX = gl.smx+i*(quadradoW+gl.smEspacamentoX)+(quadradoW/2);
     int textY = gl.smy-7;
-    text("r" + (i+1) + "-" + (i+2), textX, textY);
+    text((i+1) + "-" + (i+2), textX, textY);
   }
   for(int i=0; i<numPrefixos; i++) {
     int textX = gl.smx - 10;
@@ -312,18 +310,18 @@ void drawSuperMatrizAxis() {
 void drawSquareMapLegend() {
   fill(cHistogramText);
   textFont(font, 11);
-  text("Diagonal entries", gl.smx, gl.smy+gl.smh+20);
-  text("Upper left entries", gl.smx, gl.smy+gl.smh+32);
-  text("Lower entries", gl.smx, gl.smy+gl.smh+44);
-  int rectW = 100;
+  text("Upper Left entries", gl.smx, gl.smy+gl.smh+20);
+  text("Diagonal entries", gl.smx, gl.smy+gl.smh+32);
+  text("Lower right entries", gl.smx, gl.smy+gl.smh+44);
+  int rectW = 50;
   int rectH = 12;
   noStroke();
-  fill(cAntidiagonal);
-  rect(gl.smx+200, gl.smy+gl.smh+12, rectW, rectH);
-  fill(cSuperAntidiagonal);
-  rect(gl.smx+200, gl.smy+gl.smh+24, rectW, rectH);
-  fill(cSubAntidiagonal);
-  rect(gl.smx+200, gl.smy+gl.smh+36, rectW, rectH);
+  fill(cPallete2[0]);
+  rect(gl.smx+120, gl.smy+gl.smh+12, rectW, rectH);
+  fill(cPallete2[1]);
+  rect(gl.smx+120, gl.smy+gl.smh+24, rectW, rectH);
+  fill(cPallete2[2]);
+  rect(gl.smx+120, gl.smy+gl.smh+36, rectW, rectH);
 }
 
 void drawHeatMapLegend() {

@@ -14,9 +14,9 @@ class SquareMap {
   }
 
   void defineCor() {
-    if(this.matI == numChave-1-this.matJ) this.cFill = cAntidiagonal;
-    else if(this.matI + this.matJ >= numChave) this.cFill = cSubAntidiagonal;
-    else this.cFill = cSuperAntidiagonal;
+    if(this.matI == numChave-1-this.matJ) this.cFill = cPallete2[1];
+    else if(this.matI + this.matJ >= numChave) this.cFill = cPallete2[2];
+    else this.cFill = cPallete2[0];
   }
 
   boolean mouseOver() {

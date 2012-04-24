@@ -208,9 +208,8 @@ class Matriz {
                  i == quadradoFocadoI && 
                  j == quadradoFocadoJ && 
                  !(i == 4 && j == 0)) {
-                strokeWeight(2);
-                stroke(cHighlightedSquare);
-                rect(smx+2, smy+2, smw-4, smh-4);
+                fill(255,100);
+                rect(smx-1, smy, smw+1, smh);
                 strokeWeight(1);
               }
             }
@@ -321,14 +320,12 @@ class Matriz {
            quadradoFocadoI == i && 
           quadradoFocadoJ == j && 
           !(i == 4 && j == 0)) {
-          strokeWeight(2);
-          stroke(cHighlightedSquare);
-          rect(w/5*j+this.x, h/5*i+this.y, w/5-2, h/5-2);
+          fill(255,100);
+          rect(w/5*j+this.x+1, h/5*i+this.y+1, w/5-1, h/5-1);
           strokeWeight(1);
-        } else {
-          stroke(255);
-          rect(w/5*j+this.x, h/5*i+this.y, w/5, h/5);
         }
+        stroke(255);
+        rect(w/5*j+this.x, h/5*i+this.y, w/5, h/5);
       }
     }
     if(grown) {
@@ -346,7 +343,7 @@ class Matriz {
     text("2", x+2*(w/numChave)+(w/numChave/2), y-7);
     text("3", x+3*(w/numChave)+(w/numChave/2), y-7);
     text("4", x+4*(w/numChave)+(w/numChave/2), y-7);
-    text("Especialization", x+(w/2), y-20);
+    text("Specialization", x+(w/2), y-20);
     text("4", x-10, y+0*(h/numChave)+(h/numChave/2));
     text("3", x-10, y+1*(h/numChave)+(h/numChave/2));
     text("2", x-10, y+2*(h/numChave)+(h/numChave/2));
@@ -364,7 +361,7 @@ class Matriz {
     textFont(font, 12);
     fill(cHistogramText);
     textAlign(CENTER);    
-    text("Especialization", x+(w/2), y-20);
+    text("Specialization", x+(w/2), y-20);
     translate(x-20, y+(h/2));
     rotate(3*PI/2);
     text("Generalization", 0, 0);
@@ -376,7 +373,7 @@ class Matriz {
   void drawMatrixInfo() {    
     textFont(font, 12);
     fill(cHistogramText);
-    text("Release: r" + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo), x+2, y-70);
+    text("Release: " + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo), x+2, y-70);
     text("Prefix: " + (quadrados[4][0].prefixo), x+2, y-55);
     text("Number of proteins: " + numTotalElementos, x+2, y-40);
   }
@@ -385,19 +382,19 @@ class Matriz {
     drawMatrixInfo();
     fill(cHistogramText);
     textFont(font, 11);
-    int textX = x+w/2;
-    text("Diagonal entries", textX, y-70);
-    text("Upper left entries", textX, y-58);
-    text("Lower entries", textX, y-46);
-    int rectW = 100;
+    int textX = x+w/2+40;
+    text("Upper left entries", textX, y-70);
+    text("Diagonal entries", textX, y-58);
+    text("Lower right entries", textX, y-46);
+    int rectW = 50;
     int rectH = 12;
     int rectX = x+w-rectW;
     noStroke();
-    fill(cAntidiagonal);
+    fill(cPallete2[0]);
     rect(rectX, y-80, rectW, rectH);
-    fill(cSuperAntidiagonal);
+    fill(cPallete2[1]);
     rect(rectX, y-68, rectW, rectH);
-    fill(cSubAntidiagonal);
+    fill(cPallete2[2]);
     rect(rectX, y-56, rectW, rectH);
   }
 
@@ -413,11 +410,11 @@ class Matriz {
         textAlign(LEFT);
         fill(0);
         textFont(font, 11);
-        text("0", legendX+6, y-recuoY+14);
+        text("1", legendX+6, y-recuoY+14);
       }
       if(i == cPallete.length-1) {
         textAlign(RIGHT);
-        fill(0);
+        fill(cBackground);
         textFont(font, 11);
         int num;
         if(exibe00) {
