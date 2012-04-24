@@ -62,8 +62,9 @@ class MudancaProteina {
   void drawParticleSquare(int x, int y) {
     this.x = x;
     this.y = y;
-    stroke(10, 10, 10);
-    fill(cElipse);
+    // stroke(10, 10, 10);
+    noStroke();
+    fill(100);
     rect(x, y, radius, radius);
   }
 

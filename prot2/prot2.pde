@@ -55,9 +55,9 @@ color cButtonText             = #5D4157;
 color cButtonMouseOver        = #9B568D;
 color cButtonActive           = #FF4E50;
 color cHighlightedSquare      = #3F00B7;
-color cHistogramText          = #5D4157;
+color cHistogramText          = #000000;
 color cElipse                 = #FF0000;
-color cSparkLine              = #5D4157;
+color cSparkLine              = #000000;
 color cProteinAnt             = #E6E6E6;
 color cProteinNovo            = #BEBEBE;
 
