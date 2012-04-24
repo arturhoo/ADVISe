@@ -74,7 +74,7 @@ for i in range(1, 3281207):
                 row['kw_depois'])
 
     try:
-        c.execute('''   insert into id_ec_num
+        c.execute('''   insert into id_ec__atributo_num
                         values (%s, %s, %s, %s, %s, %s,
                                 %s, %s, %s, %s, %s, %s,
                                 %s, %s, %s, %s, %s, %s,
