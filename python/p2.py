@@ -17,7 +17,7 @@ conn = MySQLdb.connect( host=host, \
                         init_command='SET NAMES utf8')
 c = conn.cursor(MySQLdb.cursors.DictCursor)
 
-for i in range(1216298, 3281207):
+for i in range(1, 3281207):
     query = (i,)
     try:
         c.execute('''   select * 
