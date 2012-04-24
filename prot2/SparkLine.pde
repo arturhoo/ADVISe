@@ -43,8 +43,8 @@ class SparkLine {
     strokeWeight(2);
     for(int i=0; i<pontos.length-1; i++) {
       stroke(cSparkLine);
-      line(x+pontos[i], y+h-(h*valoresNormalizados[i])-5, x+pontos[i], y+h-(h*valoresNormalizados[i])+5);
-      line(x+pontos[i+1], y+h-(h*valoresNormalizados[i+1])-5, x+pontos[i+1], y+h-(h*valoresNormalizados[i+1])+5);
+      line(x+pontos[i], y+h-(h*valoresNormalizados[i])-3, x+pontos[i], y+h-(h*valoresNormalizados[i])+3);
+      line(x+pontos[i+1], y+h-(h*valoresNormalizados[i+1])-3, x+pontos[i+1], y+h-(h*valoresNormalizados[i+1])+3);
       line(x+pontos[i], y+h-(h*valoresNormalizados[i]), x+pontos[i+1], y+h-(h*valoresNormalizados[i+1]));
     }
     strokeWeight(1);

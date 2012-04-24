@@ -44,16 +44,16 @@ int squareSize = 1;
 color[] cPallete              = {#d5d50b, #a7a70b, #8e8e0b, #6a6a0b, #4c4c11};
 color[] cPallete2             = {#c7103b, #cfb998, #00749d};
 color cBackground             = #FFFFFF;
-color cInvalidos              = #E6E6E6;
+color cInvalidos              = #C8C8C8;
 color cValidos                = #F0F0F0;
-color cBackgroundMapaTitle    = #969696;
+color cBackgroundMapaTitle    = #C8C8C8;
 color cBackgroundFiltrosTitle = #AAAAAA;
-color cBackgroundMapa         = #D2D2D2;
+color cBackgroundMapa         = #F0F0F0;
 color cBackgroundFiltros      = #E6E6E6;
 color cButtonTitleText        = #000000;
-color cButtonText             = #5D4157;
-color cButtonMouseOver        = #9B568D;
-color cButtonActive           = #FF4E50;
+color cButtonText             = #AAAAAA;
+color cButtonMouseOver        = #818181;
+color cButtonActive           = #1F1F1F;
 color cHighlightedSquare      = #3F00B7;
 color cHistogramText          = #000000;
 color cElipse                 = #FF0000;
@@ -68,7 +68,7 @@ void setup() {
   smooth();
   background(cBackground);
 
-  font = createFont("LucidaGrande-Bold", 20);
+  font = createFont("LucidaGrande", 20);
 
   linhasConfig = loadStrings("mysql_settings.txt");
   host         = linhasConfig[0]; database = linhasConfig[1]; user = linhasConfig[2]; pass = linhasConfig[3];
@@ -119,9 +119,9 @@ void draw() {
 void criaButtons() {
   heatMapButton   = new Button("HeatMap", new PVector(0, 0), 13);
   squareMapButton = new Button("SquareMap", new PVector(0, 0), 13);
-  exibeLogButton  = new Button("Log Scale", new PVector(0, 0), 12);
-  exibe00Button   = new Button("All Values", new PVector(0, 0), 12);
-  mvgButton       = new Button("Global Values", new PVector(0, 0), 12);
+  exibeLogButton  = new Button("Log Scale on Frequency", new PVector(0, 0), 12);
+  exibe00Button   = new Button("Show Conserved Elements", new PVector(0, 0), 12);
+  mvgButton       = new Button("Global Normalization", new PVector(0, 0), 12);
 }
 
 void drawButtons() {
