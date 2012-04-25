@@ -25,7 +25,7 @@ String linhasConfig[];
 
 int hmw = 80, hmh = 80;
 
-PFont font;
+PFont font, fontBold;
 
 boolean drawn = false;
 boolean drawnFocada = false;
@@ -68,7 +68,8 @@ void setup() {
   smooth();
   background(cBackground);
 
-  font = createFont("LucidaGrande", 20);
+  font     = createFont("LucidaGrande", 20);
+  fontBold = createFont("LucidaGrande-Bold", 20);
 
   linhasConfig = loadStrings("mysql_settings.txt");
   host         = linhasConfig[0]; database = linhasConfig[1]; user = linhasConfig[2]; pass = linhasConfig[3];

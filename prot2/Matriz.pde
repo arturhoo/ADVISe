@@ -371,11 +371,15 @@ class Matriz {
   }
 
   void drawMatrixInfo() {    
-    textFont(font, 12);
+    textFont(fontBold, 12);
     fill(cHistogramText);
-    text("Release: " + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo), x+2, y-70);
-    text("Prefix: " + (quadrados[4][0].prefixo), x+2, y-55);
-    text("Number of proteins: " + numTotalElementos, x+2, y-40);
+    String info = "Release: " + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo);
+    info += ", Prefix: " + (quadrados[4][0].prefixo);
+    info += ", Number of proteins: " + numTotalElementos;
+    text(info, x+2, y-40);
+    // text("Release: " + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo), x+2, y-70);
+    // text("Prefix: " + (quadrados[4][0].prefixo), x+2, y-55);
+    // text("Number of proteins: " + numTotalElementos, x+2, y-40);
   }
 
   void drawRegionsInfo() {
@@ -395,7 +399,7 @@ class Matriz {
   }
 
   void drawMatrixInfoSM() {
-    //drawMatrixInfo();
+    drawMatrixInfo();
     drawRegionsInfo();
     fill(cHistogramText);
     textFont(font, 11);
@@ -456,9 +460,9 @@ class Matriz {
   void onMouseClickGrowBig() {
     x = 100;
     y = (int) (height/5);
-    w = y*3;
-    h = y*3;
-    y += 20; // Move down
+    w = (int) (y*2.8);
+    h = w;
+    y += 55; // Move down
     grown = true;
   }
 }
