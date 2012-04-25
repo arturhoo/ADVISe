@@ -308,21 +308,65 @@ void drawSuperMatrizAxis() {
   textAlign(LEFT);
 }
 
+void drawRegionLegend(int x, int y) {
+  int rectW = 50;
+  int rectH = 12;
+  fill(cHistogramText);
+  textFont(font, 11);
+  int regionX = x;
+  int regionY = y;
+  text("No changes", regionX, regionY+8);
+  text("Invalid Region", regionX, regionY+20);
+  noStroke();
+  fill(cValidos);
+  rect(regionX+90, regionY, rectW, rectH);
+  fill(cInvalidos);
+  rect(regionX+90, regionY+rectH, rectW, rectH);
+}
+
 void drawSquareMapLegend() {
   fill(cHistogramText);
   textFont(font, 11);
-  text("Upper Left entries", gl.smx, gl.smy+gl.smh+20);
-  text("Diagonal entries", gl.smx, gl.smy+gl.smh+32);
-  text("Lower right entries", gl.smx, gl.smy+gl.smh+44);
+  int rectX = gl.smx+170;
+  text("Upper Left entries", rectX, gl.smy+gl.smh+20);
+  text("Diagonal entries", rectX, gl.smy+gl.smh+32);
+  text("Lower right entries", rectX, gl.smy+gl.smh+44);
   int rectW = 50;
   int rectH = 12;
   noStroke();
   fill(cPallete2[0]);
-  rect(gl.smx+120, gl.smy+gl.smh+12, rectW, rectH);
+  rect(rectX+120, gl.smy+gl.smh+12, rectW, rectH);
   fill(cPallete2[1]);
-  rect(gl.smx+120, gl.smy+gl.smh+24, rectW, rectH);
+  rect(rectX+120, gl.smy+gl.smh+24, rectW, rectH);
   fill(cPallete2[2]);
-  rect(gl.smx+120, gl.smy+gl.smh+36, rectW, rectH);
+  rect(rectX+120, gl.smy+gl.smh+36, rectW, rectH);
+
+  // int quadX = gl.smx+200;
+  // int quadY = gl.smy+gl.smh+12;
+  // textLeading(12);
+  // fill(cPallete2[1]);
+  // rect(quadX, quadY, 36, 36);
+  // rect(quadX+100, quadY+6, 24, 24);
+  // rect(quadX+188, quadY+12, 12, 12);
+  // fill(0);
+  // text("Many\nChanges", quadX+40, quadY+16);
+  // text("Several\nChanges", quadX+128, quadY+16);
+  // text("Few\nChanges", quadX+202, quadY+16);
+
+  int quadX = gl.smx+10;
+  int quadY = gl.smy+gl.smh+40;
+  fill(cPallete2[1]);
+  rect(quadX, quadY, 32, 32);
+  rect(quadX+8, quadY+40, 16, 16);
+  rect(quadX+12, quadY+68, 8, 8);
+  fill(0);
+  textLeading(11);
+  text("Number of Changes\nindicated by quad size", gl.smx, gl.smy+gl.smh+20);
+  text("Many", quadX+36, quadY+20);
+  text("Several", quadX+36, quadY+56);
+  text("Few", quadX+36, quadY+76);
+
+  drawRegionLegend(gl.smx+370, gl.smy+gl.smh+12);
 }
 
 void drawHeatMapLegend() {
@@ -351,6 +395,8 @@ void drawHeatMapLegend() {
     }
     textAlign(LEFT);
   }
+
+  drawRegionLegend(gl.smx+370, gl.smy+gl.smh+20);
 }
 
 void mousePressed() {

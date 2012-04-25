@@ -387,7 +387,7 @@ class Matriz {
     fill(cHistogramText);
     textFont(font, 11);
     int textX = x+w/2+40;
-    text("No entries", textX, y+h+20);
+    text("No changes", textX, y+h+20);
     text("Invalid Region", textX, y+h+32);
     int rectW = 50;
     int rectH = 12;
