@@ -111,11 +111,12 @@ void draw() {
       if(heatMapButton.active) matrizFocada.drawHeatMap();
       if(squareMapButton.active) matrizFocada.drawSquareMap();
       if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
-      if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
+      // if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
       drawnFocada = true;
     }
     drawn = true;
   }
+  if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
   drawButtons();
 }
 
