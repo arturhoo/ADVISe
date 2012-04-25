@@ -84,7 +84,7 @@ void setup() {
   preencheSuperMatriz();
   nivel1List = null;
   gl.smx = 50;
-  gl.smy = 200;
+  gl.smy = 100;
   gl.smw = width-50-gl.smx;
   gl.smh = (int) (width/4.5);
   gl.smEspacamentoX = 15;
@@ -327,10 +327,29 @@ void drawSquareMapLegend() {
 
 void drawHeatMapLegend() {
   noStroke();
-  int w = 20, h = 12;
+  int sw = 65, sh = 16;  
+  int legendX = gl.smx;
+  textFont(font, 11);
+  textAlign(LEFT);
+  fill(0);
+  text("Number of changes", legendX, gl.smy+gl.smh+20);
   for(int i=0; i<cPallete.length; i++) {
     fill(cPallete[i]);
-    rect(gl.smx+i*w, gl.smy+gl.smh+20, w, h);    
+    rect(legendX+i*sw, gl.smy+gl.smh+26, sw, sh);
+    if(i == 0) {
+      fill(0);
+      text("1", legendX+6, gl.smy+gl.smh+38);
+    }
+    if(i == cPallete.length-1) {
+      textAlign(RIGHT);
+      fill(cBackground);
+      String num;
+      if(mvgButton.active) {
+        num = "" + (exibe00Button.active ? gl.maiorValor : gl.segundoMaiorValor);
+      } else num = "Frame Max";
+      text(num, legendX+(i+1)*sw-3, gl.smy+gl.smh+38);
+    }
+    textAlign(LEFT);
   }
 }
 

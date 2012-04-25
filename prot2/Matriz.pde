@@ -424,16 +424,20 @@ class Matriz {
     drawMatrixInfo();
     drawRegionsInfo();
     noStroke();
-    int sw = 35, sh = 20, recuoY = 80;
+    int sw = 40, sh = 20;
     int legendX = x+2;
+    textFont(font, 11);
+    textAlign(LEFT);
+    fill(0);
+    text("Number of changes", legendX, y+h+10);
     for(int i=0; i<cPallete.length; i++) {
       fill(cPallete[i]);
-      rect(legendX+i*sw, y+h+10, sw, sh);
+      rect(legendX+i*sw, y+h+16, sw, sh);
       if(i == 0) {
         textAlign(LEFT);
         fill(0);
         textFont(font, 11);
-        text("1", legendX+6, y+h+24);
+        text("1", legendX+6, y+h+30);
       }
       if(i == cPallete.length-1) {
         textAlign(RIGHT);
@@ -445,8 +449,7 @@ class Matriz {
         } else {
           num = mvg ? gl.segundoMaiorValor : segundoMaiorValor;
         }
-        // int num = exibe00 ? maiorValor : segundoMaiorValor;
-        text(num, legendX+(i+1)*sw-4, y+h+24);
+        text(num, legendX+(i+1)*sw-3, y+h+30);
       }
       textAlign(LEFT);
     }
