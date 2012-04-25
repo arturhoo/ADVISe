@@ -371,12 +371,12 @@ class Matriz {
   }
 
   void drawMatrixInfo() {    
-    textFont(fontBold, 12);
+    textFont(font, 14);
     fill(cHistogramText);
     String info = "Release: " + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo);
     info += ", Prefix: " + (quadrados[4][0].prefixo);
     info += ", Number of proteins: " + numTotalElementos;
-    text(info, x, y-40);
+    text(info, x, (height/5+13)); // y de acordo com drawhistogram
     // text("Release: " + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo), x+2, y-70);
     // text("Prefix: " + (quadrados[4][0].prefixo), x+2, y-55);
     // text("Number of proteins: " + numTotalElementos, x+2, y-40);
