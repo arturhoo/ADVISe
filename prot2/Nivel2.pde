@@ -7,6 +7,7 @@ class Nivel2 {
   int[] ec_ant;
   int[] ec_novo;
   ArrayList<MudancaProteina> mudancaProteinaList;
+  boolean preenchida = false;
   
   Nivel2 (Nivel1 nivel1, int ec_ant0, int ec_novo0, int numElementos) {
     this.numElementos = numElementos;
@@ -58,21 +59,35 @@ class Nivel2 {
         this.mudancaProteinaList.add(mp);
       }
     }
+    this.preenchida = true;
     endTime = System.nanoTime();
     if(gl.timing) println("Tempo gasto para preencheMudancaProteinaList: " + (endTime - startTime)/pow(10,9));
   }
 
+  void limpaMudancaProteinaDetalhe() {
+    for(int i=0; i<mudancaProteinaList.size(); i++) {
+      mudancaProteinaList.get(i).detalhe = false;
+    }
+  }
+
   int draw(int x, int y) {
-    this.preencheMudancaProteinaList();
+    if(!preenchida) this.preencheMudancaProteinaList();
     int espacamentoHorizontal = 14;
     int espacamentoVertical = 14;
-    int numProteinasLinha = (int) ((width-x-260)/11);
+    int numProteinasLinha = (int) ((width-x-140)/(espacamentoHorizontal));
     int i;
     fill(cHistogramText);
     textFont(font, 12);
     text(ecList[ec_ant[0]+1] + " to\n" + ecList[ec_novo[0]+1] + " (" + this.numElementos + ")", x, y+5);
     for(i=0; i<mudancaProteinaList.size(); i++) {
-      mudancaProteinaList.get(i).drawParticleSquare(x+130+(i%numProteinasLinha)*espacamentoHorizontal, y+(i/numProteinasLinha)*espacamentoVertical-5);
+      int particleX = x+135+(i%numProteinasLinha)*espacamentoHorizontal;
+      int particleY = y+(i/numProteinasLinha)*espacamentoVertical-5;
+      mudancaProteinaList.get(i).drawParticleSquare(particleX, particleY);
+      if(mudancaProteinaList.get(i).detalhe) {
+        fill(255, 150);
+        int ladoQuadrado = (int) (mudancaProteinaList.get(i).radius);
+        rect(particleX, particleY, ladoQuadrado, ladoQuadrado);
+      }
     }
     int ultimoYDesenhado = ((i/numProteinasLinha)+1)*espacamentoVertical;
     return ultimoYDesenhado;

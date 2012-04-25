@@ -71,8 +71,8 @@ class Nivel1 {
     final long startTime = System.nanoTime();
     final long endTime;
 
-    this.preencheLista();
-    this.ordenaLista();
+    if(!preenchida) this.preencheLista();
+    if(!ordenada) this.ordenaLista();
     
     int x = 150+((int)(3*height/5)); // according to onClickGrowBig method
     int escapeVertical = 0;
