@@ -257,6 +257,20 @@ class Matriz {
     }
   }
 
+  void identificaQuadradoFocadoHM() {
+    int hsmCount = 0;
+    for(int i=0; i<numChave; i++) {
+      for(int j=0; j<numChave; j++) {
+        if(heatSquareList.get(hsmCount).mouseOver() && !(i == 4 && j == 0)) {
+          quadradoFocado = quadrados[i][j];
+          quadradoFocadoI = i;
+          quadradoFocadoJ = j;
+        }
+        hsmCount++;
+      }
+    }
+  }
+
   void preencheHeatSquareList() {
     float ratio, mv;
     this.heatSquareList = new ArrayList<HeatSquare>();
@@ -290,20 +304,6 @@ class Matriz {
                                         ratio);
         // print("HS: " + i + "-" + j + " ratio: " + ratio + "\n");
         heatSquareList.add(hs);
-      }
-    }
-  }
-
-  void identificaQuadradoFocadoHM() {
-    int hsmCount = 0;
-    for(int i=0; i<numChave; i++) {
-      for(int j=0; j<numChave; j++) {
-        if(heatSquareList.get(hsmCount).mouseOver() && !(i == 4 && j == 0)) {
-          quadradoFocado = quadrados[i][j];
-          quadradoFocadoI = i;
-          quadradoFocadoJ = j;
-        }
-        hsmCount++;
       }
     }
   }
