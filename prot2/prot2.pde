@@ -118,7 +118,7 @@ void draw() {
 
 void criaButtons() {
   heatMapButton   = new Button("HeatMap", new PVector(0, 0), 13);
-  squareMapButton = new Button("SquareMap", new PVector(0, 0), 13);
+  squareMapButton = new Button("QuadMap", new PVector(0, 0), 13);
   exibeLogButton  = new Button("Log Scale on Frequency", new PVector(0, 0), 12);
   exibe00Button   = new Button("Show Conserved Elements", new PVector(0, 0), 12);
   mvgButton       = new Button("Global Normalization", new PVector(0, 0), 12);
