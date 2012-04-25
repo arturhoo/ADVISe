@@ -75,7 +75,6 @@ class MudancaProteina {
     fill(cProteinAnt);
     rect(0, 0, width/2, 130);
 
-    PFont font = createFont("LucidaGrande-Bold", 12);
     textFont(font, 12);
     fill(cHistogramText);
 
@@ -103,7 +102,8 @@ class MudancaProteina {
   }
 
   boolean mouseOver() {
-    if(((mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y)) <= (radius*radius))
+    if((mouseX > x && mouseX < x+radius) &&
+        (mouseY > y && mouseY < y+radius))
       return true;
     else return false;
   }
