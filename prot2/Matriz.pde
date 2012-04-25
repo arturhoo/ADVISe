@@ -378,24 +378,41 @@ class Matriz {
     text("Number of proteins: " + numTotalElementos, x+2, y-40);
   }
 
-  void drawMatrixInfoSM() {
-    drawMatrixInfo();
+  void drawRegionsInfo() {
     fill(cHistogramText);
     textFont(font, 11);
     int textX = x+w/2+40;
-    text("Upper left entries", textX, y-70);
-    text("Diagonal entries", textX, y-58);
-    text("Lower right entries", textX, y-46);
+    text("Valid Region", textX, y+h+20);
+    text("Invalid Region", textX, y+h+32);
     int rectW = 50;
     int rectH = 12;
     int rectX = x+w-rectW;
     noStroke();
+    fill(cValidos);
+    rect(rectX, y+h+10, rectW, rectH);
+    fill(cInvalidos);
+    rect(rectX, y+h+22, rectW, rectH);
+  }
+
+  void drawMatrixInfoSM() {
+    //drawMatrixInfo();
+    drawRegionsInfo();
+    fill(cHistogramText);
+    textFont(font, 11);
+    int textX = x;
+    text("Upper left entries", textX, y+h+20);
+    text("Diagonal entries", textX, y+h+32);
+    text("Lower right entries", textX, y+h+44);
+    int rectW = 50;
+    int rectH = 12;
+    int rectX = x+120;
+    noStroke();
     fill(cPallete2[0]);
-    rect(rectX, y-80, rectW, rectH);
+    rect(rectX, y+h+10, rectW, rectH);
     fill(cPallete2[1]);
-    rect(rectX, y-68, rectW, rectH);
+    rect(rectX, y+h+22, rectW, rectH);
     fill(cPallete2[2]);
-    rect(rectX, y-56, rectW, rectH);
+    rect(rectX, y+h+34, rectW, rectH);
   }
 
   void drawMatrixInfoHM() {
@@ -441,7 +458,7 @@ class Matriz {
     y = (int) (height/5);
     w = y*3;
     h = y*3;
-    y += 70; // Move down
+    y += 20; // Move down
     grown = true;
   }
 }
