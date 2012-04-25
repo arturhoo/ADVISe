@@ -363,7 +363,7 @@ void drawSquareMapLegend() {
   textLeading(11);
   text("Number of Changes\nindicated by quad size", gl.smx, gl.smy+gl.smh+20);
   text("Many", quadX+36, quadY+20);
-  text("Several", quadX+36, quadY+56);
+  text("Some", quadX+36, quadY+56);
   text("Few", quadX+36, quadY+76);
 
   drawRegionLegend(gl.smx+370, gl.smy+gl.smh+12);
