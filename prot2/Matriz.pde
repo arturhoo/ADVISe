@@ -376,7 +376,7 @@ class Matriz {
     String info = "Release: " + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo);
     info += ", Prefix: " + (quadrados[4][0].prefixo);
     info += ", Number of proteins: " + numTotalElementos;
-    text(info, x+2, y-40);
+    text(info, x, y-40);
     // text("Release: " + (quadrados[4][0].ver_estudo-1) + "-" + (quadrados[4][0].ver_estudo), x+2, y-70);
     // text("Prefix: " + (quadrados[4][0].prefixo), x+2, y-55);
     // text("Number of proteins: " + numTotalElementos, x+2, y-40);
@@ -386,11 +386,11 @@ class Matriz {
     fill(cHistogramText);
     textFont(font, 11);
     int textX = x+w/2+40;
-    text("Valid Region", textX, y+h+20);
+    text("No entries", textX, y+h+20);
     text("Invalid Region", textX, y+h+32);
     int rectW = 50;
     int rectH = 12;
-    int rectX = x+w-rectW;
+    int rectX = x+w-rectW-2;
     noStroke();
     fill(cValidos);
     rect(rectX, y+h+10, rectW, rectH);
@@ -421,17 +421,18 @@ class Matriz {
 
   void drawMatrixInfoHM() {
     drawMatrixInfo();
+    drawRegionsInfo();
     noStroke();
     int sw = 35, sh = 20, recuoY = 80;
-    int legendX = x+w-(sw*cPallete.length);
+    int legendX = x+2;
     for(int i=0; i<cPallete.length; i++) {
       fill(cPallete[i]);
-      rect(legendX+i*sw, y-recuoY, sw, sh);
+      rect(legendX+i*sw, y+h+10, sw, sh);
       if(i == 0) {
         textAlign(LEFT);
         fill(0);
         textFont(font, 11);
-        text("1", legendX+6, y-recuoY+14);
+        text("1", legendX+6, y+h+24);
       }
       if(i == cPallete.length-1) {
         textAlign(RIGHT);
@@ -444,7 +445,7 @@ class Matriz {
           num = mvg ? gl.segundoMaiorValor : segundoMaiorValor;
         }
         // int num = exibe00 ? maiorValor : segundoMaiorValor;
-        text(num, legendX+(i+1)*sw-4, y-recuoY+14);
+        text(num, legendX+(i+1)*sw-4, y+h+24);
       }
       textAlign(LEFT);
     }
