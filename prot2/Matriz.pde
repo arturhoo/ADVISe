@@ -252,6 +252,7 @@ class Matriz {
         quadradoFocadoJ = squareMapList.get(i).matJ;
         if(!(quadradoFocadoI == 4 && quadradoFocadoJ == 0))
           quadradoFocado = quadrados[quadradoFocadoI][quadradoFocadoJ];
+        quadradoFocado.limpaNivel2MudancaProteinaDetalhe();
       }
     }
   }

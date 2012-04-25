@@ -67,6 +67,16 @@ class Nivel1 {
     if(gl.timing) println("Tempo gasto para ordernar nivel2List: " + (endTime - startTime)/pow(10,9));
   }
 
+  void limpaNivel2MudancaProteinaDetalhe() {
+    if(preenchida) {
+      for(int i=0; i<nivel2List.size(); i++) {
+        if(nivel2List.get(i).numElementos > 0) {
+          nivel2List.get(i).limpaMudancaProteinaDetalhe();
+        }
+      }
+    }
+  }
+
   void drawHistogram() {
     final long startTime = System.nanoTime();
     final long endTime;
