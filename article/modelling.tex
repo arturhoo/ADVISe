@@ -1,13 +1,13 @@
 \section{Problem modeling}
 \label{sec:modelling}
 
-Based on numerical and hierarchical nature of Enzyme Classification number, we  proposed a model to characterize the EC changes observed over several versions of UniProt/SwissProt. First of all, our focus was on visualizing what types of changes happens and with what frequency they occur. Moreover, it is important to know the hierarchical level in which a change occurs, since a move in higher levels (leftmost) are more severe than in lower ones, thus we decided to segment changes by common prefix length, number of generalizations and number of specializations a specific EC number has suffered.
+Based on the numerical and hierarchical natures of the Enzyme Classification number, we proposed a model to characterize the EC changes observed over several versions of UniProt/SwissProt. First of all, our focus was on visualizing what types of changes happen and with what frequency they occur. Furthermore, it is important to know the hierarchical level in which a change occurs, since an alteration in higher levels (leftmost) are more severe than in lower ones. This way, we decided to segment changes by its common prefix length together with the number of generalizations and specializations a specific EC number has suffered.
 
-An example of EC number change characterized by our model is provided below.
+An example of an EC number change characterized by our model is shown below.
 
 $$3.1.3.2 \rightarrow 3.1.3.5$$
 
-It happened in 77 Hydrolases of releases 5 to 6. Observe that the common prefix length is 3 (the first three levels from left to right remains the same), there was 1 generalization (number 2 was deleted) and 1 specialization (number 5 was written). This change means that an acid Phosphatase is now classified as a 5'-Nucleotidase.
+The changed exemplified happened in 77 Hydrolases of release 5 to 6. Observe that the common prefix length is 3 (the first three levels from left to right remained the same), there was 1 generalization (number 2 was deleted) and 1 specialization (number 5 was written). This change means that an acid Phosphatase is now classified as a 5'-Nucleotidase.
 
 More examples of EC moves characterized by our prefix / generalization / specialization model are provided in Table \ref{tab_ec_change}.
 
