@@ -17,7 +17,11 @@ class MudancaProteina {
   String kw_depois;
 
   HScrollbar hs1, hs2;
-  int detalheH = 130;
+  int detalheH     = 130;
+  int detalheHReal = detalheH - 10;
+  int linhasW      = 175;
+  int tituloH      = 20;
+  int hsH          = 10;
 
   boolean detalhe = false;
 
@@ -53,7 +57,8 @@ class MudancaProteina {
 
     this.radius = 10.0;
 
-    hs1 = new HScrollbar(0, detalheH-10, width/2, 10, 16);
+    hs1 = new HScrollbar(linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 16);
+    hs2 = new HScrollbar((width-linhasW)/2+linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 16);
   }
 
   void drawParticle(int x, int y) {
@@ -67,21 +72,137 @@ class MudancaProteina {
   void drawParticleSquare(int x, int y) {
     this.x = x;
     this.y = y;
-    // stroke(10, 10, 10);
     noStroke();
     fill(100);
     rect(x, y, radius, radius);
   }
 
+  void drawDetailLinhas() {
+    noStroke();
+    fill(cDetailUniprot);
+    rect(0, 0, linhasW, detalheHReal);
+
+    int areaLivre = detalheH - tituloH - hsH;
+    int recuoTexto = 15;
+    textFont(font, 13);
+    fill(cDetailProteinNovo);
+    rect(0, tituloH+(areaLivre/5)*0, linhasW, (areaLivre/5));
+    fill(cDetailUniprot);
+    rect(0, tituloH+(areaLivre/5)*1, linhasW, (areaLivre/5));
+    fill(cDetailProteinNovo);
+    rect(0, tituloH+(areaLivre/5)*2, linhasW, (areaLivre/5));
+    fill(cDetailUniprot);
+    rect(0, tituloH+(areaLivre/5)*3, linhasW, (areaLivre/5));
+    fill(cDetailProteinNovo);
+    rect(0, tituloH+(areaLivre/5)*4, linhasW, (areaLivre/5));
+    fill(0);
+    text("EC", recuoTexto, tituloH+(areaLivre/5)*1-5);
+    text("Reference Position", recuoTexto, tituloH+(areaLivre/5)*2-5);
+    text("Organism Classification", recuoTexto, tituloH+(areaLivre/5)*3-5);
+    text("Keyword", recuoTexto, tituloH+(areaLivre/5)*4-5);
+  }
+
+  void drawDetailTitulo() {
+    textFont(font, 15);
+    float textW = textWidth(iduniprot);
+    int offset = 20;
+    int rectX = (int) ((width-linhasW)/2 - textW/2 - offset)+linhasW;
+    int rectH = tituloH;
+    fill(cDetailUniprot);
+    rect(rectX, 0, textW+2*offset, rectH);
+    textAlign(CENTER);
+    fill(0);
+    text(iduniprot, rectX+textW/2+offset, 15);
+    textAlign(LEFT);
+    fill(cDetailProteinNovo);
+    rect(linhasW, 0, rectX-linhasW, rectH);
+    fill(cDetailProteinAnt);
+    rect(rectX+textW+2*offset, 0, width-(rectX+textW+2*offset), rectH);
+  }
+
+  void drawDetailAnt() {
+    textFont(font, 12);
+    String ec_antS = "";
+    for(int i=0; i<ec_ant.length; i++) {
+      ec_antS  += ec_ant[i] == -1 ? "-" : ec_ant[i];
+      if(i<ec_ant.length-1) {
+        ec_antS += ".";
+      }
+    }
+
+    float textW = textWidth(rp_antes);
+    if(textWidth(oc_antes)>textW) textW = textWidth(oc_antes);
+    if(textWidth(kw_antes)>textW) textW = textWidth(kw_antes);
+    textW += 20; // recuo do texto
+    int areaLivreH = detalheH - tituloH - hsH;
+    int areaLivreW = (width-linhasW)/2;
+    float hsRecuo;
+    if(textW > areaLivreW) hsRecuo = hs1.getPos()*((textW-areaLivreW+20));
+    else hsRecuo = 0;
+    println("HS1P: " + hs2.getPos() + "\nALW: " + areaLivreW + "\nTw: " + textW +"\nRecuo: " + hsRecuo);
+    PGraphics pg = createGraphics(areaLivreW, areaLivreH, JAVA2D);
+    pg.beginDraw();
+    pg.background(cDetailProteinAnt);
+    pg.smooth();
+    pg.fill(0);
+    pg.textFont(font, 12);
+    pg.text(ec_antS,  20, (areaLivreH/5)*1-5);
+    pg.text(rp_antes, 20-hsRecuo, (areaLivreH/5)*2-5);
+    pg.text(oc_antes, 20-hsRecuo, (areaLivreH/5)*3-5);
+    pg.text(kw_antes, 20-hsRecuo, (areaLivreH/5)*4-5);
+    pg.endDraw();
+    image(pg, linhasW, tituloH);
+  }
+
+  /* Pode ser refatorado pois é uma grande cópia do
+   * método acima
+   */
+  void drawDetailNovo() {
+    textFont(font, 12);
+    String ec_novoS = "";
+    for(int i=0; i<ec_novo.length; i++) {
+      ec_novoS  += ec_novo[i] == -1 ? "-" : ec_novo[i];
+      if(i<ec_novo.length-1) {
+        ec_novoS += ".";
+      }
+    }
+
+    float textW = textWidth(rp_depois);
+    if(textWidth(oc_depois)>textW) textW = textWidth(oc_depois);
+    if(textWidth(kw_depois)>textW) textW = textWidth(kw_depois);
+    textW += 20; // recuo do texto
+    int areaLivreH = detalheH - tituloH - hsH;
+    int areaLivreW = (width-linhasW)/2;
+    float hsRecuo;
+    if(textW > areaLivreW) hsRecuo = hs2.getPos()*((textW-areaLivreW+20));
+    else hsRecuo = 0;
+    println("HS2P: " + hs2.getPos() + "\nALW: " + areaLivreW + "\nTw: " + textW +"\nRecuo: " + hsRecuo);
+    PGraphics pg = createGraphics(areaLivreW, areaLivreH, JAVA2D);
+    pg.beginDraw();
+    pg.background(cDetailProteinNovo);
+    pg.smooth();
+    pg.fill(0);
+    pg.textFont(font, 12);
+    pg.text(ec_novoS,  20, (areaLivreH/5)*1-5);
+    pg.text(rp_depois, 20-hsRecuo, (areaLivreH/5)*2-5);
+    pg.text(oc_depois, 20-hsRecuo, (areaLivreH/5)*3-5);
+    pg.text(kw_depois, 20-hsRecuo, (areaLivreH/5)*4-5);
+    pg.endDraw();
+    image(pg, (width-linhasW)/2+linhasW, tituloH);
+  }
+
   void drawDetail() {
     noStroke();
-    fill(cProteinNovo);
-    rect(0, 0, width, detalheH);
-    fill(cProteinAnt);
-    rect(0, 0, width/2, detalheH);
+    fill(cDetailProteinNovo);
+    rect(0, 0, width, detalheHReal);
+    fill(cDetailProteinAnt);
+    rect(0, 0, (width-linhasW)/2+linhasW, detalheHReal);
 
     textFont(font, 12);
     fill(cHistogramText);
+
+    drawDetailLinhas();
+    drawDetailTitulo();
 
     String ec_antS = "", ec_novoS = "";
     for(int i=0; i<ec_ant.length; i++) {
@@ -92,37 +213,18 @@ class MudancaProteina {
         ec_novoS += ".";
       }
     }
-    textLeading(12);
-    float textW = textWidth(rp_antes);
-    if(textWidth(oc_antes)>textW) textW = textWidth(oc_antes);
-    if(textWidth(kw_antes)>textW) textW = textWidth(kw_antes);
-    textW += 100;
-    float recuo;
-    if(textW > width/2-50) recuo = hs1.getPos()*(textW-width/2);
-    else recuo = 0;
-    println("Tw: " + textW +"\nRecuo: " + recuo);
-    PGraphics pg = createGraphics(width/2, detalheH, JAVA2D);
-    pg.beginDraw();
-    pg.background(cProteinAnt);
-    pg.smooth();
-    pg.fill(0);
-    pg.textFont(font, 12);
-    pg.text("iduniprot: " + iduniprot, 20-recuo, 20);
-    pg.text("ec_ant: " + ec_antS, 20-recuo, 32);
-    pg.text("rp_antes: " + rp_antes, 20-recuo, 44);
-    pg.text("oc_antes: " + oc_antes, 20-recuo, 56);
-    pg.text("kw_antes: " + kw_antes, 20-recuo, 68);
-    pg.endDraw();
-    image(pg, 0, 0);
 
-    text("iduniprot: " + iduniprot, width/2+20, 20, 600, 17);
-    text("ec_novo: " + ec_novoS, width/2+20, 32, 600, 17);
-    text("rp_depois: " + rp_depois, width/2+20, 44, 600, 17);
-    text("oc_depois: " + oc_depois, width/2+20, 56, 600, 17);
-    text("kw_depois: " + kw_depois, width/2+20, 68, 600, 17);
+    drawDetailAnt();
+    drawDetailNovo();
 
-    hs1.update();
     hs1.display();
+    hs2.display();
+    if(!hs2.locked) {
+      hs1.update();
+    }
+    if(!hs1.locked) {
+      hs2.update();
+    }
   }
 
   boolean mouseOver() {

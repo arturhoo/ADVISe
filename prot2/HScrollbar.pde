@@ -69,6 +69,6 @@ class HScrollbar {
   float getPos() {
     // Convert spos to be values between
     // 0 and the total width of the scrollbar
-    return map(spos*ratio, 0, swidth, 0, 1);
+    return (map(spos*ratio, xpos, xpos+swidth, 0, 1));
   }
 }
