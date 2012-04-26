@@ -5,7 +5,7 @@ The main objectives of the proposed visualization were:
 
 \begin{enumerate}
 \item to give a panoramic macro view of the evolution of EC number annotations
-\item to allow users to explore the complete set of changes, including entry meta data, formulating and answering general questions about EC number changes
+\item to allow users to explore the complete set of changes, including entry metadata, formulating and answering general questions about EC number changes
 \end{enumerate}
 
 Concerning the first objective, we wanted to present in a single perspective the EC changes segmented by all the possible combinations of events, considering the three parameters of the model (common prefix length, number of generalizations and specializations) across all the database releases.
@@ -24,9 +24,9 @@ Notice some remarkable positions in the frame:
 
 \begin{description}
 \item [Position (0,0):] entries with no changes in the corresponding pair of versions.
-\item [Diagonal:] entries which suffered the same level of generalizations and specializations, potentially error corrections. They are presented in beige in Quadmap.
-\item [Lower right matrix:] entries that suffered more levels of specializations than generalizations, in other words, knowledge about the catalyzed reaction has increased. They are presented in blue in Quadmap.
-\item [Upper left matrix:] entries that suffered more levels of generalizations than specializations, in other words, knowledge about catalyzed reaction has decreased. They are presented in red in Quadmap.
+\item [Diagonal:] entries which suffered the same level of generalizations and specializations, potentially error corrections. They are presented in beige in Quadrmap.
+\item [Lower right matrix:] entries that sufered more levels of specializations than generalizations, in other words, knowledge about the catalyzed reaction has increased. They are presented in blue in Quadrmap.
+\item [Upper left matrix:] entries that sufered more levels of generalizations than specializations, in other words, knowledge about catalyzed reaction has decreased. They are presented in red in Quadrmap.
 \item [Prohibited positions: ] if a change keeps a common prefix of size 3, it is impossible to have 2 degrees of generalization. Events like this are presented in a darker shade of gray.
 \end{description}
 
@@ -87,7 +87,7 @@ Furthermore, users can click on the points in the micro view and see interactive
 
 \begin{figure*}[htb]
   \centering
-  \includegraphics[width=17cm]{images/navigation2.png} 
-  \caption{Navigation scheme.}
+  \includegraphics[width=17cm]{images/navigation.png} 
+  \caption{Navigation scheme.\textcolor{red}{FIGURA TEMPORÁRIA}}
   \label{fig:navigation}
 \end{figure*}
