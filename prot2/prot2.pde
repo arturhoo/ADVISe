@@ -60,6 +60,7 @@ color cElipse                 = #FF0000;
 color cSparkLine              = #000000;
 color cProteinAnt             = #E6E6E6;
 color cProteinNovo            = #BEBEBE;
+color cUpperBar               = #CECECE;
 
 
 void setup() {
@@ -103,7 +104,8 @@ void draw() {
         //preencheSuperMatrizHeatSquareList();
         drawSuperMatrizHeatMap();
       }
-      if(squareMapButton.active) drawSuperMatrizSquareMap();      
+      if(squareMapButton.active) drawSuperMatrizSquareMap();  
+      drawUpperBar();    
     } else {
       if(!drawnFocada) matrizFocada.preencheHeatSquareList(); // Vai recalcular as dimensoes
       if(heatMapButton.active) matrizFocada.drawHeatMap();
@@ -397,6 +399,20 @@ void drawHeatMapLegend() {
   }
 
   drawRegionLegend(gl.smx+370, gl.smy+gl.smh+20);
+}
+
+void drawUpperBar(){
+  noStroke();
+  fill(cUpperBar);
+  rect(0, 0, width, 35);
+  textFont(font, 22);
+  fill(0);
+  text("ADVISe", 10, 25);
+  int tw = (int) (textWidth("ADVISe"));
+  for(int i=0; i<numChave; i++) {
+    fill(cPallete[i]);
+    rect(10+i*(tw/numChave), 27, (tw/numChave), 3);
+  }
 }
 
 void mousePressed() {
