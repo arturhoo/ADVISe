@@ -57,8 +57,8 @@ class MudancaProteina {
 
     this.radius = 10.0;
 
-    hs1 = new HScrollbar(linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 16);
-    hs2 = new HScrollbar((width-linhasW)/2+linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 16);
+    hs1 = new HScrollbar(linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 10);
+    hs2 = new HScrollbar((width-linhasW)/2+linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 10);
   }
 
   void drawParticle(int x, int y) {
@@ -87,13 +87,13 @@ class MudancaProteina {
     textFont(font, 13);
     fill(cDetailProteinNovo);
     rect(0, tituloH+(areaLivre/5)*0, linhasW, (areaLivre/5));
-    fill(cDetailUniprot);
+    // fill(cDetailUniprot);
     rect(0, tituloH+(areaLivre/5)*1, linhasW, (areaLivre/5));
-    fill(cDetailProteinNovo);
+    // fill(cDetailProteinNovo);
     rect(0, tituloH+(areaLivre/5)*2, linhasW, (areaLivre/5));
-    fill(cDetailUniprot);
+    // fill(cDetailUniprot);
     rect(0, tituloH+(areaLivre/5)*3, linhasW, (areaLivre/5));
-    fill(cDetailProteinNovo);
+    // fill(cDetailProteinNovo);
     rect(0, tituloH+(areaLivre/5)*4, linhasW, (areaLivre/5));
     fill(0);
     text("EC", recuoTexto, tituloH+(areaLivre/5)*1-5);
@@ -114,9 +114,10 @@ class MudancaProteina {
     fill(0);
     text(iduniprot, rectX+textW/2+offset, 15);
     textAlign(LEFT);
-    fill(cDetailProteinNovo);
+    // fill(cDetailProteinNovo);
+    fill(cDetailUniprot);
     rect(linhasW, 0, rectX-linhasW, rectH);
-    fill(cDetailProteinAnt);
+    // fill(cDetailProteinAnt);
     rect(rectX+textW+2*offset, 0, width-(rectX+textW+2*offset), rectH);
   }
 
