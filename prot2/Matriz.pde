@@ -170,8 +170,20 @@ class Matriz {
     // Desenha limites regiao invalida
     stroke(255);
     for(int i=0; i<countNulls; i++) {
-      line(x, y+i*(w/(regiaoInvalidaUnidade)), x+w, y+i*(w/(regiaoInvalidaUnidade)));
+      line(x, y+i*(w/(regiaoInvalidaUnidade)), x+w, y+i*(w/(regiaoInvalidaUnidade)));      
       line(x+novoW+i*(w/(regiaoInvalidaUnidade)), y, x+novoW+i*(w/(regiaoInvalidaUnidade)), y+h);
+      if(grown) {
+        textFont(font, 12);
+        fill(cHistogramText);
+        textAlign(CENTER);
+        float ydiff = (y+(i+1)*(w/(regiaoInvalidaUnidade))) - (y+i*(w/(regiaoInvalidaUnidade)));
+        float textY = (y+i*(w/(regiaoInvalidaUnidade))) + ydiff/2;
+        float xdiff = (x+novoW+(i+1)*(w/(regiaoInvalidaUnidade))) - (x+novoW+i*(w/(regiaoInvalidaUnidade)));
+        float textX = (x+novoW+i*(w/(regiaoInvalidaUnidade))) + xdiff/2;
+        text((numChave-i-1), x-10, textY);
+        text((numChave-countNulls+i), textX, y-7);
+        textAlign(LEFT);
+      }
     }
 
 
