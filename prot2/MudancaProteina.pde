@@ -154,11 +154,11 @@ class MudancaProteina {
     rect(rectX+textW+2*offset, 0, width-(rectX+textW+2*offset), rectH);
     fill(cHistogramText);
     textFont(font, 12);
-    text("Release " + (mp.ver_estudo-1), linhasW+(rectX-linhasW)/2, rectH/2+6);
-    text("Release " + mp.ver_estudo, rectX+textW+2*offset+(width-(rectX+textW+2*offset))/2, rectH/2+6);
+    text("Release " + (ver_estudo_navegacao-1), linhasW+(rectX-linhasW)/2, rectH/2+6);
+    text("Release " + ver_estudo_navegacao, rectX+textW+2*offset+(width-(rectX+textW+2*offset))/2, rectH/2+6);
     textAlign(LEFT);
-    color ctb1 = mp.ver_estudo == 2 ? cDetailProteinNovo : color(0);
-    color ctb2 = mp.ver_estudo == 15 ? cDetailProteinAnt : color(0);
+    color ctb1 = ver_estudo_navegacao == 2 ? cDetailProteinNovo : color(0);
+    color ctb2 = ver_estudo_navegacao == 15 ? cDetailProteinAnt : color(0);
     tb1.draw(ctb1);
     tb2.draw(ctb2);
   }
