@@ -17,11 +17,13 @@ class MudancaProteina {
   String kw_depois;
 
   HScrollbar hs1, hs2;
-  int detalheH     = 130;
-  int detalheHReal = detalheH - 10;
-  int linhasW      = 175;
-  int tituloH      = 20;
-  int hsH          = 10;
+  int detalheH      = 130;
+  int detalheHReal  = detalheH - 10;
+  int linhasW       = 175;
+  int tituloH       = 20;
+  int hsH           = 10;
+  float recuoNovo   = -1; // para compensar o valor nao 0.0 da hs
+  float recuoAntigo = -1; // para compensar o valor nao 0.0 da hs
 
   boolean detalhe = false;
 
@@ -128,12 +130,13 @@ class MudancaProteina {
     float textW = textWidth(rp_antes);
     if(textWidth(oc_antes)>textW) textW = textWidth(oc_antes);
     if(textWidth(kw_antes)>textW) textW = textWidth(kw_antes);
-    textW += 20; // recuo do texto
+    textW += 0; // recuo do texto
     int areaLivreH = detalheH - tituloH - hsH;
-    int areaLivreW = (width-linhasW)/2;
+    int areaLivreW = (width-linhasW)/2-20;
     float hsRecuo;
-    if(textW > areaLivreW) hsRecuo = hs1.getPos()*((textW-areaLivreW+20));
+    if(textW > areaLivreW) hsRecuo = hs1.getPos()*((textW-areaLivreW+40));
     else hsRecuo = 0;
+    if(recuoAntigo == -1) recuoAntigo = hsRecuo;
     // println("HS1P: " + hs2.getPos() + "\nALW: " + areaLivreW + "\nTw: " + textW +"\nRecuo: " + hsRecuo);
     PGraphics pg = createGraphics(areaLivreW, areaLivreH, JAVA2D);
     pg.beginDraw();
@@ -141,12 +144,12 @@ class MudancaProteina {
     pg.smooth();
     pg.fill(0);
     pg.textFont(font, 12);
-    pg.text(ec_antS,  20, (areaLivreH/5)*1-5);
-    pg.text(rp_antes, 20-hsRecuo, (areaLivreH/5)*2-5);
-    pg.text(oc_antes, 20-hsRecuo, (areaLivreH/5)*3-5);
-    pg.text(kw_antes, 20-hsRecuo, (areaLivreH/5)*4-5);
+    pg.text(ec_antS,  3, (areaLivreH/5)*1-5);
+    pg.text(rp_antes, 3-hsRecuo+recuoAntigo, (areaLivreH/5)*2-5);
+    pg.text(oc_antes, 3-hsRecuo+recuoAntigo, (areaLivreH/5)*3-5);
+    pg.text(kw_antes, 3-hsRecuo+recuoAntigo, (areaLivreH/5)*4-5);
     pg.endDraw();
-    image(pg, linhasW, tituloH);
+    image(pg, linhasW+20, tituloH);
   }
 
   /* Pode ser refatorado pois é uma grande cópia do
@@ -165,12 +168,13 @@ class MudancaProteina {
     float textW = textWidth(rp_depois);
     if(textWidth(oc_depois)>textW) textW = textWidth(oc_depois);
     if(textWidth(kw_depois)>textW) textW = textWidth(kw_depois);
-    textW += 20; // recuo do texto
+    textW += 0; // recuo do texto
     int areaLivreH = detalheH - tituloH - hsH;
-    int areaLivreW = (width-linhasW)/2;
+    int areaLivreW = (width-linhasW)/2-20;
     float hsRecuo;
-    if(textW > areaLivreW) hsRecuo = hs2.getPos()*((textW-areaLivreW+20));
+    if(textW > areaLivreW) hsRecuo = hs2.getPos()*((textW-areaLivreW+40));
     else hsRecuo = 0;
+    if(recuoNovo == -1) recuoNovo = hsRecuo;
     // println("HS2P: " + hs2.getPos() + "\nALW: " + areaLivreW + "\nTw: " + textW +"\nRecuo: " + hsRecuo);
     PGraphics pg = createGraphics(areaLivreW, areaLivreH, JAVA2D);
     pg.beginDraw();
@@ -178,12 +182,12 @@ class MudancaProteina {
     pg.smooth();
     pg.fill(0);
     pg.textFont(font, 12);
-    pg.text(ec_novoS,  20, (areaLivreH/5)*1-5);
-    pg.text(rp_depois, 20-hsRecuo, (areaLivreH/5)*2-5);
-    pg.text(oc_depois, 20-hsRecuo, (areaLivreH/5)*3-5);
-    pg.text(kw_depois, 20-hsRecuo, (areaLivreH/5)*4-5);
+    pg.text(ec_novoS,  3, (areaLivreH/5)*1-5);
+    pg.text(rp_depois, 3-hsRecuo+recuoNovo, (areaLivreH/5)*2-5);
+    pg.text(oc_depois, 3-hsRecuo+recuoNovo, (areaLivreH/5)*3-5);
+    pg.text(kw_depois, 3-hsRecuo+recuoNovo, (areaLivreH/5)*4-5);
     pg.endDraw();
-    image(pg, (width-linhasW)/2+linhasW, tituloH);
+    image(pg, (width-linhasW)/2+linhasW+20, tituloH);
   }
 
   void drawDetail() {

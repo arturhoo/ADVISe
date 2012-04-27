@@ -462,6 +462,8 @@ void mousePressed() {
     if(matrizFocada.mouseOver()) {
       if(squareMapButton.active) matrizFocada.identificaQuadradoFocadoSM();
       else matrizFocada.identificaQuadradoFocadoHM();
+      if(matrizFocada.quadradoFocado != null)
+        matrizFocada.quadradoFocado.limpaNivel2MudancaProteinaDetalhe();
       mudancaProteinaFocada = null;
     }
     

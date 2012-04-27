@@ -250,7 +250,7 @@ class Matriz {
       if(squareMapList.get(i).mouseOver() ) {
         quadradoFocadoI = squareMapList.get(i).matI;
         quadradoFocadoJ = squareMapList.get(i).matJ;
-        if(!(quadradoFocadoI == 4 && quadradoFocadoJ == 0))
+        // if(!(quadradoFocadoI == 4 && quadradoFocadoJ == 0))
           quadradoFocado = quadrados[quadradoFocadoI][quadradoFocadoJ];
         quadradoFocado.limpaNivel2MudancaProteinaDetalhe();
       }
@@ -261,7 +261,7 @@ class Matriz {
     int hsmCount = 0;
     for(int i=0; i<numChave; i++) {
       for(int j=0; j<numChave; j++) {
-        if(heatSquareList.get(hsmCount).mouseOver() && !(i == 4 && j == 0)) {
+        if(heatSquareList.get(hsmCount).mouseOver()) { // && !(i == 4 && j == 0)) {
           quadradoFocado = quadrados[i][j];
           quadradoFocadoI = i;
           quadradoFocadoJ = j;

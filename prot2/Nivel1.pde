@@ -8,6 +8,7 @@ class Nivel1 {
   ArrayList<ParticleSystem> psList;
   boolean preenchida = false, ordenada = false, psCriado = false;
   VScrollbar vs1;
+  int recuoVS = -1;
   int histogramX, histogramY, histogramW, histogramH;
   
   Nivel1 (int ver_estudo, int prefixo, int subidas, int descidas, int numElementos) {
@@ -110,6 +111,7 @@ class Nivel1 {
 
     int vsRecuo = 0;
     if(escapeVertical > areaLivreH) vsRecuo = (int) (vs1.getPos()*(escapeVertical-areaLivreH+50));
+    if (this.recuoVS == -1.0) this.recuoVS = vsRecuo;
     PGraphics pg = createGraphics(areaLivreW, areaLivreH, JAVA2D);
     int pgX = histogramX, pgY = histogramY+30;
     pg.beginDraw();
@@ -121,7 +123,7 @@ class Nivel1 {
     for(int i=0; i<nivel2List.size(); i++) {
       if(nivel2List.get(i).numElementos > 0) {
         int ultimoYDesenhado = nivel2List.get(i).draw(0,
-                                                      escapeVertical+15-vsRecuo,
+                                                      escapeVertical+15-vsRecuo+this.recuoVS,
                                                       pg,
                                                       pgX,
                                                       pgY,
