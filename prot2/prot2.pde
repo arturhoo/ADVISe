@@ -108,19 +108,23 @@ void draw() {
         drawSuperMatrizHeatMap();
       }
       if(squareMapButton.active) drawSuperMatrizSquareMap();  
-      drawUpperBar();    
+      drawUpperBar();
     } else {
       if(!drawnFocada) matrizFocada.preencheHeatSquareList(); // Vai recalcular as dimensoes
       if(heatMapButton.active) matrizFocada.drawHeatMap();
       if(squareMapButton.active) matrizFocada.drawSquareMap();
       // if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
       // if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
+      drawUpperBar();
       drawnFocada = true;
     }
     drawn = true;
   }
   if(matrizFocada != null && matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
-  if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
+  if(mudancaProteinaFocada != null) {
+    mudancaProteinaFocada.drawDetail();
+    drawLogo(15, 14);
+  }
   drawButtons();
 }
 
@@ -410,13 +414,17 @@ void drawUpperBar(){
   noStroke();
   fill(cUpperBar);
   rect(0, 0, width, 35);
-  textFont(font, 22);
+  drawLogo(22, 25);
+}
+
+void drawLogo(int fontSize, int y) {
+  textFont(font, fontSize);
   fill(0);
-  text("ADVISe", 10, 25);
+  text("ADVISe", 10, y);
   int tw = (int) (textWidth("ADVISe"));
   for(int i=0; i<numChave; i++) {
     fill(cPallete[i]);
-    rect(10+i*(tw/numChave), 27, (tw/numChave), 3);
+    rect(10+i*(tw/numChave), y+2, (tw/numChave), 3);
   }
 }
 
