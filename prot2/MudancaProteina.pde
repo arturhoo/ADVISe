@@ -160,6 +160,13 @@ class MudancaProteina {
     pg.text(kw_antes, 3-hsRecuo+recuoAntigo, (areaLivreH/5)*4-5);
     pg.endDraw();
     image(pg, linhasW+20, tituloH);
+
+    if(hsRecuo > 0) {
+      hs1.display();
+      if(!hs2.locked) {
+        hs1.update();
+      }
+    }
   }
 
   /* Pode ser refatorado pois é uma grande cópia do
@@ -198,6 +205,13 @@ class MudancaProteina {
     pg.text(kw_depois, 3-hsRecuo+recuoNovo, (areaLivreH/5)*4-5);
     pg.endDraw();
     image(pg, (width-linhasW)/2+linhasW+20, tituloH);
+
+    if(hsRecuo > 0) { 
+      hs2.display();
+      if(!hs1.locked) {
+        hs2.update();
+      }
+    }
   }
 
   void drawDetail() {
@@ -225,15 +239,6 @@ class MudancaProteina {
 
     drawDetailAnt();
     drawDetailNovo();
-
-    hs1.display();
-    hs2.display();
-    if(!hs2.locked) {
-      hs1.update();
-    }
-    if(!hs1.locked) {
-      hs2.update();
-    }
   }
 
   boolean mouseOver() {

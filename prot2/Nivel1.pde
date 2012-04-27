@@ -143,7 +143,9 @@ class Nivel1 {
     pg.endDraw();
     image(pg, pgX, pgY);
 
-    vs1.update();
-    vs1.display();
+    if(vsRecuo > 0) {
+      vs1.update();
+      vs1.display();
+    }
   }
 }
