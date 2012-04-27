@@ -472,6 +472,7 @@ void mousePressed() {
         for(int i=0; i<nivel2List.size(); i++) {
           for(int j=0; j<nivel2List.get(i).mudancaProteinaList.size(); j++) {
             if(nivel2List.get(i).mudancaProteinaList.get(j).mouseOver()) {
+              matrizFocada.quadradoFocado.limpaNivel2MudancaProteinaDetalhe();
               nivel2List.get(i).limpaMudancaProteinaDetalhe();
               mudancaProteinaFocada = nivel2List.get(i).mudancaProteinaList.get(j);
               mudancaProteinaFocada.detalhe = true;
