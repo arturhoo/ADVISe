@@ -27,13 +27,43 @@ class MudancaProteina {
 
   boolean detalhe = false;
 
-  ArrayList<MudancaProteina> mpList;
+  ArrayList<MudancaProteina> mpList = null;
 
-  MudancaProteina ( Nivel2 nivel2,    String iduniprot, 
-                    String rp_antes,  String oc_antes,  String kw_antes,
-                    String rp_depois, String oc_depois, String kw_depois,
-                    int ec_ant0, int ec_ant1, int ec_ant2, int ec_ant3,
-                    int ec_novo0, int ec_novo1, int ec_novo2, int ec_novo3) {
+  MudancaProteina(MudancaProteina mp,
+                  String rp_antes,  String oc_antes,  String kw_antes,
+                  String rp_depois, String oc_depois, String kw_depois,
+                  int ec_ant0, int ec_ant1, int ec_ant2, int ec_ant3,
+                  int ec_novo0, int ec_novo1, int ec_novo2, int ec_novo3) {
+    this.prefixo      = mp.prefixo;
+    this.ver_estudo   = mp.ver_estudo;
+    this.subidas      = mp.subidas;
+    this.descidas     = mp.descidas;
+    this.iduniprot    = mp.iduniprot;
+
+    this.rp_antes   = rp_antes;
+    this.oc_antes   = oc_antes;
+    this.kw_antes   = kw_antes;
+    this.rp_depois  = rp_depois;
+    this.oc_depois  = oc_depois;
+    this.kw_depois  = kw_depois;
+
+    this.ec_ant     = new int[4];
+    this.ec_novo    = new int[4];
+    this.ec_ant[0]  = ec_ant0;
+    this.ec_ant[1]  = ec_ant1;
+    this.ec_ant[2]  = ec_ant2;
+    this.ec_ant[3]  = ec_ant3;
+    this.ec_novo[0] = ec_novo0;
+    this.ec_novo[1] = ec_novo1;
+    this.ec_novo[2] = ec_novo2;
+    this.ec_novo[3] = ec_novo3;
+  }
+
+  MudancaProteina(Nivel2 nivel2,    String iduniprot, 
+                  String rp_antes,  String oc_antes,  String kw_antes,
+                  String rp_depois, String oc_depois, String kw_depois,
+                  int ec_ant0, int ec_ant1, int ec_ant2, int ec_ant3,
+                  int ec_novo0, int ec_novo1, int ec_novo2, int ec_novo3) {
 
     this.prefixo      = nivel2.prefixo;
     this.ver_estudo   = nivel2.ver_estudo;
@@ -63,14 +93,6 @@ class MudancaProteina {
 
     hs1 = new HScrollbar(linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 10);
     hs2 = new HScrollbar((width-linhasW)/2+linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 10);
-
-    this.mpList = new ArrayList<MudancaProteina>();
-  }
-
-  void preencheMPList() {
-    for(int i=0; i<numEstudos; i++) {
-            
-    }
   }
 
   void drawParticleSquare(int x, int y, PGraphics pg, int pgX, int pgY) {
@@ -214,6 +236,37 @@ class MudancaProteina {
     }
   }
 
+  MudancaProteina buscaProteinaRelease(String iduniprot, int ver_estudo) {
+    MudancaProteina mp = null;
+    String selQuery = "select iduniprot, rp_antes, oc_antes, kw_antes, " +
+                        "rp_depois, oc_depois, kw_depois, " +
+                        "ec_ant0, ec_ant1, ec_ant2, ec_ant3, " +
+                        "ec_novo0, ec_novo1, ec_novo2, ec_novo3 " +
+                        "from id_ec_atributo_num " +
+                        "where iduniprot  = '" + iduniprot + "' and " +
+                             "ver_estudo  = " + ver_estudo + "";
+    db.query(selQuery);
+    while(db.next()) {
+      mp = new MudancaProteina( this,
+                                db.getString("rp_antes"),
+                                db.getString("oc_antes"),
+                                db.getString("kw_antes"),
+                                db.getString("rp_depois"),
+                                db.getString("oc_depois"),
+                                db.getString("kw_depois"),
+                                db.getInt("ec_ant0"),
+                                db.getInt("ec_ant1"),
+                                db.getInt("ec_ant2"),
+                                db.getInt("ec_ant3"),
+                                db.getInt("ec_novo0"),
+                                db.getInt("ec_novo1"),
+                                db.getInt("ec_novo2"),
+                                db.getInt("ec_novo3"));
+      println("Buscou proteina " + iduniprot + ", release " + ver_estudo);
+    }
+    return mp;
+  }
+
   void drawDetail() {
     noStroke();
     fill(cDetailProteinNovo);
@@ -221,21 +274,19 @@ class MudancaProteina {
     fill(cDetailProteinAnt);
     rect(0, 0, (width-linhasW)/2+linhasW, detalheHReal);
 
+    if(mpList == null) {
+      mpList = new ArrayList<MudancaProteina>();
+      for(int i=0; i<numEstudos; i++) {
+        MudancaProteina mp = buscaProteinaRelease(this.iduniprot, i+2);
+        mpList.add(mp);
+      }
+    }
+
     textFont(font, 12);
     fill(cHistogramText);
 
     drawDetailLinhas();
     drawDetailTitulo();
-
-    String ec_antS = "", ec_novoS = "";
-    for(int i=0; i<ec_ant.length; i++) {
-      ec_antS  += ec_ant[i] == -1 ? "-" : ec_ant[i];
-      ec_novoS += ec_novo[i] == -1 ? "-" : ec_novo[i];
-      if(i<ec_ant.length-1) {
-        ec_antS += ".";
-        ec_novoS += ".";
-      }
-    }
 
     drawDetailAnt();
     drawDetailNovo();
