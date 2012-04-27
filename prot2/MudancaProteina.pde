@@ -69,12 +69,12 @@ class MudancaProteina {
     ellipse(this.x, this.y, radius, radius);
   }
 
-  void drawParticleSquare(int x, int y) {
+  void drawParticleSquare(int x, int y, PGraphics pg) {
     this.x = x;
     this.y = y;
-    noStroke();
-    fill(100);
-    rect(x, y, radius, radius);
+    pg.noStroke();
+    pg.fill(100);
+    pg.rect(x, y, radius, radius);
   }
 
   void drawDetailLinhas() {

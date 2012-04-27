@@ -70,23 +70,23 @@ class Nivel2 {
     }
   }
 
-  int draw(int x, int y) {
+  int draw(int x, int y, PGraphics pg, int histogramW) {
     if(!preenchida) this.preencheMudancaProteinaList();
     int espacamentoHorizontal = 14;
     int espacamentoVertical = 14;
-    int numProteinasLinha = (int) ((width-x-140)/(espacamentoHorizontal));
+    int numProteinasLinha = (int) ((histogramW-135)/(espacamentoHorizontal));
     int i;
-    fill(cHistogramText);
-    textFont(font, 12);
-    text(ecList[ec_ant[0]+1] + " to\n" + ecList[ec_novo[0]+1] + " (" + this.numElementos + ")", x, y+5);
+    pg.fill(cHistogramText);
+    pg.textFont(font, 12);
+    pg.text(ecList[ec_ant[0]+1] + " to\n" + ecList[ec_novo[0]+1] + " (" + this.numElementos + ")", x, y+5);
     for(i=0; i<mudancaProteinaList.size(); i++) {
       int particleX = x+135+(i%numProteinasLinha)*espacamentoHorizontal;
       int particleY = y+(i/numProteinasLinha)*espacamentoVertical-5;
-      mudancaProteinaList.get(i).drawParticleSquare(particleX, particleY);
+      mudancaProteinaList.get(i).drawParticleSquare(particleX, particleY, pg);
       if(mudancaProteinaList.get(i).detalhe) {
-        fill(255, 150);
+        pg.fill(255, 150);
         int ladoQuadrado = (int) (mudancaProteinaList.get(i).radius);
-        rect(particleX, particleY, ladoQuadrado, ladoQuadrado);
+        pg.rect(particleX, particleY, ladoQuadrado, ladoQuadrado);
       }
     }
     int ultimoYDesenhado = ((i/numProteinasLinha)+1)*espacamentoVertical;

@@ -95,13 +95,6 @@ void setup() {
   gl.smEspacamentoY = 5;
   posicionaSuperMatriz();
   
-  matrizFocada = superMatriz[1][6];
-  matrizFocada.onMouseClickGrowBig();
-  matrizFocada.quadradoFocado = matrizFocada.quadrados[2][2];
-  matrizFocada.quadradoFocado.drawHistogram();
-  matrizFocada.quadradoFocado.nivel2List.get(0).draw(600, 400);
-  mudancaProteinaFocada = matrizFocada.quadradoFocado.nivel2List.get(0).mudancaProteinaList.get(0);
-  
   sl = new SparkLine(gl.smx, height-150, gl.smw, 50);
 }
 
@@ -120,12 +113,13 @@ void draw() {
       if(!drawnFocada) matrizFocada.preencheHeatSquareList(); // Vai recalcular as dimensoes
       if(heatMapButton.active) matrizFocada.drawHeatMap();
       if(squareMapButton.active) matrizFocada.drawSquareMap();
-      if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
+      // if(matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
       // if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
       drawnFocada = true;
     }
     drawn = true;
   }
+  if(matrizFocada != null && matrizFocada.quadradoFocado != null) matrizFocada.quadradoFocado.drawHistogram();
   if(mudancaProteinaFocada != null) mudancaProteinaFocada.drawDetail();
   drawButtons();
 }

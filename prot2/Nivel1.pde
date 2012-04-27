@@ -7,13 +7,21 @@ class Nivel1 {
   ArrayList<Nivel2> nivel2List;
   ArrayList<ParticleSystem> psList;
   boolean preenchida = false, ordenada = false, psCriado = false;
+  VScrollbar vs1;
+  int histogramX, histogramY, histogramW, histogramH;
   
   Nivel1 (int ver_estudo, int prefixo, int subidas, int descidas, int numElementos) {
     this.numElementos = numElementos;
     this.prefixo      = prefixo;
     this.ver_estudo   = ver_estudo;
     this.subidas      = subidas;
-    this.descidas     = descidas;    
+    this.descidas     = descidas;
+
+    this.histogramX = 150+((int)(3*height/5)); // de acordo com o metodo onClickGrowBig
+    this.histogramY = (height/5);
+    this.histogramW = width-histogramX;
+    this.histogramH = height-histogramY-50; // 50 vem do metodo drawButtons();
+    this.vs1 = new VScrollbar(width-10, this.histogramY, 10, this.histogramH, 10);
   }
   
   void preencheLista() {
@@ -83,20 +91,46 @@ class Nivel1 {
 
     if(!preenchida) this.preencheLista();
     if(!ordenada) this.ordenaLista();
-    
-    int x = 150+((int)(3*height/5)); // according to onClickGrowBig method
+
+    int areaLivreW = histogramW-50; // -50 para caber a scrollbar
+    int areaLivreH = histogramH;
+
+    // Só simulando
+    PGraphics pgs = createGraphics(areaLivreW, areaLivreH, JAVA2D);
+    pgs.beginDraw();
     int escapeVertical = 0;
     for(int i=0; i<nivel2List.size(); i++) {
-      if(nivel2List.get(i).numElementos > 0) {        
-        int y = (height/5+33)+escapeVertical;
-        int ultimoYDesenhado = nivel2List.get(i).draw(x, y);
+      if(nivel2List.get(i).numElementos > 0) {
+        int ultimoYDesenhado = nivel2List.get(i).draw(0, escapeVertical+33, pgs, areaLivreW);
         escapeVertical += ultimoYDesenhado + 35;
-      }      
+      }
     }
-    fill(cHistogramText);
-    textFont(font, 14);
-    text("Number of Proteins: " + this.numElementos, x, (height/5+13));
+    pgs.endDraw();
+    pgs = null;
+    int vsRecuo = 0;
+    if(escapeVertical > areaLivreH) vsRecuo = (int) (vs1.getPos()*areaLivreH);
+
+    PGraphics pg = createGraphics(areaLivreW, areaLivreH, JAVA2D);
+    pg.beginDraw();
+    pg.background(cBackground);
+    pg.smooth();
+
+    escapeVertical = 0;
+    for(int i=0; i<nivel2List.size(); i++) {
+      if(nivel2List.get(i).numElementos > 0) {
+        int ultimoYDesenhado = nivel2List.get(i).draw(0, escapeVertical+38-vsRecuo, pg, areaLivreW);
+        escapeVertical += ultimoYDesenhado + 35;
+      }
+    }
+    pg.fill(cHistogramText);
+    pg.textFont(font, 14);
+    pg.text("Number of Proteins: " + this.numElementos, 0, 18-vsRecuo);
     endTime = System.nanoTime();
-    if(gl.timing) println("Tempo gasto para drawHistogram: " + (endTime - startTime)/pow(10,9));
+    // if(gl.timing) println("Tempo gasto para drawHistogram: " + (endTime - startTime)/pow(10,9));
+    pg.endDraw();
+    image(pg, histogramX, histogramY);
+
+    vs1.update();
+    vs1.display();
   }
 }
