@@ -59,9 +59,9 @@ class HScrollbar {
     fill(255);
     rect(xpos, ypos, swidth, sheight);
     if(over || locked) {
-      fill(153, 102, 0);
+      fill(0);
     } else {
-      fill(102, 102, 102);
+      fill(100);
     }
     rect(spos, ypos, sheight, sheight);
   }
