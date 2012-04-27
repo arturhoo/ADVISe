@@ -93,7 +93,7 @@ class Nivel1 {
     if(!ordenada) this.ordenaLista();
 
     int areaLivreW = histogramW-50; // -50 para caber a scrollbar
-    int areaLivreH = histogramH;
+    int areaLivreH = histogramH-18; // do titulo
 
     // Só simulando
     PGraphics pgs = createGraphics(areaLivreW, areaLivreH, JAVA2D);
@@ -101,34 +101,45 @@ class Nivel1 {
     int escapeVertical = 0;
     for(int i=0; i<nivel2List.size(); i++) {
       if(nivel2List.get(i).numElementos > 0) {
-        int ultimoYDesenhado = nivel2List.get(i).draw(0, escapeVertical+33, pgs, areaLivreW);
+        int ultimoYDesenhado = nivel2List.get(i).draw(0, escapeVertical+33, pgs, 0, 0, areaLivreW);
         escapeVertical += ultimoYDesenhado + 35;
       }
     }
     pgs.endDraw();
     pgs = null;
-    int vsRecuo = 0;
-    if(escapeVertical > areaLivreH) vsRecuo = (int) (vs1.getPos()*areaLivreH);
 
+    int vsRecuo = 0;
+    if(escapeVertical > areaLivreH) vsRecuo = (int) (vs1.getPos()*(escapeVertical-areaLivreH+50));
     PGraphics pg = createGraphics(areaLivreW, areaLivreH, JAVA2D);
+    int pgX = histogramX, pgY = histogramY+30;
     pg.beginDraw();
     pg.background(cBackground);
     pg.smooth();
 
+    // Pra valer
     escapeVertical = 0;
     for(int i=0; i<nivel2List.size(); i++) {
       if(nivel2List.get(i).numElementos > 0) {
-        int ultimoYDesenhado = nivel2List.get(i).draw(0, escapeVertical+38-vsRecuo, pg, areaLivreW);
+        int ultimoYDesenhado = nivel2List.get(i).draw(0,
+                                                      escapeVertical+15-vsRecuo,
+                                                      pg,
+                                                      pgX,
+                                                      pgY,
+                                                      areaLivreW);
         escapeVertical += ultimoYDesenhado + 35;
       }
     }
-    pg.fill(cHistogramText);
-    pg.textFont(font, 14);
-    pg.text("Number of Proteins: " + this.numElementos, 0, 18-vsRecuo);
+    textFont(font, 14);
+    // Para apagar o texto antigo
+    fill(cBackground);
+    noStroke();
+    rect(histogramX, histogramY-5, histogramW, 20);
+    fill(cHistogramText);
+    text("Number of Proteins: " + this.numElementos, histogramX, histogramY+11);
     endTime = System.nanoTime();
     // if(gl.timing) println("Tempo gasto para drawHistogram: " + (endTime - startTime)/pow(10,9));
     pg.endDraw();
-    image(pg, histogramX, histogramY);
+    image(pg, pgX, pgY);
 
     vs1.update();
     vs1.display();

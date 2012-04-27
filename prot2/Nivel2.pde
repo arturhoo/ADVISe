@@ -70,7 +70,7 @@ class Nivel2 {
     }
   }
 
-  int draw(int x, int y, PGraphics pg, int histogramW) {
+  int draw(int x, int y, PGraphics pg, int pgX, int pgY, int histogramW) {
     if(!preenchida) this.preencheMudancaProteinaList();
     int espacamentoHorizontal = 14;
     int espacamentoVertical = 14;
@@ -82,7 +82,7 @@ class Nivel2 {
     for(i=0; i<mudancaProteinaList.size(); i++) {
       int particleX = x+135+(i%numProteinasLinha)*espacamentoHorizontal;
       int particleY = y+(i/numProteinasLinha)*espacamentoVertical-5;
-      mudancaProteinaList.get(i).drawParticleSquare(particleX, particleY, pg);
+      mudancaProteinaList.get(i).drawParticleSquare(particleX, particleY, pg, pgX, pgY);
       if(mudancaProteinaList.get(i).detalhe) {
         pg.fill(255, 150);
         int ladoQuadrado = (int) (mudancaProteinaList.get(i).radius);

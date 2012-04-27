@@ -1,5 +1,5 @@
 class MudancaProteina {
-  int x, y;
+  int x, y, realx, realy;
   float radius;
 
   int prefixo;
@@ -61,17 +61,11 @@ class MudancaProteina {
     hs2 = new HScrollbar((width-linhasW)/2+linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 10);
   }
 
-  void drawParticle(int x, int y) {
-    this.x = x;
-    this.y = y;
-    stroke(10, 10, 10);
-    fill(cElipse);
-    ellipse(this.x, this.y, radius, radius);
-  }
-
-  void drawParticleSquare(int x, int y, PGraphics pg) {
-    this.x = x;
-    this.y = y;
+  void drawParticleSquare(int x, int y, PGraphics pg, int pgX, int pgY) {
+    this.x     = x;
+    this.y     = y;
+    this.realx = x+pgX;
+    this.realy = y+pgY;
     pg.noStroke();
     pg.fill(100);
     pg.rect(x, y, radius, radius);
@@ -229,8 +223,8 @@ class MudancaProteina {
   }
 
   boolean mouseOver() {
-    if((mouseX > x && mouseX < x+radius) &&
-        (mouseY > y && mouseY < y+radius))
+    if((mouseX > realx && mouseX < realx+radius) &&
+        (mouseY > realy && mouseY < realy+radius))
       return true;
     else return false;
   }
