@@ -27,6 +27,8 @@ class MudancaProteina {
 
   boolean detalhe = false;
 
+  ArrayList<MudancaProteina> mpList;
+
   MudancaProteina ( Nivel2 nivel2,    String iduniprot, 
                     String rp_antes,  String oc_antes,  String kw_antes,
                     String rp_depois, String oc_depois, String kw_depois,
@@ -61,6 +63,14 @@ class MudancaProteina {
 
     hs1 = new HScrollbar(linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 10);
     hs2 = new HScrollbar((width-linhasW)/2+linhasW, detalheHReal-10, (width-linhasW)/2, hsH, 10);
+
+    this.mpList = new ArrayList<MudancaProteina>();
+  }
+
+  void preencheMPList() {
+    for(int i=0; i<numEstudos; i++) {
+            
+    }
   }
 
   void drawParticleSquare(int x, int y, PGraphics pg, int pgX, int pgY) {
