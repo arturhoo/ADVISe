@@ -428,7 +428,7 @@ void drawLogo(int fontSize, int y) {
   }
 }
 
-void mousePressed() {
+void mouseClicked() {
   drawn = false;
   if(heatMapButton.isIn()) {
     posicionaSuperMatriz();
@@ -486,10 +486,14 @@ void mousePressed() {
               nivel2List.get(i).limpaMudancaProteinaDetalhe();
               mudancaProteinaFocada = nivel2List.get(i).mudancaProteinaList.get(j);
               mudancaProteinaFocada.detalhe = true;
+              mudancaProteinaFocada.resetVerEstudoNavegacao();
             }          
           }
         }
       }
+    }
+    if(mudancaProteinaFocada != null) {
+      mudancaProteinaFocada.isOverButtons();
     }
   }
 }
