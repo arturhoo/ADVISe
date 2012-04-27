@@ -18,7 +18,7 @@ int numEstudos = 14;
 
 Button  heatMapButton, squareMapButton,
         exibeLogButton, exibe00Button, mvgButton;
-SparkLine sl;
+// SparkLine sl;
 Global gl;
 
 String linhasConfig[];
@@ -87,22 +87,22 @@ void setup() {
   preencheListaNivel1();
   preencheSuperMatriz();
   nivel1List = null;
-  gl.smx = 50;
-  gl.smy = 100;
-  gl.smw = width-50-gl.smx;
   gl.smh = (int) (width/4.5);
+  gl.smx = 50;
+  gl.smy = (height-gl.smh)/2-50 ;
+  gl.smw = width-50-gl.smx;
   gl.smEspacamentoX = 15;
   gl.smEspacamentoY = 5;
   posicionaSuperMatriz();
   
-  sl = new SparkLine(gl.smx, height-150, gl.smw, 50);
+  // sl = new SparkLine(gl.smx, height-150, gl.smw, 50);
 }
 
 void draw() {
   if(!drawn) {
     background(cBackground);
     if(matrizFocada == null) {
-      sl.drawSparkLine();
+      // sl.drawSparkLine();
       if(heatMapButton.active) {
         //preencheSuperMatrizHeatSquareList();
         drawSuperMatrizHeatMap();
@@ -130,6 +130,7 @@ void draw() {
 
 void criaButtons() {
   heatMapButton   = new Button("HeatMap", new PVector(0, 0), 13);
+  heatMapButton.active = true;
   squareMapButton = new Button("QuadMap", new PVector(0, 0), 13);
   exibeLogButton  = new Button("Log Scale on Frequency", new PVector(0, 0), 12);
   exibe00Button   = new Button("Show Conserved Elements", new PVector(0, 0), 12);
