@@ -98,7 +98,16 @@ void setup() {
   // sl = new SparkLine(gl.smx, height-150, gl.smw, 50);
 }
 
+// overriding PApplet.init() to add a hack of our own
+void init() {
+  frame.removeNotify();
+  frame.setUndecorated(true);
+  frame.addNotify();
+  super.init();
+}
+
 void draw() {
+  frame.setLocation(screen.width/2-width/2, screen.height/2-height/2);
   if(!drawn) {
     background(cBackground);
     if(matrizFocada == null) {
