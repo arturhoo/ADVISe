@@ -90,7 +90,7 @@ class MudancaProteina {
     // fill(cDetailProteinNovo);
     rect(0, tituloH+(areaLivre/5)*4, linhasW, (areaLivre/5));
     fill(0);
-    text("EC", recuoTexto, tituloH+(areaLivre/5)*1-5);
+    text("EC Number", recuoTexto, tituloH+(areaLivre/5)*1-5);
     text("Reference Position", recuoTexto, tituloH+(areaLivre/5)*2-5);
     text("Organism Classification", recuoTexto, tituloH+(areaLivre/5)*3-5);
     text("Keyword", recuoTexto, tituloH+(areaLivre/5)*4-5);
@@ -134,7 +134,7 @@ class MudancaProteina {
     float hsRecuo;
     if(textW > areaLivreW) hsRecuo = hs1.getPos()*((textW-areaLivreW+20));
     else hsRecuo = 0;
-    println("HS1P: " + hs2.getPos() + "\nALW: " + areaLivreW + "\nTw: " + textW +"\nRecuo: " + hsRecuo);
+    // println("HS1P: " + hs2.getPos() + "\nALW: " + areaLivreW + "\nTw: " + textW +"\nRecuo: " + hsRecuo);
     PGraphics pg = createGraphics(areaLivreW, areaLivreH, JAVA2D);
     pg.beginDraw();
     pg.background(cDetailProteinAnt);
@@ -171,7 +171,7 @@ class MudancaProteina {
     float hsRecuo;
     if(textW > areaLivreW) hsRecuo = hs2.getPos()*((textW-areaLivreW+20));
     else hsRecuo = 0;
-    println("HS2P: " + hs2.getPos() + "\nALW: " + areaLivreW + "\nTw: " + textW +"\nRecuo: " + hsRecuo);
+    // println("HS2P: " + hs2.getPos() + "\nALW: " + areaLivreW + "\nTw: " + textW +"\nRecuo: " + hsRecuo);
     PGraphics pg = createGraphics(areaLivreW, areaLivreH, JAVA2D);
     pg.beginDraw();
     pg.background(cDetailProteinNovo);
