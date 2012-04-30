@@ -1,66 +1,43 @@
-Biovis
-======
+# ADVISe
 
-Configuration
--------------
+## Configuration
 
-You must have two tables in your MySQL database, `id_ec` and `id_ec_atributo`.
+### Database
 
-To start off, setup your basic dev system environment. Make sure you follow the on-screen instructions
+_ADVISe_ uses data stored in a MySQL database. Please set up your
+environment according to instructions of the [MySQL website][mysql].
 
-    $ sudo apt-get install python-setuptools git-core python-git python-dev libmysqlclient-dev python-mysqldb
+You must then download the [database dump of our project][dump], untar
+the file and apply it to your database:
 
-Instal virtualenv and setup a clean environment
+    $ tar xvfj ADVISe.tar.bz2
+    $ mysql -u <your_username> -p <database_to_be_used> < ADVISe.sql
 
-    $ sudo easy_intall virtualenv
-    $ virtualenv --no-site-packages venv
 
-Install the necessary python packages
+### Processing
 
-    $ . venv/bin/activate
-    $ pip install mysql-python uuid
-
-Time to create the necessary tables for the visualization.
-
-    $ mysql -uroot -p <name_of_the_db> < sqlscripts/id_ec_num.sql
-    $ mysql -uroot -p <name_of_the_db> < sqlscripts/id_ec_atributo_num.sql
-    $ mysql -uroot -p <name_of_the_db> < sqlscripts/nivel1.sql
-
-Go to the `python` folder and edit your `mysql_local_settings.py` to your configuration
-
-    $ cp mysql_local_settings.py.template mysql_local_settings.py
-
-You will have to fix the ECs for five proteins in both the `id_ec` and `id_ec_atributo` tables. Their
-`indice` fields are `809633`, `879653`, `1005944`, `1080973` and `1216344`. The EC fields with the values
-`1.1..-` must be changed to `1.1.-.-`. Here is one example:
-
-    mysql> update biovis.id_ec_atributo set ec_novo = '1.1.-.-' where indice = 1005944;
-
-Time to run the scripts
-
-    $ python p1.py
-    $ python p2.py
-    $ python p3.py
-
-After running the scripts above, the database will have three new tables,
-`nivel1`, `id_ec_num` and `id_ec_atributo_num`. Finally, indices must be created for the two
-latter tables:
-
-    $ mysql -uroot -p
-    mysql> create index i1 on id_ec_num(ver_estudo, prefixo);
-    mysql> create index i1 on id_ec_atributo_num(ver_estudo, prefixo);
-    mysql> create index i2 on id_ec_atributo_num(ver_estudo, prefixo, subidas, descidas, ec_ant0, ec_novo0);
-
-The Processing code is located on the `prot2` folder, and should run on major operating systems. To
-download the Processing Sandbox go to http://www.processing.org .
+The Processing code is located on the `Processing/ADIVSe` folder, and should run on major operating systems. To
+download the Processing Sandbox go to [the website][processing].
 
 You need to download the SQLibrary by Florian Jenett at [this link][sqlibrary] and follow the
 instructions on the same website.
 
-You need to configure the file `mysql_settings.txt.template` to match
-your database's configuration. Then simply rename the file:
+The file `mysql_settings.txt.template` should be copied under the
+name it is used by the visualization:
 
     $ cp mysql_settings.txt.template mysql_settings.txt
 
-[sqlibrary]:http://bezier.de/processing/libs/sql/
+After that, simply edit it to match your database configuration
 
+
+License
+-------
+
+Released under the [MIT License][license].
+
+
+[sqlibrary]:http://bezier.de/processing/libs/sql/
+[processing]:http://www.processing.org/
+[license]:https://github.com/arturhoo/ADVISe/blob/master/LICENSE.md
+[mysql]:http://dev.mysql.com/downloads/mysql/
+[dump]:https://s3.amazonaws.com/artur/ADVISe.tar.bz2
