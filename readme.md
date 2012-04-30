@@ -20,10 +20,10 @@ The Processing code is located on the `Processing/ADIVSe` folder, and should run
 download the Processing Sandbox go to [the website][processing].
 
 You need to download the SQLibrary by Florian Jenett at [this link][sqlibrary] and follow the
-instructions on the same website.
+instructions on the same link.
 
-The file `mysql_settings.txt.template` should be copied under the
-name it is used by the visualization:
+The template file `mysql_settings.txt.template` should be used to
+tell the program how to access your database:
 
     $ cp mysql_settings.txt.template mysql_settings.txt
 
