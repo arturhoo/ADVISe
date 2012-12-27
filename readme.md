@@ -23,7 +23,7 @@ and apply it to your database:
 
 ### Processing
 
-The Processing code is located on the `Processing/ADIVSe` folder, and should run
+The Processing code is located on the `Processing/ADVISe` folder, and should run
 on major operating systems. To download the Processing Sandbox go to
 [the website][processing].
 
